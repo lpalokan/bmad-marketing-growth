@@ -1,7 +1,7 @@
 {
   "name": "bmad-marketing-growth",
   "owner": {
-    "name": "Matthias"
+    "name": "Lauri Palokangas"
   },
   "metadata": {
     "description": "Marketplace hosting the Marketing Growth Suite plugin — an AI-powered marketing team for B2B SaaS."
@@ -10,10 +10,10 @@
     {
       "name": "marketing-growth",
       "source": "./",
-      "description": "AI-powered marketing team for B2B SaaS — 14 specialist agents, 1 orchestrator, 6 workflow orchestrators, and the Ultimate SEO & GEO audit skill. Covers strategy, content, SEO, social, launch coordination, and growth analytics.",
+      "description": "AI-powered marketing team for B2B SaaS — 15 agents (6 orchestrators + 9 specialists), 6 workflow orchestrators, and the Ultimate SEO & GEO audit skill. Covers strategy, content, SEO, social, launch coordination, and growth analytics.",
       "version": "1.0.1",
       "author": {
-        "name": "Matthias"
+        "name": "Lauri Palokangas"
       },
       "homepage": "https://github.com/lpalokan/bmad-marketing-growth",
       "repository": "https://github.com/lpalokan/bmad-marketing-growth",
