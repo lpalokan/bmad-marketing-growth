@@ -2,7 +2,7 @@
 
 An AI-powered marketing team for B2B SaaS — 15 agents (6 orchestrators + 9 specialists), 6 workflows, and Ultimate SEO & GEO.
 
-Distributed as **both** a native [Claude Code plugin](https://code.claude.com/docs/en/plugins.md) and a [BMAD framework](https://github.com/bmadcode/bmad-method) module. One physical copy of every skill; pick whichever installer you prefer.
+Distributed as **both** a native [Claude Code plugin](https://code.claude.com/docs/en/plugins.md) and a [BMAD framework](https://github.com/bmad-code-org/BMAD-METHOD) module. One physical copy of every skill; pick whichever installer you prefer.
 
 Forked from [**MatthiasMRC/bmad-marketing-growth**](https://github.com/MatthiasMRC/bmad-marketing-growth) — original Marketing Growth Suite by Matthias ([@matthias_mrc](https://x.com/matthias_mrc)).
 
@@ -178,4 +178,4 @@ MIT — use freely, adapt as needed.
 
 ---
 
-*Built with the [BMAD Method](https://github.com/bmadcode/bmad-method) — AI agent framework for Claude Code. Also installable as a native [Claude Code plugin](https://code.claude.com/docs/en/plugins.md).*
+*Built with the [BMAD Method](https://github.com/bmad-code-org/BMAD-METHOD) — AI agent framework for Claude Code. Also installable as a native [Claude Code plugin](https://code.claude.com/docs/en/plugins.md).*
