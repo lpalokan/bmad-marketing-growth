@@ -56,7 +56,7 @@ This is the main behavioral difference from a generic AI marketing assistant.
 
 | Skill | Description |
 |-------|-------------|
-| `/ultimate-seo-geo` | Universal SEO + GEO audits — scored full-site audits, Core Web Vitals, schema/JSON-LD, entity signals, and AI-citation optimization for AI Overviews, ChatGPT, Perplexity |
+| `/ultimate-seo-geo` | Universal SEO + GEO audits — scored full-site audits, Core Web Vitals, schema/JSON-LD, entity signals, and AI-citation optimization for AI Overviews, ChatGPT, Perplexity. Encapsulated from [mykpono/ultimate-seo-geo](https://github.com/mykpono/ultimate-seo-geo) (MIT, by Myk Pono) |
 
 ---
 
@@ -169,6 +169,8 @@ Every skill is canonical source. No hidden YAML generators, no pre-render step �
 ## Credits
 
 Original Marketing Growth Suite by **Matthias** ([@matthias_mrc](https://x.com/matthias_mrc)) — [MatthiasMRC/bmad-marketing-growth](https://github.com/MatthiasMRC/bmad-marketing-growth). This fork is maintained by [@lpalokan](https://github.com/lpalokan).
+
+The `ultimate-seo-geo` utility skill is encapsulated from [**mykpono/ultimate-seo-geo**](https://github.com/mykpono/ultimate-seo-geo) by **Myk Pono** ([lab.mykpono.com](https://lab.mykpono.com), [LinkedIn](https://www.linkedin.com/in/mykolaponomarenko/)), MIT-licensed. The skill itself further credits Bhanunamikaze, AgriciDaniel, and aaron-he-zhu — see `skills/ultimate-seo-geo/SKILL.md` frontmatter for the full attribution chain.
 
 ## License
 
