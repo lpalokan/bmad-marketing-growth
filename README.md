@@ -4,7 +4,7 @@ An AI-powered marketing team for B2B SaaS — 15 agents (6 orchestrators + 9 spe
 
 Distributed as **both** a native [Claude Code plugin](https://code.claude.com/docs/en/plugins.md) and a [BMAD framework](https://github.com/bmadcode/bmad-method) module. One physical copy of every skill; pick whichever installer you prefer.
 
-Forked from [**MatthiasMRC/bmad-marketing-growth**](https://github.com/MatthiasMRC/bmad-marketing-growth) — original Marketing Growth Suite by Matthias ([@matthias_mrc](https://x.com/matthias_mrc)). This fork removes the DWF tone-of-voice analyzer and the BMAD setup wizard skill, and adds the Source Fidelity guardrail described below.
+Forked from [**MatthiasMRC/bmad-marketing-growth**](https://github.com/MatthiasMRC/bmad-marketing-growth) — original Marketing Growth Suite by Matthias ([@matthias_mrc](https://x.com/matthias_mrc)).
 
 ## Source Fidelity
 
