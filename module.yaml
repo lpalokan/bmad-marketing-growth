@@ -46,7 +46,7 @@ agents:
     name: "Max Growth"
     title: "Marketing Orchestrator"
     icon: "🎯"
-    description: "Head of Marketing & Growth Orchestrator."
+    description: "Head of Marketing who sets priorities, sequences campaigns, and delegates to specialist agents."
   - code: content-architect
     name: "Milo Page"
     title: "Content Architect"
@@ -61,7 +61,7 @@ agents:
     name: "Nova Reach"
     title: "Social Media Strategist"
     icon: "📱"
-    description: "Social Media Strategist coordinating multi-platform presence for SaaS founders."
+    description: "Social Media Strategist who picks platforms, defines content mix, and coordinates the 9 channel specialists."
   - code: launch-coordinator
     name: "Luna Blast"
     title: "Launch Coordinator"
@@ -71,7 +71,7 @@ agents:
     name: "Pixel Metrics"
     title: "Growth Analyst"
     icon: "📊"
-    description: "Growth Analyst specialized in turning data into strategic decisions."
+    description: "Growth Analyst specialized in funnel diagnostics, KPI frameworks, and turning analytics into channel allocation decisions."
   - code: linkedin-creator
     name: "Ivy Pro"
     title: "LinkedIn Content Strategist"
