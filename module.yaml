@@ -1,0 +1,119 @@
+code: marketing-growth
+name: "Marketing Growth Suite"
+description: "AI-powered marketing team — 15 agents (6 orchestrators + 9 specialists) and 6 workflow orchestrators covering strategy, content, SEO, social, launch coordination, and growth analytics. Includes the Ultimate SEO & GEO audit skill."
+module_version: 1.0.0
+default_selected: false
+
+module_greeting: |
+  Your AI marketing team is ready.
+
+  Start with /marketing-orchestrator to talk to Max Growth, your Marketing Orchestrator.
+  Or jump directly to any specialist agent or workflow listed below.
+
+  Agents: marketing-orchestrator, content-architect, seo-strategist, social-media-strategist, launch-coordinator, growth-analyst, linkedin-creator, twitter-ghostwriter, instagram-strategist, youtube-strategist, tiktok-creator, discord-community-manager, reddit-growth-hacker, pinterest-strategist, email-nurture
+  Workflows: marketing-strategy, content-pipeline, social-campaign, launch-sequence, growth-audit, seo-sprint
+  Utilities: ultimate-seo-geo
+
+# Install-time questions. Answers flow into _bmad/config.yaml (shared) or
+# _bmad/config.user.yaml (personal, gitignored) per `user_setting`.
+questions:
+  - key: user_name
+    prompt: "What name should the agents use when addressing you?"
+    default: "BMad"
+    user_setting: true
+
+  - key: communication_language
+    prompt: "What language do you want agents to communicate with you in?"
+    default: "English"
+    user_setting: true
+
+  - key: document_output_language
+    prompt: "What language should generated documents be written in?"
+    default: "English"
+    user_setting: false
+
+  - key: output_folder
+    prompt: "Where should generated documents be written?"
+    default: "{project-root}/_bmad-output"
+    user_setting: false
+    directories:
+      - "{output_folder}"
+
+# Agent roster — consumed by bmad-module-builder validation and any UI that
+# lists installed agents. Derived from each agent's customize.toml [agent] block.
+agents:
+  - code: marketing-orchestrator
+    name: "Max Growth"
+    title: "Marketing Orchestrator"
+    icon: "🎯"
+    description: "Head of Marketing & Growth Orchestrator."
+  - code: content-architect
+    name: "Milo Page"
+    title: "Content Architect"
+    icon: "📝"
+    description: "Content Architect specialized in SaaS content strategy: editorial calendars, detailed briefs, blog architectures, and landing pages that convert."
+  - code: seo-strategist
+    name: "Quinn Crawler"
+    title: "SEO Strategist"
+    icon: "🔍"
+    description: "SEO Strategist specialized in SaaS organic growth: strategic keyword research, technical audits, competitive gap analysis, and content architecture."
+  - code: social-media-strategist
+    name: "Nova Reach"
+    title: "Social Media Strategist"
+    icon: "📱"
+    description: "Social Media Strategist coordinating multi-platform presence for SaaS founders."
+  - code: launch-coordinator
+    name: "Luna Blast"
+    title: "Launch Coordinator"
+    icon: "🚀"
+    description: "Launch Coordinator specialized in high-impact SaaS launches: Product Hunt, directories, influencer outreach, and multi-channel sequences."
+  - code: growth-analyst
+    name: "Pixel Metrics"
+    title: "Growth Analyst"
+    icon: "📊"
+    description: "Growth Analyst specialized in turning data into strategic decisions."
+  - code: linkedin-creator
+    name: "Ivy Pro"
+    title: "LinkedIn Content Strategist"
+    icon: "💼"
+    description: "LinkedIn Content Strategist & B2B Growth Expert who creates professional content that generates leads and establishes industry authority."
+  - code: twitter-ghostwriter
+    name: "Vex Thread"
+    title: "Twitter/X Growth Specialist & Ghostwriter"
+    icon: "🐦"
+    description: "Twitter/X Growth Specialist & Ghostwriter who crafts viral tweets, engaging threads, and personal branding strategies for SaaS founders."
+  - code: instagram-strategist
+    name: "Indy Grid"
+    title: "Instagram Growth Strategist & Visual Content Expert"
+    icon: "📸"
+    description: "Instagram Growth Strategist & Visual Content Expert who builds visual strategies for SaaS brands that want to humanize their presence."
+  - code: youtube-strategist
+    name: "Yuri Views"
+    title: "YouTube Growth Strategist & Video SEO Expert"
+    icon: "🎥"
+    description: "YouTube Growth Strategist & Video SEO Expert who optimizes channels for discovery, builds video content strategies, and maximizes retention."
+  - code: tiktok-creator
+    name: "Tikko Viral"
+    title: "TikTok Growth Specialist & Short-Form Video Expert"
+    icon: "🎵"
+    description: "TikTok Growth Specialist & Short-Form Video Expert who masters viral short-form content to reach new audiences."
+  - code: discord-community-manager
+    name: "Disco Dave"
+    title: "Discord Community Builder & Engagement Specialist"
+    icon: "💬"
+    description: "Discord Community Builder & Engagement Specialist who builds and runs engaged Discord communities around SaaS products."
+  - code: reddit-growth-hacker
+    name: "Karma Ken"
+    title: "Reddit Marketing Specialist & Community Strategist"
+    icon: "🤖"
+    description: "Reddit Marketing Specialist & Community Strategist who masters promotion without looking like promotion — expert in karma building and authentic engagement."
+  - code: pinterest-strategist
+    name: "Penny Pin"
+    title: "Pinterest SEO Specialist & Visual Discovery Expert"
+    icon: "📌"
+    description: "Pinterest SEO Specialist & Visual Discovery Expert who uses Pinterest as an evergreen traffic engine and source of qualified backlinks."
+  - code: email-nurture
+    name: "Ember Flow"
+    title: "Email Nurture Specialist & Conversion Copywriter"
+    icon: "✉️"
+    description: "Email Nurture Specialist & Conversion Copywriter who designs B2B email sequences that move prospects from awareness to decision."

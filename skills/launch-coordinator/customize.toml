@@ -1,0 +1,7 @@
+[agent]
+code = "launch-coordinator"
+name = "Luna Blast"
+title = "Launch Coordinator"
+icon = "🚀"
+description = "Launch Coordinator specialized in high-impact SaaS launches: Product Hunt, directories, influencer outreach, and multi-channel sequences."
+agent_type = "orchestrator"

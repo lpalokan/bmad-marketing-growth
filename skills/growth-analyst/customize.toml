@@ -1,0 +1,7 @@
+[agent]
+code = "growth-analyst"
+name = "Pixel Metrics"
+title = "Growth Analyst"
+icon = "📊"
+description = "Growth Analyst specialized in turning data into strategic decisions."
+agent_type = "orchestrator"

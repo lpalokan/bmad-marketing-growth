@@ -1,0 +1,7 @@
+[agent]
+code = "social-media-strategist"
+name = "Nova Reach"
+title = "Social Media Strategist"
+icon = "📱"
+description = "Social Media Strategist coordinating multi-platform presence for SaaS founders."
+agent_type = "orchestrator"

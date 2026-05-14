@@ -1,0 +1,57 @@
+{
+  "name": "bmad-marketing-growth",
+  "owner": {
+    "name": "Matthias"
+  },
+  "metadata": {
+    "description": "Marketplace hosting the Marketing Growth Suite plugin — an AI-powered marketing team for B2B SaaS."
+  },
+  "plugins": [
+    {
+      "name": "marketing-growth",
+      "source": "./",
+      "description": "AI-powered marketing team for B2B SaaS — 14 specialist agents, 1 orchestrator, 6 workflow orchestrators, and the Ultimate SEO & GEO audit skill. Covers strategy, content, SEO, social, launch coordination, and growth analytics.",
+      "version": "1.0.1",
+      "author": {
+        "name": "Matthias"
+      },
+      "homepage": "https://github.com/lpalokan/bmad-marketing-growth",
+      "repository": "https://github.com/lpalokan/bmad-marketing-growth",
+      "license": "MIT",
+      "keywords": [
+        "bmad",
+        "marketing",
+        "growth",
+        "saas",
+        "seo",
+        "content",
+        "social-media",
+        "launch"
+      ],
+      "skills": [
+        "./skills/marketing-orchestrator",
+        "./skills/content-architect",
+        "./skills/seo-strategist",
+        "./skills/social-media-strategist",
+        "./skills/launch-coordinator",
+        "./skills/growth-analyst",
+        "./skills/linkedin-creator",
+        "./skills/twitter-ghostwriter",
+        "./skills/instagram-strategist",
+        "./skills/youtube-strategist",
+        "./skills/tiktok-creator",
+        "./skills/discord-community-manager",
+        "./skills/reddit-growth-hacker",
+        "./skills/pinterest-strategist",
+        "./skills/email-nurture",
+        "./skills/ultimate-seo-geo",
+        "./skills/marketing-strategy",
+        "./skills/content-pipeline",
+        "./skills/social-campaign",
+        "./skills/launch-sequence",
+        "./skills/growth-audit",
+        "./skills/seo-sprint"
+      ]
+    }
+  ]
+}

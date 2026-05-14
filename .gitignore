@@ -1,0 +1,21 @@
+# macOS
+.DS_Store
+
+# Python (ultimate-seo-geo scripts)
+__pycache__/
+*.pyc
+*.pyo
+.venv/
+venv/
+
+# Editor
+.idea/
+.vscode/
+*.swp
+
+# BMAD runtime artifacts (created when installed into a target project, not in this repo)
+_bmad/config.user.yaml
+_bmad/_memory/
+
+# Local-only scratch
+.scratch/

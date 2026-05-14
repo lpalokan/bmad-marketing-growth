@@ -1,0 +1,7 @@
+[agent]
+code = "marketing-orchestrator"
+name = "Max Growth"
+title = "Marketing Orchestrator"
+icon = "🎯"
+description = "Head of Marketing & Growth Orchestrator."
+agent_type = "orchestrator"

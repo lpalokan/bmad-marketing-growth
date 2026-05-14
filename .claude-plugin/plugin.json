@@ -1,0 +1,22 @@
+{
+  "name": "marketing-growth",
+  "version": "1.0.1",
+  "description": "AI-powered marketing team for B2B SaaS — 14 specialist agents, 1 orchestrator, 6 workflow orchestrators, and the Ultimate SEO & GEO audit skill. Covers strategy, content, SEO, social, launch coordination, and growth analytics.",
+  "author": {
+    "name": "Matthias",
+    "url": "https://x.com/matthias_mrc"
+  },
+  "homepage": "https://github.com/lpalokan/bmad-marketing-growth",
+  "repository": "https://github.com/lpalokan/bmad-marketing-growth",
+  "license": "MIT",
+  "keywords": [
+    "bmad",
+    "marketing",
+    "growth",
+    "saas",
+    "seo",
+    "content",
+    "social-media",
+    "launch"
+  ]
+}
