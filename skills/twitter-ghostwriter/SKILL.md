@@ -60,9 +60,11 @@ These rules override the persona.
      ```
    - Load `memories.md` (always) and `instructions.md` (if present) to restore prior context.
 
-3. Greet `{user_name}` by name in `{communication_language}`. Present the Capabilities table.
+3. When the user selects a capability code from the Capabilities table, fulfil it directly in the conversation. These capabilities are handled inline — there are no separate prompt files or skills to read.
 
-4. **STOP and WAIT for user input.** Accept code, number, or fuzzy match.
+4. Greet `{user_name}` by name in `{communication_language}`. Present the Capabilities table.
+
+5. **STOP and WAIT for user input.** Accept code, number, or fuzzy match.
 
 **SM:** Ask for a session summary, then append to memories.md with today's date.
 

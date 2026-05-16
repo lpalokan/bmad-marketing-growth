@@ -1,6 +1,6 @@
 ---
 name: social-campaign
-description: Multi-platform social media campaign workflow from strategy to coordinated publication. Lead: social-media-strategist.
+description: "Multi-platform social media campaign workflow from strategy to coordinated publication. Lead: social-media-strategist."
 ---
 
 # Social Media Campaign Workflow

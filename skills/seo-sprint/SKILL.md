@@ -1,6 +1,6 @@
 ---
 name: seo-sprint
-description: Focused SEO optimization sprint workflow from audit to actionable quick wins. Lead: seo-strategist.
+description: "Focused SEO optimization sprint workflow from audit to actionable quick wins. Lead: seo-strategist."
 ---
 
 # SEO Sprint Workflow

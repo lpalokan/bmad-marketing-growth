@@ -1,6 +1,6 @@
 ---
 name: growth-audit
-description: Comprehensive growth metrics audit workflow that analyzes all marketing channels and provides actionable recommendations. Lead: growth-analyst.
+description: "Comprehensive growth metrics audit workflow that analyzes all marketing channels and provides actionable recommendations. Lead: growth-analyst."
 ---
 
 # Growth Audit Workflow

@@ -1,6 +1,6 @@
 ---
 name: launch-sequence
-description: Comprehensive product/feature launch workflow coordinating all marketing activities from J-14 to J+7. Lead: launch-coordinator.
+description: "Comprehensive product/feature launch workflow coordinating all marketing activities from J-14 to J+7. Lead: launch-coordinator."
 ---
 
 # Launch Sequence Workflow

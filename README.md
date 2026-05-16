@@ -1,6 +1,6 @@
 # Marketing Growth Suite
 
-An AI-powered marketing team for B2B SaaS — 15 agents (6 orchestrators + 9 specialists), 6 workflows, and Ultimate SEO & GEO.
+An AI-powered marketing team for B2B SaaS — 15 agents (6 orchestrators + 9 specialists) and 6 workflows.
 
 Distributed as **both** a native [Claude Code plugin](https://code.claude.com/docs/en/plugins.md) and a [BMAD framework](https://github.com/bmad-code-org/BMAD-METHOD) module. One physical copy of every skill; pick whichever installer you prefer.
 
@@ -52,19 +52,13 @@ This is the main behavioral difference from a generic AI marketing assistant.
 | `/growth-audit` | Pixel Metrics | Comprehensive growth metrics audit |
 | `/seo-sprint` | Quinn Crawler | SEO audit to quick-win implementation |
 
-### Utility Skills
-
-| Skill | Description |
-|-------|-------------|
-| `/ultimate-seo-geo` | Universal SEO + GEO audits — scored full-site audits, Core Web Vitals, schema/JSON-LD, entity signals, and AI-citation optimization for AI Overviews, ChatGPT, Perplexity. Encapsulated from [mykpono/ultimate-seo-geo](https://github.com/mykpono/ultimate-seo-geo) (MIT, by Myk Pono) |
-
 ---
 
 ## Installation
 
 ### Option A — Native Claude Code plugin
 
-No Python, no generation step. Claude Code reads the 22 skills directly from the plugin folder.
+No Python, no generation step. Claude Code reads the 21 skills directly from the plugin folder.
 
 **Claude Desktop (zip upload):**
 1. Zip the repo root:
@@ -72,7 +66,7 @@ No Python, no generation step. Claude Code reads the 22 skills directly from the
    cd /path/to/marketing-growth
    zip -r ../marketing-growth.zip .
    ```
-2. In Claude Desktop, open the plugin install dialog and select the zip. Claude Desktop unpacks it, reads `.claude-plugin/plugin.json`, and loads all 22 skills.
+2. In Claude Desktop, open the plugin install dialog and select the zip. Claude Desktop unpacks it, reads `.claude-plugin/plugin.json`, and loads all 21 skills.
 
 **Claude Code CLI (local development):**
 ```bash
@@ -84,7 +78,7 @@ claude --plugin-dir /path/to/marketing-growth
 claude plugin install marketing-growth@<your-marketplace-name>
 ```
 
-All 22 skills appear as `/marketing-growth:<skill-name>` (or the short name if overridden in each SKILL.md's frontmatter). No further setup is required — the skills work immediately.
+All 21 skills appear as `/marketing-growth:<skill-name>` (or the short name if overridden in each SKILL.md's frontmatter). No further setup is required — the skills work immediately.
 
 ### Option B — BMAD module
 
@@ -139,7 +133,7 @@ marketing-growth/
 │   ├── plugin.json                    ← Native Claude Code plugin manifest
 │   └── marketplace.json                ← Marketplace distribution manifest
 ├── module.yaml                         ← BMAD module manifest (agent roster + install questions)
-├── skills/                             ← All 22 skills — single source of truth
+├── skills/                             ← All 21 skills — single source of truth
 │   ├── marketing-orchestrator/         ← Orchestrator agent
 │   │   ├── SKILL.md
 │   │   ├── customize.toml              ← [agent] metadata
@@ -152,13 +146,10 @@ marketing-growth/
 │   │   ├── SKILL.md
 │   │   └── customize.toml
 │   │                                    (same shape — 8 other specialists follow)
-│   ├── marketing-strategy/              ← Workflow skill
-│   │   ├── SKILL.md
-│   │   └── workflow.yaml                ← Phase/step structure
-│   │                                    (same shape — 5 other workflows follow)
-│   └── ultimate-seo-geo/
+│   └── marketing-strategy/              ← Workflow skill
 │       ├── SKILL.md
-│       └── scripts/…                    ← 23 Python audit scripts
+│       └── workflow.yaml                ← Phase/step structure
+│                                        (same shape — 5 other workflows follow)
 └── README.md
 ```
 
@@ -169,8 +160,6 @@ Every skill is canonical source. No hidden YAML generators, no pre-render step �
 ## Credits
 
 Original Marketing Growth Suite by **Matthias** ([@matthias_mrc](https://x.com/matthias_mrc)) — [MatthiasMRC/bmad-marketing-growth](https://github.com/MatthiasMRC/bmad-marketing-growth). This fork is maintained by [@lpalokan](https://github.com/lpalokan).
-
-The `ultimate-seo-geo` utility skill is encapsulated from [**mykpono/ultimate-seo-geo**](https://github.com/mykpono/ultimate-seo-geo) by **Myk Pono** ([lab.mykpono.com](https://lab.mykpono.com), [LinkedIn](https://www.linkedin.com/in/mykolaponomarenko/)), MIT-licensed. The skill itself further credits Bhanunamikaze, AgriciDaniel, and aaron-he-zhu — see `skills/ultimate-seo-geo/SKILL.md` frontmatter for the full attribution chain.
 
 ## License
 

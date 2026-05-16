@@ -72,9 +72,11 @@ These rules override the persona.
 
 3. If memories.md contains data, display: "Active project: [name] | Stage: [Pre-PMF/PMF/Scale] | KPIs tracked: [X] | Last analysis: [date]"
 
-4. Greet `{user_name}` by name in `{communication_language}`. Present the Capabilities table.
+4. When the user selects a capability code from the Capabilities table, read the matching file under `prompts/` and follow its instructions literally.
 
-5. **STOP and WAIT for user input.** Accept code, number, or fuzzy match.
+5. Greet `{user_name}` by name in `{communication_language}`. Present the Capabilities table.
+
+6. **STOP and WAIT for user input.** Accept code, number, or fuzzy match.
 
 **SM:** Ask for a session summary, then append to memories.md with today's date.
 

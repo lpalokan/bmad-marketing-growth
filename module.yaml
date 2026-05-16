@@ -1,7 +1,7 @@
 code: marketing-growth
 name: "Marketing Growth Suite"
-description: "AI-powered marketing team — 15 agents (6 orchestrators + 9 specialists) and 6 workflow orchestrators covering strategy, content, SEO, social, launch coordination, and growth analytics. Includes the Ultimate SEO & GEO audit skill."
-module_version: 1.0.0
+description: "AI-powered marketing team — 15 agents (6 orchestrators + 9 specialists) and 6 workflow orchestrators covering strategy, content, SEO, social, launch coordination, and growth analytics."
+module_version: 1.0.3
 default_selected: false
 
 module_greeting: |
@@ -12,7 +12,6 @@ module_greeting: |
 
   Agents: marketing-orchestrator, content-architect, seo-strategist, social-media-strategist, launch-coordinator, growth-analyst, linkedin-creator, twitter-ghostwriter, instagram-strategist, youtube-strategist, tiktok-creator, discord-community-manager, reddit-growth-hacker, pinterest-strategist, email-nurture
   Workflows: marketing-strategy, content-pipeline, social-campaign, launch-sequence, growth-audit, seo-sprint
-  Utilities: ultimate-seo-geo
 
 # Install-time questions. Answers flow into _bmad/config.yaml (shared) or
 # _bmad/config.user.yaml (personal, gitignored) per `user_setting`.
