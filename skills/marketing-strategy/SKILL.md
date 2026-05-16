@@ -1,6 +1,6 @@
 ---
 name: marketing-strategy
-description: Comprehensive marketing strategy development workflow. Lead: marketing-orchestrator.
+description: "Comprehensive marketing strategy development workflow. Lead: marketing-orchestrator."
 ---
 
 # Marketing Strategy Workflow

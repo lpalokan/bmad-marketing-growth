@@ -10,7 +10,7 @@
     {
       "name": "marketing-growth",
       "source": "./",
-      "description": "AI-powered marketing team for B2B SaaS — 15 agents (6 orchestrators + 9 specialists), 6 workflow orchestrators, and the Ultimate SEO & GEO audit skill. Covers strategy, content, SEO, social, launch coordination, and growth analytics.",
+      "description": "AI-powered marketing team for B2B SaaS — 15 agents (6 orchestrators + 9 specialists) and 6 workflow orchestrators. Covers strategy, content, SEO, social, launch coordination, and growth analytics.",
       "version": "1.0.2",
       "author": {
         "name": "Lauri Palokangas"
@@ -44,7 +44,6 @@
         "./skills/reddit-growth-hacker",
         "./skills/pinterest-strategist",
         "./skills/email-nurture",
-        "./skills/ultimate-seo-geo",
         "./skills/marketing-strategy",
         "./skills/content-pipeline",
         "./skills/social-campaign",

@@ -1,6 +1,6 @@
 ---
 name: content-pipeline
-description: End-to-end content creation workflow from brief to publication. Lead: content-architect.
+description: "End-to-end content creation workflow from brief to publication. Lead: content-architect."
 ---
 
 # Content Pipeline Workflow
