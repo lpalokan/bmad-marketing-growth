@@ -2,7 +2,7 @@ code: marketing-growth
 name: "Marketing Growth Suite"
 description: "AI-powered marketing team — 15 agents (6 orchestrators + 9 specialists) and 6 workflow orchestrators covering strategy, content, SEO, social, launch coordination, and growth analytics."
 module_version: 1.0.3
-default_selected: true
+default_selected: false
 
 module_greeting: |
   Your AI marketing team is ready.
