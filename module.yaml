@@ -15,10 +15,11 @@ module_greeting: |
   to any agent or workflow listed below.
 
   Bootstrap: company-context-bootstrap
-  Agents (v1 — being phased out): marketing-orchestrator, content-architect, seo-strategist, social-media-strategist, growth-analyst, linkedin-creator, twitter-ghostwriter, instagram-strategist, youtube-strategist, tiktok-creator, discord-community-manager, reddit-growth-hacker, pinterest-strategist
+  Agents (v1 — being phased out): marketing-orchestrator, social-media-strategist, growth-analyst, linkedin-creator, twitter-ghostwriter, instagram-strategist, youtube-strategist, tiktok-creator, discord-community-manager, reddit-growth-hacker, pinterest-strategist
   Agents (v2 — Product Marketing): product-marketing-orchestrator, positioning-messaging-pmm, competitive-intelligence-pmm, launch-sales-enablement-pmm
   Agents (v2 — Digital Marketing): digital-marketing-orchestrator, web-cro-specialist, paid-search-specialist, paid-social-demand-specialist, marketing-automation-engineer, technical-seo-engineer
   Agents (v2 — Growth Marketing): growth-marketing-orchestrator, lifecycle-activation, experimentation-funnel-lead
+  Agents (v2 — Brand & Content): content-architect, content-seo-strategist, technical-content-writer, brand-orchestrator, brand-narrative-strategist, localization-international-lead
   Workflows: marketing-strategy, content-pipeline, social-campaign, launch-sequence, growth-audit, seo-sprint, company-context-bootstrap
 
 # Install-time questions. Answers flow into _bmad/config.yaml (shared) or
@@ -56,14 +57,14 @@ agents:
     description: "Head of Marketing who sets priorities, sequences campaigns, and delegates to specialist agents."
   - code: content-architect
     name: "Milo Page"
-    title: "Content Architect"
+    title: "Content Marketing Lead"
     icon: "📝"
-    description: "Content Architect specialized in SaaS content strategy: editorial calendars, detailed briefs, blog architectures, and landing pages that convert."
-  - code: seo-strategist
+    description: "Content Marketing Lead who owns the content engine (editorial calendar, briefs, blog architecture, landing pages, pillar pages) and coordinates Content SEO + Technical Content Writer via brief-driven delegation."
+  - code: content-seo-strategist
     name: "Quinn Crawler"
-    title: "SEO Strategist"
+    title: "Content SEO Strategist"
     icon: "🔍"
-    description: "SEO Strategist specialized in SaaS organic growth: strategic keyword research, technical audits, competitive gap analysis, and content architecture."
+    description: "Content SEO Strategist who owns keyword research, search-intent classification, SERP analysis, content gaps, topic clusters, and content-driven backlinks. Technical-side SEO is Tek Crawl's job."
   - code: social-media-strategist
     name: "Nova Reach"
     title: "Social Media Strategist"
@@ -185,3 +186,25 @@ agents:
     title: "Experimentation & Funnel Lead"
     icon: "🧪"
     description: "Experimentation & Funnel Lead who designs single experiments end-to-end, audits funnels, and builds funnel scorecards. Honest about sample sizes; pre-registers rollout decisions. Operates inside the brief-driven protocol."
+
+  # v2 — Brand & Content (Phase 4)
+  - code: brand-orchestrator
+    name: "Brio Brand"
+    title: "Brand Lead"
+    icon: "🎨"
+    description: "Brand Lead who owns brand-voice.md, brand narrative across the funnel, and international localization strategy. Delegates via the brief-driven protocol."
+  - code: brand-narrative-strategist
+    name: "Nara Narrative"
+    title: "Brand Narrative & Voice Strategist"
+    icon: "📖"
+    description: "Brand Narrative & Voice Strategist who architects through-lines across the funnel, writes brand-voice exemplars, and audits consistency. Operates inside the brief-driven protocol."
+  - code: localization-international-lead
+    name: "Lily Locale"
+    title: "Localization & International Lead"
+    icon: "🌍"
+    description: "Localization & International Lead who runs per-locale voice adaptation, glossary and translation-memory operations, in-market reviewer plans, and locale QA. Operates inside the brief-driven protocol."
+  - code: technical-content-writer
+    name: "Theo Tech"
+    title: "Technical Content Writer"
+    icon: "📑"
+    description: "Technical Content Writer who produces whitepapers, solution briefs, technical guides, and reference-architecture explainers for B2B technology buyers (technical buyer / champion / developer-end-user)."
