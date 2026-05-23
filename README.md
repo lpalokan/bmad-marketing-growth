@@ -1,6 +1,13 @@
 # Marketing Growth Suite
 
-An AI-powered marketing team for B2B SaaS — 15 agents (6 orchestrators + 9 specialists) and 6 workflows.
+> **v2.0 — international B2B technology marketing.** The suite is being
+> refactored from a PLG/indie-SaaS roster to an 8-domain B2B marketing
+> org with a brief-driven delegation protocol. This README describes the
+> v2 target state. The rollout is phased — see **Rollout status** below.
+
+An AI-powered marketing team for international B2B technology
+companies — a CMO orchestrator coordinating 8 domain orchestrators and
+~33 specialists, plus Tier-1 workflows that string them together.
 
 Distributed as **both** a native [Claude Code plugin](https://code.claude.com/docs/en/plugins.md) and a [BMAD framework](https://github.com/bmad-code-org/BMAD-METHOD) module. One physical copy of every skill; pick whichever installer you prefer.
 
@@ -19,38 +26,112 @@ This is the main behavioral difference from a generic AI marketing assistant.
 
 ---
 
-## What's included
+## v2 architecture
 
-### Agents
+### Org chart
 
-| Agent | Persona | Role |
-|-------|---------|------|
-| `/marketing-orchestrator` | Max Growth | Head of Marketing — strategy, prioritization, agent delegation |
-| `/content-architect` | Milo Page | Editorial calendars, content briefs, long-form content |
-| `/seo-strategist` | Quinn Crawler | Keyword research, technical audits, organic growth |
-| `/social-media-strategist` | Nova Reach | Multi-platform social strategy coordinator |
-| `/launch-coordinator` | Luna Blast | Product launch orchestration J-14 to J+7 |
-| `/growth-analyst` | Pixel Metrics | Funnel analysis, KPIs, growth metrics |
-| `/linkedin-creator` | Ivy Pro | LinkedIn content and paid ads |
-| `/twitter-ghostwriter` | Vex Thread | Twitter/X threads and viral content |
-| `/instagram-strategist` | Indy Grid | Instagram visual content strategy |
-| `/youtube-strategist` | Yuri Views | YouTube growth and video SEO |
-| `/tiktok-creator` | Tikko Viral | TikTok short-form content |
-| `/discord-community-manager` | Disco Dave | Discord community building |
-| `/reddit-growth-hacker` | Karma Ken | Reddit community marketing |
-| `/pinterest-strategist` | Penny Pin | Pinterest SEO and visual discovery |
-| `/email-nurture` | Ember Flow | B2B email nurture sequences (TOFU → BOFU) |
+```
+Max Growth — CMO Orchestrator
+Pixel Metrics — Measurement & Attribution Staff   (scope: attribution, forecasting, dashboards, scoring model design)
 
-### Workflows
+├── Product Marketing
+│   ├── Positioning & Messaging PMM
+│   ├── Competitive Intelligence PMM
+│   └── Launch & Sales Enablement PMM
+│
+├── Brand
+│   ├── Brand Narrative & Voice Strategist
+│   └── Localization & International Lead
+│
+├── Content Marketing  (Milo Page, elevated)
+│   ├── Content SEO Strategist (Quinn, renamed)
+│   └── Technical Content Writer
+│
+├── Digital Marketing
+│   ├── Web & CRO Specialist
+│   ├── Paid Search Specialist                (Google/Bing, PMax)
+│   ├── Paid Social & Demand Specialist        (LinkedIn/Meta/Google Demand Gen/YouTube Ads)
+│   ├── Marketing Automation Engineer          (HubSpot/Marketo workflows, lead routing)
+│   └── Technical SEO Engineer                 (infra, schema, Core Web Vitals, hreflang)
+│
+├── Growth Marketing
+│   ├── Lifecycle & Activation  (Ember, repositioned)
+│   └── Experimentation & Funnel Lead
+│
+├── Field Marketing
+│   ├── ABM Strategist
+│   ├── Events & Webinars Producer
+│   ├── Customer Advocacy & References
+│   └── Social Media Strategist (Nova; orchestrator, logically nested)
+│       ├── LinkedIn Creator (Ivy)
+│       └── YouTube Strategist (Yuri)
+│       (Twitter and Reddit are Nova's capabilities, not standalone agents)
+│
+├── PR & Communications
+│   ├── Media Relations Specialist
+│   └── Analyst Relations Specialist           (Gartner, Forrester, IDC)
+│
+└── Channel & Partner Marketing
+    └── Partner & Marketplace Manager
+```
 
-| Workflow | Lead | Description |
-|----------|------|-------------|
-| `/marketing-strategy` | Max Growth | Full strategy from research to go-to-market |
-| `/content-pipeline` | Milo Page | Brief to published content |
-| `/social-campaign` | Nova Reach | Multi-platform campaign from strategy to publication |
-| `/launch-sequence` | Luna Blast | Full launch coordination J-14 to J+7 |
-| `/growth-audit` | Pixel Metrics | Comprehensive growth metrics audit |
-| `/seo-sprint` | Quinn Crawler | SEO audit to quick-win implementation |
+### Brief-driven delegation protocol
+
+Orchestrators don't dispatch via chat — they write a `brief.md` under
+`_bmad-output/work/{deliverable-id}/`. The specialist reads the brief,
+produces `v1.md`, and the orchestrator reviews against the acceptance
+criteria. Verdicts are `APPROVED`, `NEEDS_REVISION` (with a numbered
+list of required changes), or `ESCALATED` (after `max_revisions` is
+hit). On approval, `state.yaml` is written with `frozen: true` and the
+folder becomes part of the company's marketing record.
+
+Full schemas, state machine, and rules: **[`docs/protocol.md`](docs/protocol.md)**.
+
+### Three memory tiers
+
+| Tier                                            | Purpose                                          | Owned by         | Lifecycle                |
+|-------------------------------------------------|--------------------------------------------------|------------------|--------------------------|
+| `_bmad-output/company-context/`                 | Shared, durable facts (ICP, positioning, KPIs…) | Per-file owner   | Read-mostly, refreshed    |
+| `_bmad-output/work/{id}/`                       | Per-deliverable trail (brief, versions, review) | Issuing orch.    | Frozen on accept          |
+| `_bmad/_memory/{code}-sidecar/memories.md`      | Per-agent private notes                          | The agent itself | Free-form, append on save |
+
+The sidecar pattern is **unchanged** from v1. See **[`docs/company-context.md`](docs/company-context.md)** for the company-context schema and ownership table.
+
+### One-time setup: bootstrap company context
+
+Before invoking any v2 agent, run the bootstrap workflow once. It fills
+the five shared `company-context/` files every agent reads on
+activation:
+
+```
+/company-context-bootstrap
+```
+
+Agents that find `company-context/` missing will refuse to act and ask
+you to run this first.
+
+---
+
+## Rollout status
+
+The v2 refactor lands in phases. Each phase keeps `module.yaml`,
+`.claude-plugin/marketplace.json`, and `.claude-plugin/plugin.json` in
+lockstep so installs never break mid-sequence.
+
+| Phase | Scope                                         | Status      |
+|-------|-----------------------------------------------|-------------|
+| 0     | Foundations: docs, bootstrap, version bump    | In progress |
+| 1     | Product Marketing (4 skills)                  | Pending     |
+| 2     | Digital Marketing (6 skills)                  | Pending     |
+| 3     | Growth Marketing (2 new + 1 rename)           | Pending     |
+| 4     | Brand + Content refresh (3 new + 1 rename)    | Pending     |
+| 5     | Field + PR + Channel (10+ new, 6 retired)     | Pending     |
+| 6     | Tier-1 workflows (7 workflows)                | Pending     |
+| 7     | Tier-2 workflows (incremental)                | Deferred    |
+
+Until a phase is marked Complete, the corresponding v1 agents remain in
+place. Where v2 retires a v1 agent, the v1 agent stays installed until
+the phase that retires it lands.
 
 ---
 
@@ -58,7 +139,7 @@ This is the main behavioral difference from a generic AI marketing assistant.
 
 ### Option A — Native Claude Code plugin
 
-No Python, no generation step. Claude Code reads the 21 skills directly from the plugin folder.
+No Python, no generation step. Claude Code reads the skills directly from the plugin folder.
 
 **Claude Desktop (zip upload):**
 1. Zip the repo root:
@@ -66,7 +147,7 @@ No Python, no generation step. Claude Code reads the 21 skills directly from the
    cd /path/to/marketing-growth
    zip -r ../marketing-growth.zip .
    ```
-2. In Claude Desktop, open the plugin install dialog and select the zip. Claude Desktop unpacks it, reads `.claude-plugin/plugin.json`, and loads all 21 skills.
+2. In Claude Desktop, open the plugin install dialog and select the zip. Claude Desktop unpacks it, reads `.claude-plugin/plugin.json`, and loads all skills declared in `marketplace.json`.
 
 **Claude Code CLI (local development):**
 ```bash
@@ -78,7 +159,7 @@ claude --plugin-dir /path/to/marketing-growth
 claude plugin install marketing-growth@<your-marketplace-name>
 ```
 
-All 21 skills appear as `/marketing-growth:<skill-name>` (or the short name if overridden in each SKILL.md's frontmatter). No further setup is required — the skills work immediately.
+All skills appear as `/marketing-growth:<skill-name>` (or the short name if overridden in each SKILL.md's frontmatter). No further setup is required.
 
 ### Option B — BMAD module
 
@@ -99,6 +180,22 @@ Agents self-create their memory sidecars on first activation and fall back to se
 
 ---
 
+## BMAD compliance posture
+
+The v2 refactor preserves full BMAD compliance:
+
+- `module.yaml` at repo root with `code`, `name`, `module_version`, `module_greeting`, `questions[]`, `agents[]`.
+- Per-skill `SKILL.md` (frontmatter `name` + `description`, `## On Activation` block) and `customize.toml` (`[agent]` block).
+- `agent_type` is one of the two existing values: `"orchestrator"` or `"specialist"`. No new types introduced — Nova stays `"orchestrator"` despite being logically nested under Field.
+- `workflow.yaml` keeps its existing shape. v2 adds **one optional field per step**: `brief_template: "brief-templates/NN-name.md"`. Older BMAD validators that don't know it will ignore it; v2 orchestrators consume it.
+- Per-skill `brief-templates/` directories are convention-based (analogous to `prompts/`); BMAD doesn't validate their contents.
+- Sidecar memory at `_bmad/_memory/{code}-sidecar/memories.md` is unchanged.
+- The Source Fidelity block is **deliberately duplicated** per SKILL.md — no `skills/_shared/`.
+
+Run `Validate Module (VM)` after every phase to catch drift.
+
+---
+
 ## Updating
 
 The plugin is version-controlled via `git`. To update, pull the latest version of the repo.
@@ -111,17 +208,19 @@ There is no skill regeneration step — every SKILL.md is canonical source, main
 
 ### Add a new agent
 
-1. Create `skills/your-agent/SKILL.md` (copy an existing agent as a template)
-2. Create `skills/your-agent/customize.toml` with an `[agent]` block (code, name, title, icon, description)
-3. If the agent has capability-specific prompts, add them under `skills/your-agent/prompts/<code>.md` and reference each in the SKILL.md Capabilities table
-4. Add the skill path to `.claude-plugin/marketplace.json`
-5. Add an `agents:` entry to `module.yaml` (for BMAD installs)
+1. Create `skills/your-agent/SKILL.md` — copy `docs/on-activation-template.md` for the `## On Activation` block; copy the Source Fidelity block verbatim from any existing SKILL.md.
+2. Create `skills/your-agent/customize.toml` with an `[agent]` block (code, name, title, icon, description, agent_type).
+3. If the agent has capability-specific prompts, add them under `skills/your-agent/prompts/<code>.md` and reference each in the SKILL.md Capabilities table.
+4. If the agent is an orchestrator, add `skills/your-agent/brief-templates/<template>.md` for each delegation pattern.
+5. Add the skill path to `.claude-plugin/marketplace.json`.
+6. Add an `agents:` entry to `module.yaml`.
 
 ### Add a new workflow
 
-1. Create `skills/your-workflow/SKILL.md` (copy an existing workflow as a template)
-2. Create `skills/your-workflow/workflow.yaml` with `phases:` and `steps:` (copy from an existing workflow)
-3. Add the skill path to `.claude-plugin/marketplace.json`
+1. Create `skills/your-workflow/SKILL.md` (copy an existing workflow as a template).
+2. Create `skills/your-workflow/workflow.yaml` with `phases:` and `steps:`. For v2 workflows, reference brief templates via the `brief_template:` field on each step.
+3. Add per-step brief templates under `skills/your-workflow/brief-templates/`.
+4. Add the skill path to `.claude-plugin/marketplace.json`.
 
 ---
 
@@ -133,23 +232,26 @@ marketing-growth/
 │   ├── plugin.json                    ← Native Claude Code plugin manifest
 │   └── marketplace.json                ← Marketplace distribution manifest
 ├── module.yaml                         ← BMAD module manifest (agent roster + install questions)
-├── skills/                             ← All 21 skills — single source of truth
-│   ├── marketing-orchestrator/         ← Orchestrator agent
+├── docs/                               ← v2 protocol & schemas
+│   ├── protocol.md                     ← Brief/review/state schemas + state machine
+│   ├── company-context.md              ← Company-context file table + ownership
+│   └── on-activation-template.md       ← Drop-in template for new agents
+├── skills/                             ← All skills — single source of truth
+│   ├── marketing-orchestrator/         ← Orchestrator (CMO)
 │   │   ├── SKILL.md
 │   │   ├── customize.toml              ← [agent] metadata
-│   │   └── prompts/                    ← Per-capability instruction bodies
-│   │       ├── marketing-strategy.md
-│   │       ├── agent-recommendation.md
-│   │       └── ...
-│   ├── content-architect/              (same shape — 5 other orchestrators follow)
-│   ├── linkedin-creator/                ← Specialist agent
+│   │   ├── prompts/                    ← Per-capability instruction bodies
+│   │   └── brief-templates/            ← (orchestrators only) brief templates for delegations
+│   ├── {domain}-orchestrator/          ← One per domain (PMM, Brand, Content, Digital, Growth, Field, PR, Channel)
+│   ├── {specialist-code}/              ← Specialist agents under a domain
 │   │   ├── SKILL.md
-│   │   └── customize.toml
-│   │                                    (same shape — 8 other specialists follow)
-│   └── marketing-strategy/              ← Workflow skill
+│   │   ├── customize.toml
+│   │   └── prompts/
+│   ├── company-context-bootstrap/      ← One-time intake workflow
+│   └── {workflow-code}/                ← Tier-1 workflow (annual-planning, product-launch, content-pipeline, paid-campaign-launch, experimentation-sprint, abm-program, growth-audit)
 │       ├── SKILL.md
-│       └── workflow.yaml                ← Phase/step structure
-│                                        (same shape — 5 other workflows follow)
+│       ├── workflow.yaml
+│       └── brief-templates/            ← Per-step brief templates
 └── README.md
 ```
 

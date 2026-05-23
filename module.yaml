@@ -1,17 +1,22 @@
 code: marketing-growth
 name: "Marketing Growth Suite"
-description: "AI-powered marketing team — 15 agents (6 orchestrators + 9 specialists) and 6 workflow orchestrators covering strategy, content, SEO, social, launch coordination, and growth analytics."
-module_version: 1.0.3
+description: "AI-powered marketing team for international B2B technology — being refactored to a CMO orchestrator + 8 domain orchestrators + ~33 specialists, with brief-driven delegation (see docs/protocol.md). v2.0.0 rolls out in phases; this version is Phase 0 (foundations) on top of the v1 roster."
+module_version: 2.0.0
 default_selected: false
 
 module_greeting: |
   Your AI marketing team is ready.
 
-  Start with /marketing-orchestrator to talk to Max Growth, your Marketing Orchestrator.
-  Or jump directly to any specialist agent or workflow listed below.
+  **First run?** Start with /company-context-bootstrap to fill the
+  shared company-context/ files (ICP, positioning, brand voice, KPIs,
+  tech stack) — every v2 agent reads these on activation.
 
+  Then talk to Max Growth via /marketing-orchestrator, or jump directly
+  to any agent or workflow listed below.
+
+  Bootstrap: company-context-bootstrap
   Agents: marketing-orchestrator, content-architect, seo-strategist, social-media-strategist, launch-coordinator, growth-analyst, linkedin-creator, twitter-ghostwriter, instagram-strategist, youtube-strategist, tiktok-creator, discord-community-manager, reddit-growth-hacker, pinterest-strategist, email-nurture
-  Workflows: marketing-strategy, content-pipeline, social-campaign, launch-sequence, growth-audit, seo-sprint
+  Workflows: marketing-strategy, content-pipeline, social-campaign, launch-sequence, growth-audit, seo-sprint, company-context-bootstrap
 
 # Install-time questions. Answers flow into _bmad/config.yaml (shared) or
 # _bmad/config.user.yaml (personal, gitignored) per `user_setting`.

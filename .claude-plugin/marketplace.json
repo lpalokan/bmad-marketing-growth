@@ -10,8 +10,8 @@
     {
       "name": "marketing-growth",
       "source": "./",
-      "description": "AI-powered marketing team for B2B SaaS — 15 agents (6 orchestrators + 9 specialists) and 6 workflow orchestrators. Covers strategy, content, SEO, social, launch coordination, and growth analytics.",
-      "version": "1.0.3",
+      "description": "AI-powered marketing team for international B2B technology — refactoring to a CMO + 8 domain orchestrators + ~33 specialists with brief-driven delegation (see docs/protocol.md). v2.0.0 rolls out in phases; this version is Phase 0 (foundations) on top of the v1 roster.",
+      "version": "2.0.0",
       "author": {
         "name": "Lauri Palokangas"
       },
@@ -49,7 +49,8 @@
         "./skills/social-campaign",
         "./skills/launch-sequence",
         "./skills/growth-audit",
-        "./skills/seo-sprint"
+        "./skills/seo-sprint",
+        "./skills/company-context-bootstrap"
       ]
     }
   ]

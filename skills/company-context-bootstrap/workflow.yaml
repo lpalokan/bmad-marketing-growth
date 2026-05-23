@@ -1,0 +1,131 @@
+# Company Context Bootstrap Workflow
+# Trigger: WB
+# Lead: Max Growth (Marketing Orchestrator)
+# Description: One-time intake → five company-context/ files.
+
+workflow:
+  id: company-context-bootstrap
+  name: "Company Context Bootstrap"
+  version: "1.0.0"
+  trigger: "WB"
+  lead_agent: marketing-orchestrator
+  description: |
+    One-time intake that produces the five shared company-context/
+    files every v2 agent reads on activation. Run once at project
+    start; re-runnable as a refresh.
+
+phases:
+  - id: icp
+    name: "ICP intake"
+    description: "Capture the Ideal Customer Profile."
+    steps:
+      - id: icp-intake
+        name: "Ideal Customer Profile"
+        agent: marketing-orchestrator
+        action: |
+          Ask the user, one focused question at a time:
+          - Primary segment(s): industry, company size, geo.
+          - Buyer persona(s): title, seniority, team.
+          - Jobs-to-be-done: what they're hired to accomplish.
+          - Top three pains the product addresses.
+          - Triggers that cause them to look for a solution.
+          - Anti-personas: who is explicitly NOT a fit.
+        output: "icp.md"
+        gate: "user_approval"
+
+  - id: positioning
+    name: "Positioning intake"
+    description: "Capture category, target, value pyramid."
+    steps:
+      - id: positioning-intake
+        name: "Positioning statement"
+        agent: marketing-orchestrator
+        action: |
+          Walk the user through the classic positioning template:
+          - For (target) who (need),
+          - (product) is a (category)
+          - that (key benefit)
+          - unlike (primary alternatives),
+          - because (reason to believe).
+          Then build a 3-tier value pyramid (functional / emotional /
+          social) and three messaging pillars. Do not invent
+          competitive claims; ask for sources.
+        output: "positioning.md"
+        gate: "user_approval"
+
+  - id: brand-voice
+    name: "Brand voice intake"
+    description: "Capture voice attributes and tone."
+    steps:
+      - id: brand-voice-intake
+        name: "Brand voice"
+        agent: marketing-orchestrator
+        action: |
+          Capture:
+          - Three to five voice attributes (e.g. "expert", "wry",
+            "concrete"), each with a one-line definition.
+          - Do/don't word lists (10–20 each).
+          - Three sample snippets in voice (one tweet, one headline,
+            one paragraph).
+          - Tone modulation rules (e.g. "more formal in PR; more
+            casual in onboarding emails").
+        output: "brand-voice.md"
+        gate: "user_approval"
+
+  - id: kpis
+    name: "KPIs intake"
+    description: "Capture the 5–10 metrics the company is run by."
+    steps:
+      - id: kpis-intake
+        name: "KPIs"
+        agent: marketing-orchestrator
+        delegates_to: growth-analyst
+        action: |
+          Have Pixel Metrics (growth-analyst) lead this step. For each
+          KPI:
+          - Name.
+          - Definition (formula or operational definition).
+          - Current value (ask, do not invent).
+          - Target value and time horizon.
+          - Source system / dashboard URL.
+          - Owner (which team or agent).
+          Cap at 10. If the user lists more, ask which 10 they would
+          report to the board.
+        output: "kpis.md"
+        gate: "user_approval"
+
+  - id: tech-stack
+    name: "Tech stack intake"
+    description: "Capture the MarTech stack and lead-routing rules."
+    steps:
+      - id: tech-stack-intake
+        name: "Tech stack"
+        agent: marketing-orchestrator
+        delegates_to: marketing-automation-engineer
+        action: |
+          Have the Marketing Automation Engineer lead this step.
+          Capture:
+          - CDP, MAP, CRM, analytics, ad platforms (vendor + tier).
+          - Identity resolution approach.
+          - Lead-routing rules (SLA, round-robin vs territory,
+            disqualification triggers).
+          - Scoring model (if any): inputs, weights, thresholds.
+          - Known integration gaps or pain points.
+        output: "tech-stack.md"
+        gate: "user_approval"
+
+  - id: handoff
+    name: "Handoff"
+    description: "Confirm files written and orient the user."
+    steps:
+      - id: summary
+        name: "Summary"
+        agent: marketing-orchestrator
+        action: |
+          List the five files written under
+          {output_folder}/company-context/ with a one-line summary of
+          each. Tell the user which agents to invoke next based on
+          their stated priority (refer to module.yaml::agents for the
+          full roster). Suggest running /marketing-orchestrator (Max
+          Growth) to plan first moves.
+        output: "bootstrap-summary.md"
