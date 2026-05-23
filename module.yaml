@@ -15,7 +15,8 @@ module_greeting: |
   to any agent or workflow listed below.
 
   Bootstrap: company-context-bootstrap
-  Agents: marketing-orchestrator, content-architect, seo-strategist, social-media-strategist, launch-coordinator, growth-analyst, linkedin-creator, twitter-ghostwriter, instagram-strategist, youtube-strategist, tiktok-creator, discord-community-manager, reddit-growth-hacker, pinterest-strategist, email-nurture
+  Agents (v1 — being phased out): marketing-orchestrator, content-architect, seo-strategist, social-media-strategist, growth-analyst, linkedin-creator, twitter-ghostwriter, instagram-strategist, youtube-strategist, tiktok-creator, discord-community-manager, reddit-growth-hacker, pinterest-strategist, email-nurture
+  Agents (v2 — Product Marketing): product-marketing-orchestrator, positioning-messaging-pmm, competitive-intelligence-pmm, launch-sales-enablement-pmm
   Workflows: marketing-strategy, content-pipeline, social-campaign, launch-sequence, growth-audit, seo-sprint, company-context-bootstrap
 
 # Install-time questions. Answers flow into _bmad/config.yaml (shared) or
@@ -66,11 +67,6 @@ agents:
     title: "Social Media Strategist"
     icon: "📱"
     description: "Social Media Strategist who picks platforms, defines content mix, and coordinates the 9 channel specialists."
-  - code: launch-coordinator
-    name: "Luna Blast"
-    title: "Launch Coordinator"
-    icon: "🚀"
-    description: "Launch Coordinator specialized in high-impact SaaS launches: Product Hunt, directories, influencer outreach, and multi-channel sequences."
   - code: growth-analyst
     name: "Pixel Metrics"
     title: "Growth Analyst"
@@ -121,3 +117,25 @@ agents:
     title: "Email Nurture Specialist & Conversion Copywriter"
     icon: "✉️"
     description: "Email Nurture Specialist & Conversion Copywriter who designs B2B email sequences that move prospects from awareness to decision."
+
+  # v2 — Product Marketing (Phase 1)
+  - code: product-marketing-orchestrator
+    name: "Priya Position"
+    title: "Product Marketing Lead"
+    icon: "📐"
+    description: "Product Marketing Lead who owns ICP, positioning, messaging, competitive intelligence, and launch narrative. Delegates to PMM specialists via the brief-driven protocol."
+  - code: positioning-messaging-pmm
+    name: "Mona Message"
+    title: "Positioning & Messaging PMM"
+    icon: "💬"
+    description: "Positioning & Messaging PMM who turns positioning into pillars, value props, and copy decks. Operates inside the brief-driven protocol — never self-approves."
+  - code: competitive-intelligence-pmm
+    name: "Connor Compete"
+    title: "Competitive Intelligence PMM"
+    icon: "🕵️"
+    description: "Competitive Intelligence PMM who builds teardowns, battle cards, and win/loss pattern analyses for B2B technology competitors. Operates inside the brief-driven protocol."
+  - code: launch-sales-enablement-pmm
+    name: "Lana Launch"
+    title: "Launch & Sales Enablement PMM"
+    icon: "🚀"
+    description: "Launch & Sales Enablement PMM who owns launch narrative and sales bundles (battlecard, one-pager, demo, FAQ). Replaces v1's Luna Blast, recast for B2B technology launches."
