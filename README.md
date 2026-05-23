@@ -120,12 +120,12 @@ lockstep so installs never break mid-sequence.
 
 | Phase | Scope                                         | Status      |
 |-------|-----------------------------------------------|-------------|
-| 0     | Foundations: docs, bootstrap, version bump    | In progress |
-| 1     | Product Marketing (4 skills)                  | Pending     |
-| 2     | Digital Marketing (6 skills)                  | Pending     |
-| 3     | Growth Marketing (2 new + 1 rename)           | Pending     |
-| 4     | Brand + Content refresh (3 new + 1 rename)    | Pending     |
-| 5     | Field + PR + Channel (10+ new, 6 retired)     | Pending     |
+| 0     | Foundations: docs, bootstrap, version bump    | Complete    |
+| 1     | Product Marketing (4 skills)                  | Complete    |
+| 2     | Digital Marketing (6 skills)                  | Complete    |
+| 3     | Growth Marketing (2 new + 1 rename)           | Complete    |
+| 4     | Brand + Content refresh (3 new + 1 rename)    | Complete    |
+| 5     | Field + PR + Channel (9 new, 6 retired)       | Complete    |
 | 6     | Tier-1 workflows (7 workflows)                | Pending     |
 | 7     | Tier-2 workflows (incremental)                | Deferred    |
 

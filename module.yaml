@@ -1,6 +1,6 @@
 code: marketing-growth
 name: "Marketing Growth Suite"
-description: "AI-powered marketing team for international B2B technology — being refactored to a CMO orchestrator + 8 domain orchestrators + ~33 specialists, with brief-driven delegation (see docs/protocol.md). v2.0.0 rolls out in phases; this version is Phase 0 (foundations) on top of the v1 roster."
+description: "AI-powered marketing team for international B2B technology — CMO + 8 domain orchestrators + ~33 specialists, with brief-driven delegation (see docs/protocol.md). v2.0.0 rolls out in phases; this version is Phase 5 (Field + PR + Channel) on top of the v2 PMM/Digital/Growth/Brand/Content domains."
 module_version: 2.0.0
 default_selected: false
 
@@ -11,15 +11,33 @@ module_greeting: |
   shared company-context/ files (ICP, positioning, brand voice, KPIs,
   tech stack) — every v2 agent reads these on activation.
 
-  Then talk to Max Growth via /marketing-orchestrator, or jump directly
-  to any agent or workflow listed below.
+  Then talk to Max Growth (CMO) via /marketing-orchestrator, or jump
+  directly to a domain orchestrator or specialist below.
 
   Bootstrap: company-context-bootstrap
-  Agents (v1 — being phased out): marketing-orchestrator, social-media-strategist, growth-analyst, linkedin-creator, twitter-ghostwriter, instagram-strategist, youtube-strategist, tiktok-creator, discord-community-manager, reddit-growth-hacker, pinterest-strategist
-  Agents (v2 — Product Marketing): product-marketing-orchestrator, positioning-messaging-pmm, competitive-intelligence-pmm, launch-sales-enablement-pmm
-  Agents (v2 — Digital Marketing): digital-marketing-orchestrator, web-cro-specialist, paid-search-specialist, paid-social-demand-specialist, marketing-automation-engineer, technical-seo-engineer
-  Agents (v2 — Growth Marketing): growth-marketing-orchestrator, lifecycle-activation, experimentation-funnel-lead
-  Agents (v2 — Brand & Content): content-architect, content-seo-strategist, technical-content-writer, brand-orchestrator, brand-narrative-strategist, localization-international-lead
+  CMO: marketing-orchestrator (Max Growth)
+  Measurement & Attribution Staff: growth-analyst (Pixel Metrics)
+
+  Domain orchestrators:
+    product-marketing-orchestrator (Priya Position)
+    digital-marketing-orchestrator (Dani Demand)
+    growth-marketing-orchestrator (Greta Growth)
+    brand-orchestrator (Brio Brand)
+    content-architect (Milo Page)
+    field-marketing-orchestrator (Frank Field)
+    pr-comms-orchestrator (Penny PR)
+    channel-partner-orchestrator (Charlie Channel)
+
+  Specialists (by domain):
+    PMM: positioning-messaging-pmm, competitive-intelligence-pmm, launch-sales-enablement-pmm
+    Digital: web-cro-specialist, paid-search-specialist, paid-social-demand-specialist, marketing-automation-engineer, technical-seo-engineer
+    Growth: lifecycle-activation, experimentation-funnel-lead
+    Brand: brand-narrative-strategist, localization-international-lead
+    Content: content-seo-strategist, technical-content-writer
+    Field: abm-strategist, events-webinars-producer, customer-advocacy-references, social-media-strategist (Nova), linkedin-creator, youtube-strategist
+    PR & Comms: media-relations-specialist, analyst-relations-specialist
+    Channel: partner-marketplace-manager
+
   Workflows: marketing-strategy, content-pipeline, social-campaign, launch-sequence, growth-audit, seo-sprint, company-context-bootstrap
 
 # Install-time questions. Answers flow into _bmad/config.yaml (shared) or
@@ -50,78 +68,19 @@ questions:
 # Agent roster — consumed by bmad-module-builder validation and any UI that
 # lists installed agents. Derived from each agent's customize.toml [agent] block.
 agents:
+  # CMO + Staff
   - code: marketing-orchestrator
     name: "Max Growth"
-    title: "Marketing Orchestrator"
+    title: "CMO Orchestrator"
     icon: "🎯"
-    description: "Head of Marketing who sets priorities, sequences campaigns, and delegates to specialist agents."
-  - code: content-architect
-    name: "Milo Page"
-    title: "Content Marketing Lead"
-    icon: "📝"
-    description: "Content Marketing Lead who owns the content engine (editorial calendar, briefs, blog architecture, landing pages, pillar pages) and coordinates Content SEO + Technical Content Writer via brief-driven delegation."
-  - code: content-seo-strategist
-    name: "Quinn Crawler"
-    title: "Content SEO Strategist"
-    icon: "🔍"
-    description: "Content SEO Strategist who owns keyword research, search-intent classification, SERP analysis, content gaps, topic clusters, and content-driven backlinks. Technical-side SEO is Tek Crawl's job."
-  - code: social-media-strategist
-    name: "Nova Reach"
-    title: "Social Media Strategist"
-    icon: "📱"
-    description: "Social Media Strategist who picks platforms, defines content mix, and coordinates the 9 channel specialists."
+    description: "CMO Orchestrator who sets global strategy, sequences campaigns across the 8 domain orchestrators, owns the annual plan, and is the explicit escalation path for ESCALATED briefs."
   - code: growth-analyst
     name: "Pixel Metrics"
-    title: "Growth Analyst"
+    title: "Measurement & Attribution Staff"
     icon: "📊"
-    description: "Growth Analyst specialized in funnel diagnostics, KPI frameworks, and turning analytics into channel allocation decisions."
-  - code: linkedin-creator
-    name: "Ivy Pro"
-    title: "LinkedIn Content Strategist"
-    icon: "💼"
-    description: "LinkedIn Content Strategist & B2B Growth Expert who creates professional content that generates leads and establishes industry authority."
-  - code: twitter-ghostwriter
-    name: "Vex Thread"
-    title: "Twitter/X Growth Specialist & Ghostwriter"
-    icon: "🐦"
-    description: "Twitter/X Growth Specialist & Ghostwriter who crafts viral tweets, engaging threads, and personal branding strategies for SaaS founders."
-  - code: instagram-strategist
-    name: "Indy Grid"
-    title: "Instagram Growth Strategist & Visual Content Expert"
-    icon: "📸"
-    description: "Instagram Growth Strategist & Visual Content Expert who builds visual strategies for SaaS brands that want to humanize their presence."
-  - code: youtube-strategist
-    name: "Yuri Views"
-    title: "YouTube Growth Strategist & Video SEO Expert"
-    icon: "🎥"
-    description: "YouTube Growth Strategist & Video SEO Expert who optimizes channels for discovery, builds video content strategies, and maximizes retention."
-  - code: tiktok-creator
-    name: "Tikko Viral"
-    title: "TikTok Growth Specialist & Short-Form Video Expert"
-    icon: "🎵"
-    description: "TikTok Growth Specialist & Short-Form Video Expert who masters viral short-form content to reach new audiences."
-  - code: discord-community-manager
-    name: "Disco Dave"
-    title: "Discord Community Builder & Engagement Specialist"
-    icon: "💬"
-    description: "Discord Community Builder & Engagement Specialist who builds and runs engaged Discord communities around SaaS products."
-  - code: reddit-growth-hacker
-    name: "Karma Ken"
-    title: "Reddit Marketing Specialist & Community Strategist"
-    icon: "🤖"
-    description: "Reddit Marketing Specialist & Community Strategist who masters promotion without looking like promotion — expert in karma building and authentic engagement."
-  - code: pinterest-strategist
-    name: "Penny Pin"
-    title: "Pinterest SEO Specialist & Visual Discovery Expert"
-    icon: "📌"
-    description: "Pinterest SEO Specialist & Visual Discovery Expert who uses Pinterest as an evergreen traffic engine and source of qualified backlinks."
-  - code: lifecycle-activation
-    name: "Ember Flow"
-    title: "Lifecycle & Activation Specialist"
-    icon: "✉️"
-    description: "Lifecycle & Activation Specialist who designs activation, nurture, and expansion programs across email, in-app, push, and SMS. Repositioned from v1's email-only role; same persona, broader playbook. Operates inside the brief-driven protocol."
+    description: "Measurement & Attribution Staff who owns kpis.md, designs attribution models, forecasts, dashboards, and scoring-model design. MarOps implementation moved out to Marketing Automation Engineer in v2."
 
-  # v2 — Product Marketing (Phase 1)
+  # v2 — Product Marketing
   - code: product-marketing-orchestrator
     name: "Priya Position"
     title: "Product Marketing Lead"
@@ -143,12 +102,12 @@ agents:
     icon: "🚀"
     description: "Launch & Sales Enablement PMM who owns launch narrative and sales bundles (battlecard, one-pager, demo, FAQ). Replaces v1's Luna Blast, recast for B2B technology launches."
 
-  # v2 — Digital Marketing (Phase 2)
+  # v2 — Digital Marketing
   - code: digital-marketing-orchestrator
     name: "Dani Demand"
     title: "Digital Marketing Lead"
     icon: "🌐"
-    description: "Digital Marketing Lead who owns web/CRO, paid search, paid social & demand, marketing automation, and technical SEO. Delegates via brief-driven protocol."
+    description: "Digital Marketing Lead who owns web/CRO, paid search, paid social & demand, marketing automation, and technical SEO. Delegates via the brief-driven protocol."
   - code: web-cro-specialist
     name: "Wes Web"
     title: "Web & CRO Specialist"
@@ -175,19 +134,24 @@ agents:
     icon: "⚙️"
     description: "Technical SEO Engineer who owns indexation, schema, Core Web Vitals, hreflang, JS rendering, and internal linking infrastructure. Distinct from Content SEO. Operates inside the brief-driven protocol."
 
-  # v2 — Growth Marketing (Phase 3)
+  # v2 — Growth Marketing
   - code: growth-marketing-orchestrator
     name: "Greta Growth"
     title: "Growth Marketing Lead"
     icon: "🔄"
     description: "Growth Marketing Lead who owns lifecycle/activation, experimentation, and funnel diagnostics. Delegates via the brief-driven protocol."
+  - code: lifecycle-activation
+    name: "Ember Flow"
+    title: "Lifecycle & Activation Specialist"
+    icon: "✉️"
+    description: "Lifecycle & Activation Specialist who designs activation, nurture, and expansion programs across email, in-app, push, and SMS. Repositioned from v1's email-only role; same persona, broader playbook. Operates inside the brief-driven protocol."
   - code: experimentation-funnel-lead
     name: "Eli Experiment"
     title: "Experimentation & Funnel Lead"
     icon: "🧪"
     description: "Experimentation & Funnel Lead who designs single experiments end-to-end, audits funnels, and builds funnel scorecards. Honest about sample sizes; pre-registers rollout decisions. Operates inside the brief-driven protocol."
 
-  # v2 — Brand & Content (Phase 4)
+  # v2 — Brand
   - code: brand-orchestrator
     name: "Brio Brand"
     title: "Brand Lead"
@@ -203,8 +167,86 @@ agents:
     title: "Localization & International Lead"
     icon: "🌍"
     description: "Localization & International Lead who runs per-locale voice adaptation, glossary and translation-memory operations, in-market reviewer plans, and locale QA. Operates inside the brief-driven protocol."
+
+  # v2 — Content Marketing
+  - code: content-architect
+    name: "Milo Page"
+    title: "Content Marketing Lead"
+    icon: "📝"
+    description: "Content Marketing Lead who owns the content engine (editorial calendar, briefs, blog architecture, landing pages, pillar pages) and coordinates Content SEO + Technical Content Writer via brief-driven delegation."
+  - code: content-seo-strategist
+    name: "Quinn Crawler"
+    title: "Content SEO Strategist"
+    icon: "🔍"
+    description: "Content SEO Strategist who owns keyword research, search-intent classification, SERP analysis, content gaps, topic clusters, and content-driven backlinks. Technical-side SEO is Tek Crawl's job."
   - code: technical-content-writer
     name: "Theo Tech"
     title: "Technical Content Writer"
     icon: "📑"
     description: "Technical Content Writer who produces whitepapers, solution briefs, technical guides, and reference-architecture explainers for B2B technology buyers (technical buyer / champion / developer-end-user)."
+
+  # v2 — Field Marketing
+  - code: field-marketing-orchestrator
+    name: "Frank Field"
+    title: "Field Marketing Lead"
+    icon: "🎪"
+    description: "Field Marketing Lead who owns ABM, events & webinars, customer advocacy, and social-media coordination (via Nova). Delegates via the brief-driven protocol."
+  - code: abm-strategist
+    name: "Aldo ABM"
+    title: "ABM Strategist"
+    icon: "🪧"
+    description: "ABM Strategist who designs 1:1 / 1:few / 1:many programs against named accounts, with paired AE pods and double-count-aware attribution. Operates inside the brief-driven protocol."
+  - code: events-webinars-producer
+    name: "Ella Event"
+    title: "Events & Webinars Producer"
+    icon: "🎟️"
+    description: "Events & Webinars Producer who runs hosted dinners, summits, webinars, sponsored booths, and conferences end-to-end with 24-hour follow-up motion. Operates inside the brief-driven protocol."
+  - code: customer-advocacy-references
+    name: "Cara Customer"
+    title: "Customer Advocacy & References Specialist"
+    icon: "🤝"
+    description: "Customer Advocacy & References Specialist who identifies advocates, runs case studies and reference-call programs, and partners with CSMs to prevent advocate burnout. Operates inside the brief-driven protocol."
+  - code: social-media-strategist
+    name: "Nova Reach"
+    title: "Social Media Strategist"
+    icon: "📱"
+    description: "Social Media Strategist who picks platforms, runs cross-platform strategy, and coordinates LinkedIn / YouTube creators. Twitter and Reddit are Nova's own capabilities in v2. Logically nested under Field; agent_type stays \"orchestrator\"."
+  - code: linkedin-creator
+    name: "Ivy Pro"
+    title: "LinkedIn Content Strategist"
+    icon: "💼"
+    description: "LinkedIn Content Strategist & B2B Growth Expert who creates professional content that generates leads and establishes industry authority."
+  - code: youtube-strategist
+    name: "Yuri Views"
+    title: "YouTube Growth Strategist & Video SEO Expert"
+    icon: "🎥"
+    description: "YouTube Growth Strategist & Video SEO Expert who optimizes channels for discovery, builds video content strategies, and maximizes retention."
+
+  # v2 — PR & Communications
+  - code: pr-comms-orchestrator
+    name: "Penny PR"
+    title: "PR & Communications Lead"
+    icon: "📰"
+    description: "PR & Communications Lead who owns media relations, analyst relations (Gartner/Forrester/IDC), executive comms, and crisis comms. Delegates via the brief-driven protocol."
+  - code: media-relations-specialist
+    name: "Maddy Media"
+    title: "Media Relations Specialist"
+    icon: "🎤"
+    description: "Media Relations Specialist who builds pitch lists with rationale, drafts press releases, runs embargo plans, and monitors post-publication coverage. Operates inside the brief-driven protocol."
+  - code: analyst-relations-specialist
+    name: "Ana Analyst"
+    title: "Analyst Relations Specialist"
+    icon: "📡"
+    description: "Analyst Relations Specialist who runs Gartner / Forrester / IDC briefings, MQ / Wave / MarketScape submission prep, customer-inquiry response, and post-publication follow-up. Operates inside the brief-driven protocol."
+
+  # v2 — Channel & Partner Marketing
+  - code: channel-partner-orchestrator
+    name: "Charlie Channel"
+    title: "Channel & Partner Marketing Lead"
+    icon: "🔗"
+    description: "Channel & Partner Marketing Lead who owns partner co-marketing, marketplace listings, and channel enablement. Delegates via the brief-driven protocol."
+  - code: partner-marketplace-manager
+    name: "Polly Partner"
+    title: "Partner & Marketplace Manager"
+    icon: "🏪"
+    description: "Partner & Marketplace Manager who runs joint campaigns, builds marketplace listings (AWS, Salesforce, Atlassian, etc.), and produces channel enablement. Operates inside the brief-driven protocol."
