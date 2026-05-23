@@ -126,7 +126,7 @@ lockstep so installs never break mid-sequence.
 | 3     | Growth Marketing (2 new + 1 rename)           | Complete    |
 | 4     | Brand + Content refresh (3 new + 1 rename)    | Complete    |
 | 5     | Field + PR + Channel (9 new, 6 retired)       | Complete    |
-| 6     | Tier-1 workflows (7 workflows)                | Pending     |
+| 6     | Tier-1 workflows (5 new + 2 refreshed + 2 retired) | Complete |
 | 7     | Tier-2 workflows (incremental)                | Deferred    |
 
 Until a phase is marked Complete, the corresponding v1 agents remain in

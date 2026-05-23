@@ -1,17 +1,20 @@
 # Growth Audit Workflow
 # Trigger: WG
-# Lead: Pixel Metrics (Growth Analyst)
-# Description: Audit complet KPIs + recommandations
+# Lead: Pixel Metrics (Measurement & Attribution Staff) — co-led with Max Growth
+# Description: Comprehensive marketing audit; v2 refresh: Pixel-led measurement,
+#              Max sign-off, agent refs updated to v2 roster (content-seo-strategist,
+#              etc.). MarOps audit items route to Mark Auto.
 
 workflow:
   id: growth-audit
   name: "Growth Audit"
-  version: "1.0.0"
+  version: "2.0.0"
   trigger: "WG"
   lead_agent: growth-analyst
   description: |
-    Comprehensive growth metrics audit workflow.
-    Analyzes all marketing channels and provides actionable recommendations.
+    Comprehensive growth metrics audit. v2: Pixel narrowed scope
+    (measurement layer), with sign-off from Max (CMO). MarOps
+    implementation audit items hand off to Mark Auto.
 
 # Workflow Phases
 phases:
@@ -49,26 +52,31 @@ phases:
         agent: content-architect
         delegates_to: content-architect
         action: |
-          Analyze content metrics:
-          - Top performing content
-          - Underperforming content
-          - Content by type
-          - Engagement patterns
-          - Content ROI
+          Analyze content metrics: top / underperforming content,
+          content by type, engagement patterns, ROI.
+        brief_template: "brief-templates/01-content-audit.md"
         output: "content-performance.md"
 
       - id: seo-performance
-        name: "SEO Performance"
-        agent: seo-strategist
-        delegates_to: seo-strategist
+        name: "Content SEO Performance"
+        agent: content-seo-strategist
+        delegates_to: content-seo-strategist
         action: |
-          Analyze SEO metrics:
-          - Organic traffic trends
-          - Keyword rankings
-          - Backlink profile
-          - Technical SEO health
-          - Competitor SEO comparison
+          Analyze content-SEO metrics: organic traffic trends, keyword
+          rankings, content-driven backlinks, competitor SEO. Technical
+          SEO health → hand off to technical-seo-engineer (Tek Crawl).
+        brief_template: "brief-templates/02-seo-audit.md"
         output: "seo-performance.md"
+
+      - id: technical-seo-performance
+        name: "Technical SEO Performance"
+        agent: content-architect
+        delegates_to: technical-seo-engineer
+        action: |
+          Hand off technical-side SEO audit to Tek Crawl: indexation,
+          schema, Core Web Vitals, hreflang, JS rendering.
+        brief_template: "brief-templates/03-technical-seo-audit.md"
+        output: "technical-seo-performance.md"
 
       - id: social-performance
         name: "Social Media Performance"
@@ -83,17 +91,27 @@ phases:
           - Audience demographics
         output: "social-performance.md"
 
-      - id: email-performance
-        name: "Email Performance"
+      - id: lifecycle-performance
+        name: "Lifecycle / Email Performance"
         agent: growth-analyst
+        delegates_to: lifecycle-activation
         action: |
-          Analyze email metrics:
-          - List growth
-          - Open rates
-          - Click rates
-          - Conversion rates
-          - Unsubscribe trends
-        output: "email-performance.md"
+          Analyze lifecycle metrics across email + in-app + push: list
+          growth, open / click / conversion rates, unsubscribe trends,
+          cross-channel sequence performance.
+        brief_template: "brief-templates/04-lifecycle-audit.md"
+        output: "lifecycle-performance.md"
+
+      - id: marops-audit
+        name: "MarOps / Automation Audit"
+        agent: growth-analyst
+        delegates_to: marketing-automation-engineer
+        action: |
+          Hand off the MarOps audit to Mark Auto: workflow health,
+          routing SLA adherence, scoring model performance,
+          instrumentation gaps.
+        brief_template: "brief-templates/05-marops-audit.md"
+        output: "marops-audit.md"
 
   # === PHASE 2: ANALYSIS ===
   - id: analysis

@@ -1,0 +1,176 @@
+# Annual Planning Workflow
+# Trigger: WA
+# Lead: Max Growth (CMO Orchestrator)
+# Description: Kickoff-of-year planning → 8 domain brief packs.
+
+workflow:
+  id: annual-planning
+  name: "Annual Planning"
+  version: "1.0.0"
+  trigger: "WA"
+  lead_agent: marketing-orchestrator
+  description: |
+    The kickoff-of-year workflow. Max Growth runs the planning sessions
+    with the user, then issues per-domain quarterly briefs so each
+    domain orchestrator can start their Q1 work against a single
+    source of truth.
+
+phases:
+  - id: inputs
+    name: "Inputs"
+    description: "Confirm company-context is fresh."
+    steps:
+      - id: context-check
+        name: "Company-context freshness check"
+        agent: marketing-orchestrator
+        action: |
+          Read `_bmad-output/company-context/{icp,positioning,kpis,
+          brand-voice,tech-stack}.md`. Mark any with status `Stale
+          (needs refresh)` and recommend the owning agent re-runs
+          its refresh before the planning offsite.
+        output: "context-freshness.md"
+
+  - id: strategy
+    name: "Strategy"
+    description: "Pick the 2-3 dominant motions per quarter."
+    steps:
+      - id: annual-plan-draft
+        name: "Annual plan draft"
+        agent: marketing-orchestrator
+        action: |
+          Use capability AP (annual plan). Per quarter: 1-2 dominant
+          motions named, why-now stated, success metric tied to a
+          KPI from `kpis.md`. Cross-domain dependencies surfaced.
+        brief_template: "brief-templates/01-annual-plan.md"
+        output: "annual-plan-draft.md"
+        gate: "user_approval"
+
+  - id: resourcing
+    name: "Resourcing"
+    description: "Budget split + headcount + dependency map."
+    steps:
+      - id: budget-allocation
+        name: "Budget allocation across 8 domains"
+        agent: marketing-orchestrator
+        action: |
+          Use capability BA (budget allocation). Split total budget
+          across the 8 domains per the dominant motions. Pair with
+          Pixel for measurement-budget allocation.
+        brief_template: "brief-templates/02-budget.md"
+        output: "budget-allocation.md"
+        gate: "user_approval"
+
+      - id: dependency-map
+        name: "Cross-domain dependency map"
+        agent: marketing-orchestrator
+        action: |
+          Map who blocks whom. PMM must land positioning before paid
+          campaigns can scale; Brand voice must be set before content
+          ships in volume; Digital tracking must be live before any
+          attribution-dependent work starts.
+        output: "dependency-map.md"
+
+  - id: domain-briefs
+    name: "Domain brief packs"
+    description: "Issue annual brief pack per domain orchestrator."
+    steps:
+      - id: pmm-brief
+        name: "PMM annual brief"
+        agent: marketing-orchestrator
+        delegates_to: product-marketing-orchestrator
+        action: |
+          Issue an annual brief to Priya Position covering: ICP
+          refresh, positioning refresh, planned launches, AR cycle
+          dependencies.
+        brief_template: "brief-templates/03-domain-brief-pmm.md"
+        output: "pmm-annual-brief.md"
+
+      - id: digital-brief
+        name: "Digital annual brief"
+        agent: marketing-orchestrator
+        delegates_to: digital-marketing-orchestrator
+        action: |
+          Issue an annual brief to Dani Demand covering: quarterly
+          digital plan, attribution model in scope, tech-stack
+          investments planned.
+        brief_template: "brief-templates/03-domain-brief-generic.md"
+        output: "digital-annual-brief.md"
+
+      - id: growth-brief
+        name: "Growth annual brief"
+        agent: marketing-orchestrator
+        delegates_to: growth-marketing-orchestrator
+        action: |
+          Issue an annual brief to Greta Growth covering: activation /
+          lifecycle program calendar, experimentation cadence,
+          funnel-attack priorities.
+        brief_template: "brief-templates/03-domain-brief-generic.md"
+        output: "growth-annual-brief.md"
+
+      - id: brand-brief
+        name: "Brand annual brief"
+        agent: marketing-orchestrator
+        delegates_to: brand-orchestrator
+        action: |
+          Issue an annual brief to Brio Brand covering: brand-voice
+          refresh schedule, narrative cadence, locale rollouts.
+        brief_template: "brief-templates/03-domain-brief-generic.md"
+        output: "brand-annual-brief.md"
+
+      - id: content-brief
+        name: "Content annual brief"
+        agent: marketing-orchestrator
+        delegates_to: content-architect
+        action: |
+          Issue an annual brief to Milo Page covering: editorial
+          themes per quarter, pillar / cluster strategy, whitepaper
+          calendar.
+        brief_template: "brief-templates/03-domain-brief-generic.md"
+        output: "content-annual-brief.md"
+
+      - id: field-brief
+        name: "Field annual brief"
+        agent: marketing-orchestrator
+        delegates_to: field-marketing-orchestrator
+        action: |
+          Issue an annual brief to Frank Field covering: ABM accounts
+          for the year, event sponsorship calendar, advocacy program
+          targets, social motion themes.
+        brief_template: "brief-templates/03-domain-brief-generic.md"
+        output: "field-annual-brief.md"
+
+      - id: pr-brief
+        name: "PR annual brief"
+        agent: marketing-orchestrator
+        delegates_to: pr-comms-orchestrator
+        action: |
+          Issue an annual brief to Penny PR covering: anchor moments
+          per quarter, analyst cycle (MQ / Wave / IDC submissions),
+          exec-comms calendar.
+        brief_template: "brief-templates/03-domain-brief-generic.md"
+        output: "pr-annual-brief.md"
+
+      - id: channel-brief
+        name: "Channel annual brief"
+        agent: marketing-orchestrator
+        delegates_to: channel-partner-orchestrator
+        action: |
+          Issue an annual brief to Charlie Channel covering: strategic
+          partners list, marketplace investments, co-marketing motion
+          cadence.
+        brief_template: "brief-templates/03-domain-brief-generic.md"
+        output: "channel-annual-brief.md"
+
+  - id: cadence
+    name: "Cadence"
+    description: "Set the quarterly re-plan ritual."
+    steps:
+      - id: cadence-spec
+        name: "Quarterly re-plan ritual"
+        agent: marketing-orchestrator
+        recurring: "quarterly"
+        action: |
+          Define: when the next quarterly re-plan happens, who
+          attends, what inputs are required (refreshed kpis.md,
+          pipeline reforecast from Pixel, domain-level retros).
+        output: "cadence.md"
