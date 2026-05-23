@@ -1,17 +1,19 @@
 # SEO Sprint Workflow
 # Trigger: WO
-# Lead: Quinn Crawler (SEO Strategist)
-# Description: Audit → Keywords → Content gaps → Quick wins
+# Lead: Quinn Crawler (Content SEO Strategist)
+# Description: Content-side audit → keywords → content gaps → quick wins.
+# v2 refresh: technical-side audit delegated to Tek Crawl (Technical SEO Engineer).
 
 workflow:
   id: seo-sprint
   name: "SEO Sprint"
-  version: "1.0.0"
+  version: "2.0.0"
   trigger: "WO"
   lead_agent: content-seo-strategist
   description: |
-    Focused SEO optimization sprint workflow.
-    From audit to actionable quick wins in a structured approach.
+    Focused content-SEO sprint. Technical-side audit items hand off
+    to technical-seo-engineer (Tek Crawl) — v2 split between content
+    SEO (Quinn / Content) and technical SEO (Tek / Digital).
 
 # Sprint Duration
 duration:
@@ -32,16 +34,13 @@ phases:
       - id: technical-audit
         name: "Technical SEO Audit"
         agent: content-seo-strategist
+        delegates_to: technical-seo-engineer
         action: |
-          Analyze technical health:
-          - Site speed (Core Web Vitals)
-          - Mobile-friendliness
-          - Crawlability (robots.txt, sitemap)
-          - Indexation status
-          - Schema markup
-          - SSL/HTTPS
-          - URL structure
-          - Internal linking
+          Hand off technical-side audit to Tek Crawl: site speed (CWV),
+          mobile-friendliness, crawlability (robots / sitemap),
+          indexation, schema, SSL, URL structure, internal linking,
+          hreflang (if multi-locale), JS rendering.
+        brief_template: "brief-templates/technical-audit.md"
         output: "technical-audit.md"
 
       - id: on-page-audit

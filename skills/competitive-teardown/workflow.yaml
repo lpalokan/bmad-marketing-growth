@@ -1,0 +1,58 @@
+# Competitive Teardown Workflow
+# Trigger: WT (Workflow - Teardown)
+# Lead: Priya Position (Product Marketing Lead)
+
+workflow:
+  id: competitive-teardown
+  name: "Competitive Teardown"
+  version: "1.0.0"
+  trigger: "WT"
+  lead_agent: product-marketing-orchestrator
+  description: |
+    1-week motion to produce a full competitor teardown + battle card
+    + landscape-section update.
+
+phases:
+  - id: commission
+    name: "Commission"
+    steps:
+      - id: teardown-brief
+        name: "Issue teardown brief"
+        agent: product-marketing-orchestrator
+        delegates_to: competitive-intelligence-pmm
+        action: "Issue CT brief."
+        brief_template: "brief-templates/teardown.md"
+        output: "teardown-brief.md"
+
+  - id: teardown
+    name: "Teardown"
+    steps:
+      - id: teardown-v1
+        name: "Produce teardown v1"
+        agent: competitive-intelligence-pmm
+        action: |
+          Use capability CT. Public sources only; confidence per claim.
+        output: "teardown.md"
+        gate: "user_approval"
+
+  - id: battle-card
+    name: "Battle card"
+    steps:
+      - id: battle-card-v1
+        name: "Produce battle card v1"
+        agent: competitive-intelligence-pmm
+        action: |
+          Use capability BC. 1-page derivative of approved teardown.
+        output: "battle-card.md"
+        gate: "user_approval"
+
+  - id: adopt
+    name: "Adopt"
+    steps:
+      - id: update-positioning
+        name: "Update positioning.md Primary Alternatives"
+        agent: product-marketing-orchestrator
+        action: |
+          With user sign-off, update positioning.md to reflect new
+          competitive intelligence. Freeze work folder.
+        output: "adoption.md"

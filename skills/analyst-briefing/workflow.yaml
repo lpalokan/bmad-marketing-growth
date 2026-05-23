@@ -1,0 +1,68 @@
+# Analyst Briefing Workflow
+# Trigger: WR (Workflow - analyst Relations)
+# Lead: Penny PR (PR & Communications Lead)
+
+workflow:
+  id: analyst-briefing
+  name: "Analyst Briefing"
+  version: "1.0.0"
+  trigger: "WR"
+  lead_agent: pr-comms-orchestrator
+  description: |
+    Routine analyst briefing or MQ / Wave / MarketScape submission
+    prep. End-to-end including post-publication response.
+
+phases:
+  - id: scope
+    name: "Scope"
+    steps:
+      - id: scope-confirm
+        name: "Confirm scope"
+        agent: pr-comms-orchestrator
+        action: |
+          Confirm scope (routine / MQ / Wave / MarketScape). Identify
+          analyst firm + named analyst + their evaluation criteria URL.
+        output: "scope.md"
+
+  - id: prep
+    name: "Prep"
+    steps:
+      - id: prep-brief
+        name: "Prep brief"
+        agent: pr-comms-orchestrator
+        delegates_to: analyst-relations-specialist
+        action: "Issue AR brief (BR or MQ)."
+        brief_template: "brief-templates/ar.md"
+        output: "prep-brief.md"
+        gate: "user_approval"
+
+  - id: engage
+    name: "Engage"
+    steps:
+      - id: deliver
+        name: "Deliver briefing or submission"
+        agent: analyst-relations-specialist
+        action: |
+          Deliver per the brief: live briefing call, or the formal
+          submission package.
+        output: "delivery.md"
+
+  - id: follow-up
+    name: "Follow-up"
+    steps:
+      - id: thank-you
+        name: "Thank-you + notes capture"
+        agent: analyst-relations-specialist
+        action: |
+          Thank-you note within 24h; capture analyst observations to
+          AR notes sidecar.
+        output: "thank-you.md"
+
+      - id: post-publication
+        name: "Post-publication response"
+        agent: analyst-relations-specialist
+        condition: "submission-or-coverage"
+        action: |
+          Use capability PR_AR. Internal comms; external response if
+          warranted; customer comms plan for any cautions.
+        output: "post-publication.md"

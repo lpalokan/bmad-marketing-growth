@@ -10,7 +10,7 @@
     {
       "name": "marketing-growth",
       "source": "./",
-      "description": "AI-powered marketing team for international B2B technology — CMO + 8 domain orchestrators + ~33 specialists with brief-driven delegation (see docs/protocol.md). v2.0.0 — Phase 6: Tier-1 workflows landed (annual-planning, product-launch, paid-campaign-launch, experimentation-sprint, abm-program, refreshed content-pipeline + growth-audit). Tier-2 workflows deferred.",
+      "description": "AI-powered marketing team for international B2B technology — CMO + 8 domain orchestrators + ~33 specialists with brief-driven delegation (see docs/protocol.md). v2.0.0 — complete: Tier-1 (5) + Tier-2 (7 + seo-sprint refresh) workflows landed; v2 epic feature-complete.",
       "version": "2.0.0",
       "author": {
         "name": "Lauri Palokangas"
@@ -73,7 +73,14 @@
         "./skills/product-launch",
         "./skills/paid-campaign-launch",
         "./skills/experimentation-sprint",
-        "./skills/abm-program"
+        "./skills/abm-program",
+        "./skills/positioning-workshop",
+        "./skills/competitive-teardown",
+        "./skills/webinar-production",
+        "./skills/analyst-briefing",
+        "./skills/lifecycle-program-build",
+        "./skills/partner-co-marketing-campaign",
+        "./skills/localization-rollout"
       ]
     }
   ]

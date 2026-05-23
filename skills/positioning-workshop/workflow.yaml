@@ -1,0 +1,61 @@
+# Positioning Workshop Workflow
+# Trigger: WQ (Workflow - Q for positioning)
+# Lead: Priya Position (Product Marketing Lead)
+
+workflow:
+  id: positioning-workshop
+  name: "Positioning Workshop"
+  version: "1.0.0"
+  trigger: "WQ"
+  lead_agent: product-marketing-orchestrator
+  description: |
+    Focused 1-2 week workshop to refresh positioning.md and the
+    supporting messaging pillars.
+
+phases:
+  - id: inputs
+    name: "Inputs"
+    steps:
+      - id: load-current
+        name: "Load current positioning"
+        agent: product-marketing-orchestrator
+        action: |
+          Read current positioning.md + recent win/loss data + latest
+          analyst views. Summarise back to user.
+        output: "current-state.md"
+
+  - id: statement
+    name: "Positioning statement"
+    steps:
+      - id: positioning-refresh
+        name: "Refresh positioning statement"
+        agent: product-marketing-orchestrator
+        delegates_to: positioning-messaging-pmm
+        action: "Commission positioning brief."
+        brief_template: "brief-templates/positioning.md"
+        output: "positioning-statement.md"
+        gate: "user_approval"
+
+  - id: pillars
+    name: "Messaging pillars"
+    steps:
+      - id: pillars-refresh
+        name: "Refresh messaging pillars"
+        agent: product-marketing-orchestrator
+        delegates_to: positioning-messaging-pmm
+        action: "Commission pillars brief."
+        brief_template: "brief-templates/pillars.md"
+        output: "pillars.md"
+        gate: "user_approval"
+
+  - id: adopt
+    name: "Adopt"
+    steps:
+      - id: update-positioning
+        name: "Update positioning.md"
+        agent: product-marketing-orchestrator
+        action: |
+          With user sign-off, update company-context/positioning.md
+          with the approved positioning and pillars. Freeze the work
+          folder.
+        output: "adoption-confirmation.md"

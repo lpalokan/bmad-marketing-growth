@@ -127,11 +127,11 @@ lockstep so installs never break mid-sequence.
 | 4     | Brand + Content refresh (3 new + 1 rename)    | Complete    |
 | 5     | Field + PR + Channel (9 new, 6 retired)       | Complete    |
 | 6     | Tier-1 workflows (5 new + 2 refreshed + 2 retired) | Complete |
-| 7     | Tier-2 workflows (incremental)                | Deferred    |
+| 7     | Tier-2 workflows (7 new + seo-sprint refresh) | Complete    |
 
-Until a phase is marked Complete, the corresponding v1 agents remain in
-place. Where v2 retires a v1 agent, the v1 agent stays installed until
-the phase that retires it lands.
+All v2 epic phases are complete. `marketing-strategy` is kept from v1
+as a higher-level orchestration helper; the rest of the v1 roster has
+been retired or repurposed.
 
 ---
 

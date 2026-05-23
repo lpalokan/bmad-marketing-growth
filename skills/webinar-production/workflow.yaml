@@ -1,0 +1,64 @@
+# Webinar Production Workflow
+# Trigger: WI (Workflow - webInar)
+# Lead: Frank Field (Field Marketing Lead)
+
+workflow:
+  id: webinar-production
+  name: "Webinar Production"
+  version: "1.0.0"
+  trigger: "WI"
+  lead_agent: field-marketing-orchestrator
+  description: |
+    Single-webinar production end-to-end with 24-hour follow-up
+    motion.
+
+phases:
+  - id: spec
+    name: "Spec"
+    steps:
+      - id: webinar-brief
+        name: "Webinar brief"
+        agent: field-marketing-orchestrator
+        delegates_to: events-webinars-producer
+        action: "Issue event-production brief scoped to webinar."
+        brief_template: "brief-templates/webinar.md"
+        output: "webinar-brief.md"
+
+  - id: pre-event
+    name: "Pre-event"
+    steps:
+      - id: drip
+        name: "Pre-event drip"
+        agent: events-webinars-producer
+        action: "Use capability PR (pre-event)."
+        output: "pre-event-drip.md"
+
+  - id: day-of
+    name: "Day-of"
+    steps:
+      - id: run-of-show
+        name: "Run-of-show"
+        agent: events-webinars-producer
+        action: "Use capability RS (run-of-show)."
+        output: "run-of-show.md"
+        gate: "user_approval"
+
+  - id: follow-up
+    name: "Follow-up"
+    steps:
+      - id: t-plus-1
+        name: "24-hour follow-up"
+        agent: events-webinars-producer
+        action: "Use capability FU."
+        output: "follow-up.md"
+
+  - id: retro
+    name: "Retro"
+    steps:
+      - id: measure
+        name: "Measure"
+        agent: events-webinars-producer
+        action: |
+          Use capability AT (attribution). Pull registered / attended
+          / engaged + sourced pipeline. Pair with Pixel for validation.
+        output: "retro.md"

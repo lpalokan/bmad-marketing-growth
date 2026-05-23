@@ -1,0 +1,87 @@
+# Localization Rollout Workflow
+# Trigger: WX (Workflow - localiXation)
+# Lead: Brio Brand (Brand Lead)
+
+workflow:
+  id: localization-rollout
+  name: "Localization Rollout"
+  version: "1.0.0"
+  trigger: "WX"
+  lead_agent: brand-orchestrator
+  description: |
+    End-to-end locale launch with Lily Locale; coordinates with Tek
+    Crawl for hreflang.
+
+phases:
+  - id: plan
+    name: "Plan"
+    steps:
+      - id: rollout-brief
+        name: "Locale rollout brief"
+        agent: brand-orchestrator
+        delegates_to: localization-international-lead
+        action: "Issue locale rollout brief."
+        brief_template: "brief-templates/rollout.md"
+        output: "rollout-brief.md"
+        gate: "user_approval"
+
+  - id: build
+    name: "Build"
+    steps:
+      - id: voice-glossary-tm
+        name: "Voice + glossary + TM setup"
+        agent: localization-international-lead
+        action: |
+          Use capabilities LR, GL, TM. Voice adaptation guide,
+          glossary build / refresh, TM setup.
+        output: "build.md"
+
+      - id: assets-translation
+        name: "Asset translation"
+        agent: localization-international-lead
+        action: |
+          Translate in-scope assets with TM leverage. Coordinate vendor.
+        output: "translation.md"
+
+  - id: qa
+    name: "QA"
+    steps:
+      - id: qa-plan
+        name: "3-layer QA"
+        agent: localization-international-lead
+        action: |
+          Use capability QA. Linguistic + in-market + technical
+          (technical = coordinate with Tek Crawl for hreflang
+          validation).
+        output: "qa.md"
+        gate: "user_approval"
+
+      - id: hreflang
+        name: "Hreflang setup"
+        agent: brand-orchestrator
+        delegates_to: technical-seo-engineer
+        action: "Issue hreflang brief."
+        brief_template: "brief-templates/hreflang.md"
+        output: "hreflang.md"
+
+  - id: launch
+    name: "Launch"
+    steps:
+      - id: go-live
+        name: "Go-live"
+        agent: brand-orchestrator
+        action: |
+          Coordinate go-live across web / paid / sales collateral.
+        output: "go-live.md"
+
+  - id: stabilise
+    name: "Stabilise"
+    steps:
+      - id: quality-watch
+        name: "30-day quality watch"
+        agent: localization-international-lead
+        recurring: "weekly"
+        action: |
+          Weekly check: in-market feedback, hreflang sanity, conversion
+          comparison vs source locale.
+        output: "quality-watch.md"

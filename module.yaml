@@ -1,6 +1,6 @@
 code: marketing-growth
 name: "Marketing Growth Suite"
-description: "AI-powered marketing team for international B2B technology — CMO + 8 domain orchestrators + ~33 specialists, with brief-driven delegation (see docs/protocol.md). v2.0.0 — Phase 6 (Tier-1 workflows) complete. Tier-2 workflows deferred to a separate epic."
+description: "AI-powered marketing team for international B2B technology — CMO + 8 domain orchestrators + ~33 specialists, with brief-driven delegation (see docs/protocol.md). v2.0.0 — complete: Tier-1 (5) + Tier-2 (7) workflows + seo-sprint refresh. v2 epic feature-complete."
 module_version: 2.0.0
 default_selected: false
 
@@ -39,7 +39,8 @@ module_greeting: |
     Channel: partner-marketplace-manager
 
   Workflows (Tier-1, v2): annual-planning, product-launch, content-pipeline (refreshed), paid-campaign-launch, experimentation-sprint, abm-program, growth-audit (refreshed)
-  Workflows (Tier-2 / kept from v1, deferred for v2 refresh): marketing-strategy, seo-sprint
+  Workflows (Tier-2, v2): positioning-workshop, competitive-teardown, webinar-production, analyst-briefing, lifecycle-program-build, partner-co-marketing-campaign, localization-rollout, seo-sprint (refreshed)
+  Workflow (kept from v1): marketing-strategy
   Bootstrap: company-context-bootstrap
 
 # Install-time questions. Answers flow into _bmad/config.yaml (shared) or
