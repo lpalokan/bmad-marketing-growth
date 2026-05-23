@@ -15,9 +15,10 @@ module_greeting: |
   to any agent or workflow listed below.
 
   Bootstrap: company-context-bootstrap
-  Agents (v1 — being phased out): marketing-orchestrator, content-architect, seo-strategist, social-media-strategist, growth-analyst, linkedin-creator, twitter-ghostwriter, instagram-strategist, youtube-strategist, tiktok-creator, discord-community-manager, reddit-growth-hacker, pinterest-strategist, email-nurture
+  Agents (v1 — being phased out): marketing-orchestrator, content-architect, seo-strategist, social-media-strategist, growth-analyst, linkedin-creator, twitter-ghostwriter, instagram-strategist, youtube-strategist, tiktok-creator, discord-community-manager, reddit-growth-hacker, pinterest-strategist
   Agents (v2 — Product Marketing): product-marketing-orchestrator, positioning-messaging-pmm, competitive-intelligence-pmm, launch-sales-enablement-pmm
   Agents (v2 — Digital Marketing): digital-marketing-orchestrator, web-cro-specialist, paid-search-specialist, paid-social-demand-specialist, marketing-automation-engineer, technical-seo-engineer
+  Agents (v2 — Growth Marketing): growth-marketing-orchestrator, lifecycle-activation, experimentation-funnel-lead
   Workflows: marketing-strategy, content-pipeline, social-campaign, launch-sequence, growth-audit, seo-sprint, company-context-bootstrap
 
 # Install-time questions. Answers flow into _bmad/config.yaml (shared) or
@@ -113,11 +114,11 @@ agents:
     title: "Pinterest SEO Specialist & Visual Discovery Expert"
     icon: "📌"
     description: "Pinterest SEO Specialist & Visual Discovery Expert who uses Pinterest as an evergreen traffic engine and source of qualified backlinks."
-  - code: email-nurture
+  - code: lifecycle-activation
     name: "Ember Flow"
-    title: "Email Nurture Specialist & Conversion Copywriter"
+    title: "Lifecycle & Activation Specialist"
     icon: "✉️"
-    description: "Email Nurture Specialist & Conversion Copywriter who designs B2B email sequences that move prospects from awareness to decision."
+    description: "Lifecycle & Activation Specialist who designs activation, nurture, and expansion programs across email, in-app, push, and SMS. Repositioned from v1's email-only role; same persona, broader playbook. Operates inside the brief-driven protocol."
 
   # v2 — Product Marketing (Phase 1)
   - code: product-marketing-orchestrator
@@ -172,3 +173,15 @@ agents:
     title: "Technical SEO Engineer"
     icon: "⚙️"
     description: "Technical SEO Engineer who owns indexation, schema, Core Web Vitals, hreflang, JS rendering, and internal linking infrastructure. Distinct from Content SEO. Operates inside the brief-driven protocol."
+
+  # v2 — Growth Marketing (Phase 3)
+  - code: growth-marketing-orchestrator
+    name: "Greta Growth"
+    title: "Growth Marketing Lead"
+    icon: "🔄"
+    description: "Growth Marketing Lead who owns lifecycle/activation, experimentation, and funnel diagnostics. Delegates via the brief-driven protocol."
+  - code: experimentation-funnel-lead
+    name: "Eli Experiment"
+    title: "Experimentation & Funnel Lead"
+    icon: "🧪"
+    description: "Experimentation & Funnel Lead who designs single experiments end-to-end, audits funnels, and builds funnel scorecards. Honest about sample sizes; pre-registers rollout decisions. Operates inside the brief-driven protocol."
