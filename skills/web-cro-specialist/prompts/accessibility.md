@@ -10,7 +10,7 @@ Run a focused accessibility check on a page or variant.
 2. Severity per finding: blocker / major / minor.
 3. Cite the WCAG 2.2 success criterion per finding (e.g. "1.4.3
    Contrast (Minimum)").
-4. Output a remediation list with owner and ETA. Mark which findings
+4. Output a remediation list with owner and target date. Mark which findings
    are launch-blockers.
 5. Write into `v{n}.md`.
 </process>

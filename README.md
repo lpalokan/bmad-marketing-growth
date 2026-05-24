@@ -114,7 +114,7 @@ you to run this first.
 
 ## Rollout status
 
-The v2 refactor lands in phases. Each phase keeps `module.yaml`,
+The v2 refactor lands in phases. Each phase keeps `skills/module.yaml`,
 `.claude-plugin/marketplace.json`, and `.claude-plugin/plugin.json` in
 lockstep so installs never break mid-sequence.
 
@@ -163,7 +163,7 @@ All skills appear as `/marketing-growth:<skill-name>` (or the short name if over
 
 ### Option B — BMAD module
 
-Install with the BMAD framework's installer, which reads `module.yaml` at the repo root:
+Install with the BMAD framework's installer, which reads `skills/module.yaml` and `skills/module-help.csv` (the BMAD v6 installer's "Strategy 1" expects these at the common parent of all skill folders):
 
 ```bash
 npx bmad-method install --custom-source /path/to/marketing-growth
@@ -184,7 +184,8 @@ Agents self-create their memory sidecars on first activation and fall back to se
 
 The v2 refactor preserves full BMAD compliance:
 
-- `module.yaml` at repo root with `code`, `name`, `module_version`, `module_greeting`, `questions[]`, `agents[]`.
+- `skills/module.yaml` with `code`, `name`, `module_version`, `module_greeting`, `questions[]`, `agents[]`. Lives at the common parent of all skill folders so the BMAD v6 installer's Strategy 1 picks it up.
+- `skills/module-help.csv` with the canonical 13-column header (`module,skill,display-name,menu-code,description,action,args,phase,preceded-by,followed-by,required,output-location,outputs`). Disambiguates menu codes that would otherwise collide if synthesized by the installer (e.g. `GAN` for growth-analyst vs `GAU` for growth-audit).
 - Per-skill `SKILL.md` (frontmatter `name` + `description`, `## On Activation` block) and `customize.toml` (`[agent]` block).
 - `agent_type` is one of the two existing values: `"orchestrator"` or `"specialist"`. No new types introduced — Nova stays `"orchestrator"` despite being logically nested under Field.
 - `workflow.yaml` keeps its existing shape. v2 adds **one optional field per step**: `brief_template: "brief-templates/NN-name.md"`. Older BMAD validators that don't know it will ignore it; v2 orchestrators consume it.
@@ -213,7 +214,8 @@ There is no skill regeneration step — every SKILL.md is canonical source, main
 3. If the agent has capability-specific prompts, add them under `skills/your-agent/prompts/<code>.md` and reference each in the SKILL.md Capabilities table.
 4. If the agent is an orchestrator, add `skills/your-agent/brief-templates/<template>.md` for each delegation pattern.
 5. Add the skill path to `.claude-plugin/marketplace.json`.
-6. Add an `agents:` entry to `module.yaml`.
+6. Add an `agents:` entry to `skills/module.yaml`.
+7. Add a row to `skills/module-help.csv` with a unique menu code and the per-skill output-location/outputs.
 
 ### Add a new workflow
 
@@ -231,12 +233,13 @@ marketing-growth/
 ├── .claude-plugin/
 │   ├── plugin.json                    ← Native Claude Code plugin manifest
 │   └── marketplace.json                ← Marketplace distribution manifest
-├── module.yaml                         ← BMAD module manifest (agent roster + install questions)
 ├── docs/                               ← v2 protocol & schemas
 │   ├── protocol.md                     ← Brief/review/state schemas + state machine
 │   ├── company-context.md              ← Company-context file table + ownership
 │   └── on-activation-template.md       ← Drop-in template for new agents
 ├── skills/                             ← All skills — single source of truth
+│   ├── module.yaml                     ← BMAD module manifest (agent roster + install questions) — at common parent of skills for Strategy 1
+│   ├── module-help.csv                 ← Canonical 13-column help catalog with disambiguated menu codes
 │   ├── marketing-orchestrator/         ← Orchestrator (CMO)
 │   │   ├── SKILL.md
 │   │   ├── customize.toml              ← [agent] metadata
