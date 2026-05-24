@@ -163,13 +163,34 @@ All skills appear as `/marketing-growth:<skill-name>` (or the short name if over
 
 ### Option B — BMAD module
 
-Install with the BMAD framework's installer, which reads `skills/module.yaml` and `skills/module-help.csv` (the BMAD v6 installer's "Strategy 1" expects these at the common parent of all skill folders):
+Install with the BMAD framework's installer, which reads `skills/module.yaml` and `skills/module-help.csv` (the BMAD v6 installer's "Strategy 1" expects these at the common parent of all skill folders).
+
+**Install directly from GitHub** (no local clone needed):
 
 ```bash
-npx bmad-method install --custom-source /path/to/marketing-growth
+# v2 development branch (current):
+npx bmad-method install \
+  --custom-source 'https://github.com/lpalokan/bmad-marketing-growth@feat/issue-4-v2-architecture' \
+  --tools claude-code --yes
+
+# main branch (v1 stable):
+npx bmad-method install \
+  --custom-source 'https://github.com/lpalokan/bmad-marketing-growth' \
+  --tools claude-code --yes
 ```
 
-The installer prompts for the 4 questions declared in `module.yaml` (user name, communication language, document output language, output folder) and writes the answers into your project's `_bmad/config.yaml` (shared) and `_bmad/config.user.yaml` (personal, gitignore-worthy). Agents read these at activation.
+The `@<branch-or-tag>` suffix selects a specific ref. Both bare URLs and `.git`-suffixed URLs are accepted; the `owner/repo@branch` shorthand is NOT recognized by the installer — use the full `https://github.com/...` form.
+
+**Install from a local clone:**
+
+```bash
+git clone https://github.com/lpalokan/bmad-marketing-growth
+cd bmad-marketing-growth
+git checkout feat/issue-4-v2-architecture   # optional, for v2
+npx bmad-method install --custom-source . --tools claude-code
+```
+
+The installer prompts for the 4 questions declared in `skills/module.yaml` (user name, communication language, document output language, output folder) and writes the answers into your project's `_bmad/config.yaml` (shared) and `_bmad/config.user.yaml` (personal, gitignore-worthy). Use `--yes` to skip prompts and accept defaults. Agents read these at activation.
 
 Optional — gitignore personal settings:
 ```bash
