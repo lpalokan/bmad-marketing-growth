@@ -1,6 +1,6 @@
 ---
 name: webinar-production
-description: "Webinar production workflow. Lead: Frank Field. Pre-event drip → day-of run-of-show → 24h follow-up motion → attribution."
+description: "Webinar production workflow. Lead: Frank Field. Pre-event drip → day-of run-of-show → 24h follow-up motion → attribution. Use when user says webinar production, single-webinar workflow, or webinar with follow-up motion."
 ---
 
 # Webinar Production Workflow

@@ -1,6 +1,6 @@
 ---
 name: annual-planning
-description: "Annual marketing plan workflow. Lead: Max Growth (CMO Orchestrator). Produces a domain-by-domain plan, quarterly sequencing, budget split, and the brief packs each domain needs to start the year."
+description: "Annual marketing plan workflow. Lead: Max Growth (CMO Orchestrator). Produces a domain-by-domain plan, quarterly sequencing, budget split, and the brief packs each domain needs to start the year. Use when user says annual plan, year planning, or kickoff-of-year workflow."
 ---
 
 # Annual Planning Workflow

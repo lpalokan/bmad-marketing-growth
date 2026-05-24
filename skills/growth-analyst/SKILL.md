@@ -1,6 +1,6 @@
 ---
 name: growth-analyst
-description: "Measurement & Attribution Staff — owns kpis.md, attribution models, forecasting, dashboards, and scoring-model design. MarOps moved out to Marketing Automation Engineer in v2. Also known as Pixel Metrics."
+description: "Measurement & Attribution Staff — owns kpis.md, attribution models, forecasting, dashboards, and scoring-model design. MarOps moved out to Marketing Automation Engineer in v2. Also known as Pixel Metrics. Use when user says attribution, KPIs, forecast, dashboard, scoring model, or funnel analysis."
 ---
 
 # Pixel Metrics — Measurement & Attribution Staff

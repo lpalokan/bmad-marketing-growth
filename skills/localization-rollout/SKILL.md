@@ -1,6 +1,6 @@
 ---
 name: localization-rollout
-description: "Localization rollout workflow. Lead: Brio Brand. End-to-end locale launch with Lily Locale, in-market reviewers, and hreflang hand-off to Tek Crawl."
+description: "Localization rollout workflow. Lead: Brio Brand. End-to-end locale launch with Lily Locale, in-market reviewers, and hreflang hand-off to Tek Crawl. Use when user says locale launch, localization rollout, or new-locale go-to-market."
 ---
 
 # Localization Rollout Workflow

@@ -1,6 +1,6 @@
 ---
 name: experimentation-sprint
-description: "2-week experimentation sprint. Lead: Greta Growth (Growth Marketing). Picks 1-3 hypotheses from the backlog, designs experiments, ships, reads out, decides rollout."
+description: "2-week experimentation sprint. Lead: Greta Growth (Growth Marketing). Picks 1-3 hypotheses from the backlog, designs experiments, ships, reads out, decides rollout. Use when user says experimentation sprint, AB test sprint, or 2-week experimentation cycle."
 ---
 
 # Experimentation Sprint Workflow

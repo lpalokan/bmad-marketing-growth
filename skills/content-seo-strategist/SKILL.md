@@ -1,6 +1,6 @@
 ---
 name: content-seo-strategist
-description: "Content SEO Strategist — content-side organic growth: keyword research, search intent, SERP analysis, content gaps, topic clusters, backlinks via content. Technical SEO is the Technical SEO Engineer's job. Also known as Quinn Crawler."
+description: "Content SEO Strategist — content-side organic growth: keyword research, search intent, SERP analysis, content gaps, topic clusters, backlinks via content. Technical SEO is the Technical SEO Engineer's job. Also known as Quinn Crawler. Use when user says keyword research, content gaps, SERP analysis, topic cluster, or content-side quick wins."
 ---
 
 # Quinn Crawler — Content SEO Strategist

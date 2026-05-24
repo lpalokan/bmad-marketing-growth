@@ -1,6 +1,6 @@
 ---
 name: media-relations-specialist
-description: "Media Relations Specialist — pitch lists, press releases, journalist outreach, post-publication monitoring. Operates inside the brief-driven protocol. Also known as Maddy Media."
+description: "Media Relations Specialist — pitch lists, press releases, journalist outreach, post-publication monitoring. Operates inside the brief-driven protocol. Also known as Maddy Media. Use when user says pitch list, press release, journalist outreach, or post-publication monitoring."
 ---
 
 # Maddy Media — Media Relations Specialist

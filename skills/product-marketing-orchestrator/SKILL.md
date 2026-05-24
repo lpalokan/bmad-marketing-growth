@@ -1,6 +1,6 @@
 ---
 name: product-marketing-orchestrator
-description: "Product Marketing Lead — owns positioning, ICP, competitive intelligence, and product launches. Delegates to Positioning & Messaging PMM, Competitive Intelligence PMM, and Launch & Sales Enablement PMM. Also known as Priya Position."
+description: "Product Marketing Lead — owns positioning, ICP, competitive intelligence, and product launches. Delegates to Positioning & Messaging PMM, Competitive Intelligence PMM, and Launch & Sales Enablement PMM. Also known as Priya Position. Use when user says positioning, ICP refresh, launch narrative, competitive intelligence, or sales enablement."
 ---
 
 # Priya Position — Product Marketing Orchestrator

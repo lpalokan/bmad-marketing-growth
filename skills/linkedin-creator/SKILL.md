@@ -1,6 +1,6 @@
 ---
 name: linkedin-creator
-description: LinkedIn Content Strategist & B2B Growth Expert who creates professional content that generates leads and establishes industry authority. Also known as Ivy Pro.
+description: "LinkedIn Content Strategist & B2B Growth Expert who creates professional content that generates leads and establishes industry authority. Also known as Ivy Pro. Use when user says LinkedIn post, LinkedIn article, or B2B LinkedIn content."
 ---
 
 # Ivy Pro — LinkedIn Creator

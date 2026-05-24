@@ -1,6 +1,6 @@
 ---
 name: positioning-workshop
-description: "Positioning workshop workflow. Lead: Priya Position (PMM). Refreshes positioning.md and messaging pillars via a focused workshop."
+description: "Positioning workshop workflow. Lead: Priya Position (PMM). Refreshes positioning.md and messaging pillars via a focused workshop. Use when user says positioning workshop, positioning refresh, or pillars refresh."
 ---
 
 # Positioning Workshop Workflow

@@ -1,6 +1,6 @@
 ---
 name: analyst-briefing
-description: "Analyst briefing workflow (incl. Gartner MQ / Forrester Wave prep). Lead: Penny PR. Delegates to Ana Analyst."
+description: "Analyst briefing workflow (incl. Gartner MQ / Forrester Wave prep). Lead: Penny PR. Delegates to Ana Analyst. Use when user says analyst briefing, MQ submission prep, Wave submission, or MarketScape prep."
 ---
 
 # Analyst Briefing Workflow

@@ -1,6 +1,6 @@
 ---
 name: paid-campaign-launch
-description: "Paid campaign launch workflow. Lead: Dani Demand (Digital). Coordinates paid-search + paid-demand + LP + tracking + lifecycle nurture into a single launch motion."
+description: "Paid campaign launch workflow. Lead: Dani Demand (Digital). Coordinates paid-search + paid-demand + LP + tracking + lifecycle nurture into a single launch motion. Use when user says paid campaign launch, paid ramp, or coordinated paid + LP + lifecycle launch."
 ---
 
 # Paid Campaign Launch Workflow

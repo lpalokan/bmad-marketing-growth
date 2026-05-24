@@ -1,6 +1,6 @@
 ---
 name: brand-orchestrator
-description: "Brand Lead — owns brand-voice.md, brand narrative, and international localization strategy. Delegates to Brand Narrative Strategist and Localization Lead. Also known as Brio Brand."
+description: "Brand Lead — owns brand-voice.md, brand narrative, and international localization strategy. Delegates to Brand Narrative Strategist and Localization Lead. Also known as Brio Brand. Use when user says brand voice, brand narrative, localization, or brand audit."
 ---
 
 # Brio Brand — Brand Orchestrator

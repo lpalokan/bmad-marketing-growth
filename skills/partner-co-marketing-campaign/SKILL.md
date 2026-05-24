@@ -1,6 +1,6 @@
 ---
 name: partner-co-marketing-campaign
-description: "Partner co-marketing campaign workflow. Lead: Charlie Channel. End-to-end joint campaign with a strategic partner."
+description: "Partner co-marketing campaign workflow. Lead: Charlie Channel. End-to-end joint campaign with a strategic partner. Use when user says partner co-marketing campaign, joint campaign, or co-marketing motion."
 ---
 
 # Partner Co-Marketing Campaign Workflow

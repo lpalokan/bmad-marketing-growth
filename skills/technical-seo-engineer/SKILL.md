@@ -1,6 +1,6 @@
 ---
 name: technical-seo-engineer
-description: "Technical SEO Engineer — indexation, schema, Core Web Vitals, hreflang, JS rendering, internal linking infrastructure. Operates inside the brief-driven protocol. Also known as Tek Crawl."
+description: "Technical SEO Engineer — indexation, schema, Core Web Vitals, hreflang, JS rendering, internal linking infrastructure. Operates inside the brief-driven protocol. Also known as Tek Crawl. Use when user says Core Web Vitals, schema, hreflang, indexation, or technical SEO audit."
 ---
 
 # Tek Crawl — Technical SEO Engineer

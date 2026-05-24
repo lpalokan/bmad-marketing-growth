@@ -1,6 +1,6 @@
 ---
 name: lifecycle-program-build
-description: "Lifecycle program build workflow. Lead: Greta Growth. Designs and ships a multi-channel lifecycle program (activation / nurture / expansion / win-back)."
+description: "Lifecycle program build workflow. Lead: Greta Growth. Designs and ships a multi-channel lifecycle program (activation / nurture / expansion / win-back). Use when user says lifecycle program build, nurture program design, or activation program build."
 ---
 
 # Lifecycle Program Build Workflow

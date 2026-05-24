@@ -1,6 +1,6 @@
 ---
 name: company-context-bootstrap
-description: "One-time intake workflow that populates _bmad-output/company-context/ with ICP, positioning, brand voice, KPIs, and tech-stack files. Must be run before any v2 agent. Lead: marketing-orchestrator."
+description: "One-time intake workflow that populates _bmad-output/company-context/ with ICP, positioning, brand voice, KPIs, and tech-stack files. Must be run before any v2 agent. Lead: marketing-orchestrator. Use when user says set up company context, bootstrap, or initial intake."
 ---
 
 # Company Context Bootstrap Workflow

@@ -1,6 +1,6 @@
 ---
 name: competitive-teardown
-description: "Single-competitor teardown workflow. Lead: Priya Position (PMM). Produces a teardown + battle card + landscape-section update."
+description: "Single-competitor teardown workflow. Lead: Priya Position (PMM). Produces a teardown + battle card + landscape-section update. Use when user says competitive teardown workflow, single-competitor deep-dive, or battle card production."
 ---
 
 # Competitive Teardown Workflow

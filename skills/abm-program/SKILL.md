@@ -1,6 +1,6 @@
 ---
 name: abm-program
-description: "Quarterly ABM program workflow. Lead: Frank Field (Field Marketing). Tiering → orchestration → signals → measurement, with paired AE pods."
+description: "Quarterly ABM program workflow. Lead: Frank Field (Field Marketing). Tiering → orchestration → signals → measurement, with paired AE pods. Use when user says ABM program, named-account program, or quarterly ABM motion."
 ---
 
 # ABM Program Workflow

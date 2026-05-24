@@ -1,6 +1,6 @@
 ---
 name: product-launch
-description: "Product launch workflow (T-6 weeks through T+2 weeks). Lead: Priya Position (PMM). Replaces v1 launch-sequence; B2B-tech-shaped with explicit PR / Digital / Field hand-offs."
+description: "Product launch workflow (T-6 weeks through T+2 weeks). Lead: Priya Position (PMM). Replaces v1 launch-sequence; B2B-tech-shaped with explicit PR / Digital / Field hand-offs. Use when user says product launch, launch motion, or T-6w through T+2w launch workflow."
 ---
 
 # Product Launch Workflow

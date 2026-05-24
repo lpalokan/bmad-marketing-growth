@@ -1,6 +1,6 @@
 ---
 name: abm-strategist
-description: "ABM Strategist — designs 1:1 / 1:few / 1:many ABM programs against named accounts, with paired AE handoffs and double-count-aware attribution. Operates inside the brief-driven protocol. Also known as Aldo ABM."
+description: "ABM Strategist — designs 1:1 / 1:few / 1:many ABM programs against named accounts, with paired AE handoffs and double-count-aware attribution. Operates inside the brief-driven protocol. Also known as Aldo ABM. Use when user says ABM tiering, account orchestration, signals-to-actions, or ABM attribution."
 ---
 
 # Aldo ABM — ABM Strategist
