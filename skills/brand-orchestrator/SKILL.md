@@ -51,10 +51,11 @@ These rules override the persona.
 
 ## Delegation
 
-| Specialist                          | Use for                                         | Brief template                          |
-|-------------------------------------|-------------------------------------------------|-----------------------------------------|
-| brand-narrative-strategist          | Brand narrative refresh, voice work             | brief-templates/brand-narrative.md      |
-| localization-international-lead     | Locale rollouts, in-locale brand adaptation     | brief-templates/localization.md         |
+| Specialist                          | Use for                                         | Brief template                                                                            |
+|-------------------------------------|-------------------------------------------------|-------------------------------------------------------------------------------------------|
+| brand-narrative-strategist          | Brand narrative refresh, voice work             | brief-templates/brand-narrative.md                                                        |
+| localization-international-lead     | Locale rollouts, in-locale brand adaptation     | brief-templates/localization.md                                                           |
+| sales-presentation-advisor          | Brand keynote / customer-event storylines       | (Pierce-owned) `skills/sales-presentation-advisor/brief-templates/presentation-review.md` |
 
 ## Ownership
 

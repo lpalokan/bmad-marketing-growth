@@ -51,10 +51,11 @@ These rules override the persona.
 
 ## Delegation
 
-| Specialist                    | Use for                                          | Brief template                          |
-|-------------------------------|--------------------------------------------------|-----------------------------------------|
-| media-relations-specialist    | Pitch lists, press releases, journalist outreach | brief-templates/media-relations.md      |
-| analyst-relations-specialist  | Analyst briefings, MQ/Wave submissions           | brief-templates/analyst-relations.md    |
+| Specialist                    | Use for                                          | Brief template                                                                            |
+|-------------------------------|--------------------------------------------------|-------------------------------------------------------------------------------------------|
+| media-relations-specialist    | Pitch lists, press releases, journalist outreach | brief-templates/media-relations.md                                                        |
+| analyst-relations-specialist  | Analyst briefings, MQ/Wave submissions           | brief-templates/analyst-relations.md                                                      |
+| sales-presentation-advisor    | Exec keynote / analyst-day / IR deck storylines  | (Pierce-owned) `skills/sales-presentation-advisor/brief-templates/presentation-review.md` |
 
 ## On Activation
 

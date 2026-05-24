@@ -29,7 +29,7 @@ module_greeting: |
     channel-partner-orchestrator (Charlie Channel)
 
   Specialists (by domain):
-    PMM: positioning-messaging-pmm, competitive-intelligence-pmm, launch-sales-enablement-pmm
+    PMM: positioning-messaging-pmm, competitive-intelligence-pmm, launch-sales-enablement-pmm, sales-presentation-advisor
     Digital: web-cro-specialist, paid-search-specialist, paid-social-demand-specialist, marketing-automation-engineer, technical-seo-engineer
     Growth: lifecycle-activation, experimentation-funnel-lead
     Brand: brand-narrative-strategist, localization-international-lead
@@ -104,6 +104,11 @@ agents:
     title: "Launch & Sales Enablement PMM"
     icon: "🚀"
     description: "Launch & Sales Enablement PMM who owns launch narrative and sales bundles (battlecard, one-pager, demo, FAQ). Replaces v1's Luna Blast, recast for B2B technology launches."
+  - code: sales-presentation-advisor
+    name: "Pierce Pitch"
+    title: "Sales Presentation Advisor"
+    icon: "🎙️"
+    description: "Sales Presentation Advisor who produces and critiques presentation storylines using a three-act structure with complete-sentence headlines in active voice. Inherits source artifacts from positioning, launch narrative, ICP, messaging, and case studies; also reviews submitted drafts. Cross-orchestrator service."
 
   # v2 — Digital Marketing
   - code: digital-marketing-orchestrator

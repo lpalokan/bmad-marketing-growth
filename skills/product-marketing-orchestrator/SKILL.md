@@ -59,11 +59,12 @@ from `brief-templates/`, then hand off. Review verdicts and the
 review/state schemas live in `docs/protocol.md` — follow that document
 literally; do not paraphrase it here.
 
-| Specialist                    | Use for                                  | Brief template                          |
-|-------------------------------|------------------------------------------|-----------------------------------------|
-| positioning-messaging-pmm     | Positioning statement, messaging pillars | brief-templates/positioning.md          |
-| competitive-intelligence-pmm  | Teardowns, battle cards, win/loss        | brief-templates/competitive-teardown.md |
-| launch-sales-enablement-pmm   | Launch narrative, enablement assets, GTM | brief-templates/launch-enablement.md    |
+| Specialist                    | Use for                                  | Brief template                                                                  |
+|-------------------------------|------------------------------------------|---------------------------------------------------------------------------------|
+| positioning-messaging-pmm     | Positioning statement, messaging pillars | brief-templates/positioning.md                                                  |
+| competitive-intelligence-pmm  | Teardowns, battle cards, win/loss        | brief-templates/competitive-teardown.md                                         |
+| launch-sales-enablement-pmm   | Launch narrative, enablement assets, GTM | brief-templates/launch-enablement.md                                            |
+| sales-presentation-advisor    | Sales deck / keynote / pitch storylines  | (Pierce-owned) `skills/sales-presentation-advisor/brief-templates/presentation-review.md` |
 
 ## Ownership
 

@@ -7,7 +7,7 @@
 
 An AI-powered marketing team for international B2B technology
 companies — a CMO orchestrator coordinating 8 domain orchestrators and
-~33 specialists, plus Tier-1 workflows that string them together.
+~34 specialists, plus Tier-1 workflows that string them together.
 
 Distributed as **both** a native [Claude Code plugin](https://code.claude.com/docs/en/plugins.md) and a [BMAD framework](https://github.com/bmad-code-org/BMAD-METHOD) module. One physical copy of every skill; pick whichever installer you prefer.
 
@@ -37,7 +37,8 @@ Pixel Metrics — Measurement & Attribution Staff   (scope: attribution, forecas
 ├── Product Marketing
 │   ├── Positioning & Messaging PMM
 │   ├── Competitive Intelligence PMM
-│   └── Launch & Sales Enablement PMM
+│   ├── Launch & Sales Enablement PMM
+│   └── Sales Presentation Advisor (Pierce; cross-orchestrator service)
 │
 ├── Brand
 │   ├── Brand Narrative & Voice Strategist
