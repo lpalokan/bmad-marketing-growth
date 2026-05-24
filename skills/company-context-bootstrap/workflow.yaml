@@ -73,44 +73,63 @@ phases:
         gate: "user_approval"
 
   - id: kpis
-    name: "KPIs intake"
-    description: "Capture the 5–10 metrics the company is run by."
+    name: "KPIs intake (minimal)"
+    description: "Capture the 3-5 KPIs the company is run by — names + definitions only."
     steps:
       - id: kpis-intake
         name: "KPIs"
         agent: marketing-orchestrator
-        delegates_to: growth-analyst
         action: |
-          Have Pixel Metrics (growth-analyst) lead this step. For each
-          KPI:
-          - Name.
-          - Definition (formula or operational definition).
-          - Current value (ask, do not invent).
-          - Target value and time horizon.
-          - Source system / dashboard URL.
-          - Owner (which team or agent).
-          Cap at 10. If the user lists more, ask which 10 they would
-          report to the board.
+          Capture only the durable shape:
+          - The 3-5 metrics this company is actually run by (the ones
+            the CEO would name in a board meeting).
+          - For each: a one-line operational definition (formula or
+            unambiguous prose).
+
+          Do NOT capture in bootstrap — these rot too fast or are
+          re-captured downstream where they belong:
+          - Current values → live dashboard (Pixel's DB capability).
+          - Targets and time horizons → annual plan and quarterly
+            re-plan (Max Growth's AP capability).
+          - Dashboard URLs / source systems → dashboard spec.
+          - Per-KPI owners → omit; the company-context schema already
+            records `owner` in frontmatter for the file itself
+            (growth-analyst).
+
+          Cap at 5. If the user lists more, ask which 5 they'd put on
+          the board deck.
         output: "kpis.md"
         gate: "user_approval"
 
   - id: tech-stack
-    name: "Tech stack intake"
-    description: "Capture the MarTech stack and lead-routing rules."
+    name: "Tech stack intake (vendor names only)"
+    description: "Capture the vendor names of the core MarTech categories."
     steps:
       - id: tech-stack-intake
         name: "Tech stack"
         agent: marketing-orchestrator
-        delegates_to: marketing-automation-engineer
         action: |
-          Have the Marketing Automation Engineer lead this step.
-          Capture:
-          - CDP, MAP, CRM, analytics, ad platforms (vendor + tier).
-          - Identity resolution approach.
-          - Lead-routing rules (SLA, round-robin vs territory,
-            disqualification triggers).
-          - Scoring model (if any): inputs, weights, thresholds.
-          - Known integration gaps or pain points.
+          Capture vendor name only — one line per category. Use "none"
+          if the user doesn't have one.
+          - MAP             (HubSpot / Marketo / Pardot / none)
+          - CRM             (Salesforce / HubSpot / Pipedrive / none)
+          - Web analytics   (GA4 / Mixpanel / Amplitude / Plausible)
+          - CMS             (WordPress / Webflow / Sanity / custom)
+          - Tag manager     (GTM / Segment / none)
+          - Experimentation (Optimizely / VWO / Statsig / none)
+          - Ad platforms    (named list: Google Ads, LinkedIn, Meta…)
+
+          Do NOT capture in bootstrap — these rot fast and belong in
+          deliverables, not intake:
+          - Lead-routing rules, SLAs       → marops-audit.
+          - Scoring model inputs/weights   → Pixel SC + Mark Auto SC.
+          - Identity resolution approach   → marops-audit.
+          - Integration gaps / pain points → marops-audit.
+          - Vendor versions, contract URLs → irrelevant.
+
+          The downstream test for "do we need this in bootstrap?": can
+          one of {paid search, MAP spec, experimentation, SEO, MarOps
+          audit} read the line and proceed? If not, omit.
         output: "tech-stack.md"
         gate: "user_approval"
 
