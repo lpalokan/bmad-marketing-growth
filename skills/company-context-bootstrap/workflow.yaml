@@ -6,15 +6,107 @@
 workflow:
   id: company-context-bootstrap
   name: "Company Context Bootstrap"
-  version: "1.0.0"
+  version: "1.1.0"
   trigger: "WB"
   lead_agent: marketing-orchestrator
   description: |
-    One-time intake that produces the five shared company-context/
-    files every v2 agent reads on activation. Run once at project
-    start; re-runnable as a refresh.
+    Intake that produces the five shared company-context/ files every
+    v2 agent reads on activation. Run once at project start;
+    re-runnable as a refresh. Can also import & adapt an existing
+    project's context instead of starting from scratch.
 
 phases:
+  - id: source
+    name: "Source selection"
+    description: "Start from scratch, or import & adapt an existing context folder."
+    steps:
+      - id: choose-mode
+        name: "Choose bootstrap mode"
+        agent: marketing-orchestrator
+        action: |
+          Ask the user how they want to bootstrap:
+          - SCRATCH: answer intake questions for each file (default).
+          - IMPORT:  seed from another project's company-context, then
+                     adapt each file for this project.
+
+          If SCRATCH, set every file's mode to `fresh` and proceed to
+          the icp phase. If IMPORT, continue with the steps below.
+        output: "(no file — sets per-file mode: fresh | import)"
+        gate: "user_approval"
+
+      - id: resolve-source
+        name: "Resolve the source folder"
+        agent: marketing-orchestrator
+        condition: "mode == IMPORT"
+        action: |
+          Ask for a folder path, then resolve it (tolerant, never guess
+          content):
+          - If the path DIRECTLY contains any recognized context file
+            (icp.md, positioning.md, brand-voice.md, kpis.md,
+            tech-stack.md), use it as the source folder.
+          - Else look for `_bmad-output/company-context/` then
+            `company-context/` directly beneath it; use the first that
+            contains recognized files.
+          - Else treat the path as a CONTAINER: scan its immediate
+            subfolders for any that resolve (by the two rules above) to
+            a context folder. If two or more source projects are found,
+            list them and ask the user to choose exactly one.
+          - If nothing resolves, tell the user no context files were
+            found at that path and offer to switch to SCRATCH.
+
+          Do not read files outside the path the user gave.
+        output: "(no file — sets {source_folder})"
+        gate: "user_approval"
+
+      - id: select-files
+        name: "Report availability and select files"
+        agent: marketing-orchestrator
+        condition: "mode == IMPORT and {source_folder} resolved"
+        action: |
+          Scan {source_folder} for the five recognized files. Report:
+          - present: which recognized files exist.
+          - missing: which recognized files are absent.
+          Ignore unrecognized files (e.g. bootstrap-summary.md, notes).
+
+          Ask the user to include or exclude each PRESENT file
+          individually. For each MISSING file, ask: run the from-scratch
+          intake for it, or skip it.
+
+          Record per-file mode: `import` (present + included),
+          `fresh` (missing + run intake), or `skip`.
+        output: "(no file — finalizes per-file mode map)"
+        gate: "user_approval"
+
+      - id: copy-and-adapt
+        name: "Copy then adapt included files"
+        agent: marketing-orchestrator
+        condition: "any file mode == import"
+        action: |
+          For each file marked `import`, in this order — icp.md,
+          positioning.md, brand-voice.md, kpis.md, tech-stack.md:
+
+          1. Read the source file from {source_folder}.
+          2. If a file with the same name already exists under
+             {output_folder}/company-context/, show existing vs incoming
+             and ask keep / overwrite before writing. On `keep`, set the
+             file's mode to `skip` and move on.
+          3. Copy the body into {output_folder}/company-context/.
+             Refresh frontmatter: preserve `owner` and `schema_version`;
+             set `last_updated` to today and `last_updated_by: user`.
+             Set the Status line to `In progress`.
+          4. Adapt the imported draft for THIS project. Walk the
+             project-specific fields (company name, segments, named
+             references, numbers, vendor names) one focused question at
+             a time. Apply Source Fidelity: never carry a number from the
+             source project as if it were this project's — confirm or
+             replace each; on missing data, ask, don't fill.
+          5. On the user's approval, set Status to `Bootstrapped`.
+
+          Files marked `skip` are left untouched. Files marked `fresh`
+          are handled by their intake phase below.
+        output: "(writes the imported+adapted company-context files)"
+        gate: "user_approval"
+
   - id: icp
     name: "ICP intake"
     description: "Capture the Ideal Customer Profile."
@@ -22,8 +114,10 @@ phases:
       - id: icp-intake
         name: "Ideal Customer Profile"
         agent: marketing-orchestrator
+        condition: "icp.md mode == fresh"
         action: |
-          Ask the user, one focused question at a time:
+          If icp.md was imported & adapted in the source phase, skip this
+          step. Otherwise ask the user, one focused question at a time:
           - Primary segment(s): industry, company size, geo.
           - Buyer persona(s): title, seniority, team.
           - Jobs-to-be-done: what they're hired to accomplish.
@@ -40,8 +134,11 @@ phases:
       - id: positioning-intake
         name: "Positioning statement"
         agent: marketing-orchestrator
+        condition: "positioning.md mode == fresh"
         action: |
-          Walk the user through the classic positioning template:
+          If positioning.md was imported & adapted in the source phase,
+          skip this step. Otherwise walk the user through the classic
+          positioning template:
           - For (target) who (need),
           - (product) is a (category)
           - that (key benefit)
@@ -60,8 +157,10 @@ phases:
       - id: brand-voice-intake
         name: "Brand voice"
         agent: marketing-orchestrator
+        condition: "brand-voice.md mode == fresh"
         action: |
-          Capture:
+          If brand-voice.md was imported & adapted in the source phase,
+          skip this step. Otherwise capture:
           - Three to five voice attributes (e.g. "expert", "wry",
             "concrete"), each with a one-line definition.
           - Do/don't word lists (10–20 each).
@@ -79,8 +178,10 @@ phases:
       - id: kpis-intake
         name: "KPIs"
         agent: marketing-orchestrator
+        condition: "kpis.md mode == fresh"
         action: |
-          Capture only the durable shape:
+          If kpis.md was imported & adapted in the source phase, skip
+          this step. Otherwise capture only the durable shape:
           - The 3-5 metrics this company is actually run by (the ones
             the CEO would name in a board meeting).
           - For each: a one-line operational definition (formula or
@@ -108,9 +209,11 @@ phases:
       - id: tech-stack-intake
         name: "Tech stack"
         agent: marketing-orchestrator
+        condition: "tech-stack.md mode == fresh"
         action: |
-          Capture vendor name only — one line per category. Use "none"
-          if the user doesn't have one.
+          If tech-stack.md was imported & adapted in the source phase,
+          skip this step. Otherwise capture vendor name only — one line
+          per category. Use "none" if the user doesn't have one.
           - MAP             (HubSpot / Marketo / Pardot / none)
           - CRM             (Salesforce / HubSpot / Pipedrive / none)
           - Web analytics   (GA4 / Mixpanel / Amplitude / Plausible)

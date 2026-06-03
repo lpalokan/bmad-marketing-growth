@@ -1,7 +1,7 @@
 {
   "name": "marketing-growth",
   "version": "2.0.0",
-  "description": "AI-powered marketing team for international B2B technology — refactoring to a CMO + 8 domain orchestrators + ~33 specialists with brief-driven delegation (see docs/protocol.md). v2.0.0 rolls out in phases; this version is Phase 0 (foundations) on top of the v1 roster.",
+  "description": "AI-powered marketing team for international B2B technology — a CMO + 8 domain orchestrators + ~33 specialists with brief-driven delegation (see docs/protocol.md). v2.0.0 — feature-complete: full domain roster plus Tier-1 and Tier-2 workflows.",
   "author": {
     "name": "Lauri Palokangas",
     "url": "https://github.com/lpalokan/bmad-marketing-growth"
