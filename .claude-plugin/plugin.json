@@ -1,7 +1,7 @@
 {
   "name": "marketing-growth",
-  "version": "1.0.3",
-  "description": "AI-powered marketing team for B2B SaaS — 15 agents (6 orchestrators + 9 specialists) and 6 workflow orchestrators. Covers strategy, content, SEO, social, launch coordination, and growth analytics.",
+  "version": "2.0.0",
+  "description": "AI-powered marketing team for international B2B technology — a CMO + 8 domain orchestrators + ~33 specialists with brief-driven delegation (see docs/protocol.md). v2.0.0 — feature-complete: full domain roster plus Tier-1 and Tier-2 workflows.",
   "author": {
     "name": "Lauri Palokangas",
     "url": "https://github.com/lpalokan/bmad-marketing-growth"

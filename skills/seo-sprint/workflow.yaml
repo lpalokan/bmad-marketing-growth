@@ -1,17 +1,19 @@
 # SEO Sprint Workflow
 # Trigger: WO
-# Lead: Quinn Crawler (SEO Strategist)
-# Description: Audit → Keywords → Content gaps → Quick wins
+# Lead: Quinn Crawler (Content SEO Strategist)
+# Description: Content-side audit → keywords → content gaps → quick wins.
+# v2 refresh: technical-side audit delegated to Tek Crawl (Technical SEO Engineer).
 
 workflow:
   id: seo-sprint
   name: "SEO Sprint"
-  version: "1.0.0"
+  version: "2.0.0"
   trigger: "WO"
-  lead_agent: seo-strategist
+  lead_agent: content-seo-strategist
   description: |
-    Focused SEO optimization sprint workflow.
-    From audit to actionable quick wins in a structured approach.
+    Focused content-SEO sprint. Technical-side audit items hand off
+    to technical-seo-engineer (Tek Crawl) — v2 split between content
+    SEO (Quinn / Content) and technical SEO (Tek / Digital).
 
 # Sprint Duration
 duration:
@@ -31,22 +33,19 @@ phases:
     steps:
       - id: technical-audit
         name: "Technical SEO Audit"
-        agent: seo-strategist
+        agent: content-seo-strategist
+        delegates_to: technical-seo-engineer
         action: |
-          Analyze technical health:
-          - Site speed (Core Web Vitals)
-          - Mobile-friendliness
-          - Crawlability (robots.txt, sitemap)
-          - Indexation status
-          - Schema markup
-          - SSL/HTTPS
-          - URL structure
-          - Internal linking
+          Hand off technical-side audit to Tek Crawl: site speed (CWV),
+          mobile-friendliness, crawlability (robots / sitemap),
+          indexation, schema, SSL, URL structure, internal linking,
+          hreflang (if multi-locale), JS rendering.
+        brief_template: "brief-templates/technical-audit.md"
         output: "technical-audit.md"
 
       - id: on-page-audit
         name: "On-Page SEO Audit"
-        agent: seo-strategist
+        agent: content-seo-strategist
         action: |
           Analyze on-page elements:
           - Title tags
@@ -60,7 +59,7 @@ phases:
 
       - id: off-page-audit
         name: "Off-Page SEO Audit"
-        agent: seo-strategist
+        agent: content-seo-strategist
         action: |
           Analyze off-page factors:
           - Backlink profile
@@ -73,7 +72,7 @@ phases:
 
       - id: content-audit
         name: "Content SEO Audit"
-        agent: seo-strategist
+        agent: content-seo-strategist
         action: |
           Analyze content:
           - Top performing pages
@@ -91,7 +90,7 @@ phases:
     steps:
       - id: current-rankings
         name: "Current Rankings Analysis"
-        agent: seo-strategist
+        agent: content-seo-strategist
         action: |
           Analyze current rankings:
           - Keywords ranking (positions 1-100)
@@ -103,7 +102,7 @@ phases:
 
       - id: keyword-research
         name: "Keyword Research"
-        agent: seo-strategist
+        agent: content-seo-strategist
         action: |
           Research new opportunities:
           - Head terms (high volume)
@@ -115,7 +114,7 @@ phases:
 
       - id: keyword-mapping
         name: "Keyword Mapping"
-        agent: seo-strategist
+        agent: content-seo-strategist
         action: |
           Map keywords to content:
           - Primary keyword per page
@@ -126,7 +125,7 @@ phases:
 
       - id: competitor-keywords
         name: "Competitor Keyword Analysis"
-        agent: seo-strategist
+        agent: content-seo-strategist
         action: |
           Analyze competitor keywords:
           - Keywords they rank for
@@ -142,7 +141,7 @@ phases:
     steps:
       - id: gap-analysis
         name: "Content Gap Identification"
-        agent: seo-strategist
+        agent: content-seo-strategist
         action: |
           Identify gaps:
           - Topics competitors cover
@@ -154,7 +153,7 @@ phases:
 
       - id: content-opportunities
         name: "Content Opportunity Scoring"
-        agent: seo-strategist
+        agent: content-seo-strategist
         action: |
           Score opportunities:
           - Search volume
@@ -184,7 +183,7 @@ phases:
     steps:
       - id: identify-quick-wins
         name: "Identify Quick Wins"
-        agent: seo-strategist
+        agent: content-seo-strategist
         action: |
           Find quick wins:
           - Pages ranking 11-20 (push to page 1)
@@ -198,7 +197,7 @@ phases:
 
       - id: title-meta-optimization
         name: "Title & Meta Optimization"
-        agent: seo-strategist
+        agent: content-seo-strategist
         action: |
           Optimize titles and metas:
           - Review current titles
@@ -210,7 +209,7 @@ phases:
 
       - id: internal-linking
         name: "Internal Linking Sprint"
-        agent: seo-strategist
+        agent: content-seo-strategist
         action: |
           Improve internal linking:
           - Identify orphan pages
@@ -222,7 +221,7 @@ phases:
 
       - id: technical-fixes
         name: "Technical Quick Fixes"
-        agent: seo-strategist
+        agent: content-seo-strategist
         action: |
           Implement technical fixes:
           - Fix broken links
@@ -252,7 +251,7 @@ phases:
     steps:
       - id: implementation-summary
         name: "Implementation Summary"
-        agent: seo-strategist
+        agent: content-seo-strategist
         action: |
           Document completed work:
           - Changes implemented
@@ -264,7 +263,7 @@ phases:
 
       - id: tracking-setup
         name: "Tracking & Monitoring"
-        agent: seo-strategist
+        agent: content-seo-strategist
         action: |
           Set up tracking:
           - Keyword rank tracking
@@ -276,7 +275,7 @@ phases:
 
       - id: sprint-report
         name: "Sprint Report"
-        agent: seo-strategist
+        agent: content-seo-strategist
         action: |
           Create sprint report:
           - Work completed
@@ -288,7 +287,7 @@ phases:
 
       - id: next-sprint-planning
         name: "Next Sprint Planning"
-        agent: seo-strategist
+        agent: content-seo-strategist
         action: |
           Plan next sprint:
           - Carryover items

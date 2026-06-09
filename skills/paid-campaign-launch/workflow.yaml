@@ -1,0 +1,113 @@
+# Paid Campaign Launch Workflow
+# Trigger: WP
+# Lead: Dani Demand (Digital Marketing Lead)
+# Description: Inputs → Build → QA → Launch.
+
+workflow:
+  id: paid-campaign-launch
+  name: "Paid Campaign Launch"
+  version: "1.0.0"
+  trigger: "WP"
+  lead_agent: digital-marketing-orchestrator
+  description: |
+    End-to-end paid-campaign launch coordinated across paid-search,
+    paid-social-demand, web-cro, and marketing-automation-engineer.
+
+phases:
+  - id: inputs
+    name: "Inputs"
+    description: "Confirm objective, audience, budget, attribution."
+    steps:
+      - id: campaign-brief
+        name: "Campaign brief"
+        agent: digital-marketing-orchestrator
+        action: |
+          Gather: objective (demand creation / lead capture / pipeline
+          accel), audience (ICP segments), total budget, dates,
+          attribution method.
+        brief_template: "brief-templates/01-campaign-brief.md"
+        output: "campaign-brief.md"
+        gate: "user_approval"
+
+  - id: build
+    name: "Build"
+    description: "Paid setup + LP + tracking + lifecycle."
+    steps:
+      - id: paid-search
+        name: "Paid search setup"
+        agent: digital-marketing-orchestrator
+        delegates_to: paid-search-specialist
+        condition: "channel-mix-includes-search"
+        action: "Issue paid-search brief."
+        brief_template: "brief-templates/02-paid-search.md"
+        output: "paid-search.md"
+
+      - id: paid-demand
+        name: "Paid social / demand-gen setup"
+        agent: digital-marketing-orchestrator
+        delegates_to: paid-social-demand-specialist
+        condition: "channel-mix-includes-social-or-demand"
+        action: "Issue paid-demand brief."
+        brief_template: "brief-templates/03-paid-demand.md"
+        output: "paid-demand.md"
+
+      - id: landing-page
+        name: "Landing page"
+        agent: digital-marketing-orchestrator
+        delegates_to: web-cro-specialist
+        action: "Issue web-cro brief for the campaign LP."
+        brief_template: "brief-templates/04-landing-page.md"
+        output: "landing-page.md"
+
+      - id: lifecycle-trigger
+        name: "Lifecycle nurture trigger"
+        agent: digital-marketing-orchestrator
+        delegates_to: marketing-automation-engineer
+        action: |
+          Issue MAP-workflow brief: trigger on form-fill → nurture
+          sequence + lead-routing.
+        brief_template: "brief-templates/05-lifecycle-trigger.md"
+        output: "lifecycle-trigger.md"
+
+  - id: qa
+    name: "QA"
+    description: "Tracking, brand-safety, budget pacing."
+    steps:
+      - id: tracking-qa
+        name: "Tracking verification"
+        agent: paid-search-specialist
+        action: |
+          Use capability CT (conversion tracking) to verify end-to-end
+          tracking. Pass/fail per item.
+        output: "tracking-qa.md"
+        gate: "user_approval"
+
+      - id: brand-safety-qa
+        name: "Brand-safety verification"
+        agent: paid-social-demand-specialist
+        action: |
+          Use capability BS (brand-safety) to verify exclusion lists,
+          inventory tiers, frequency caps.
+        output: "brand-safety-qa.md"
+
+  - id: launch
+    name: "Launch"
+    description: "Ramp + weekly hygiene cadence."
+    steps:
+      - id: ramp
+        name: "Spend ramp"
+        agent: digital-marketing-orchestrator
+        action: |
+          Day-1 50% of cap; day-3 75%; day-7 100% if quality-score
+          and conversion thresholds met.
+        output: "ramp-plan.md"
+
+      - id: weekly-hygiene
+        name: "Weekly hygiene"
+        agent: digital-marketing-orchestrator
+        recurring: "weekly"
+        action: |
+          Each week: review negatives, audience saturation, CPL trend,
+          attribution check. Surface anomalies > X% to Pixel for
+          model validation.
+        output: "weekly-report.md"

@@ -1,24 +1,25 @@
 # Content Pipeline Workflow
 # Trigger: WC
-# Lead: Milo Page (Content Architect)
-# Description: Brief → Writing → Publication content workflow
+# Lead: Milo Page (Content Marketing Lead)
+# Description: Brief → Writing → Publication → Monitoring content workflow.
+# v2 refresh: agent refs updated, brief_template fields added.
 
 workflow:
   id: content-pipeline
   name: "Content Pipeline"
-  version: "1.0.0"
+  version: "2.0.0"
   trigger: "WC"
   lead_agent: content-architect
   description: |
     End-to-end content creation workflow from brief to publication.
-    Manages the full content lifecycle with quality gates.
+    Manages the full content lifecycle with quality gates. v2 uses
+    content-seo-strategist (renamed from seo-strategist) and pulls
+    distribution through Nova (Field).
 
-# Workflow Phases
 phases:
-  # === PHASE 1: BRIEF ===
   - id: brief
     name: "Content Brief"
-    description: "Define content requirements and specifications"
+    description: "Define content requirements and specifications."
     steps:
       - id: content-request
         name: "Content Request Intake"
@@ -27,7 +28,7 @@ phases:
           Gather from user:
           - Content type (blog, guide, case study, etc.)
           - Target topic/keyword
-          - Target audience
+          - Target audience (named ICP segment from `icp.md`)
           - Business objective
           - Desired length
           - Deadline
@@ -35,169 +36,126 @@ phases:
 
       - id: keyword-research
         name: "Keyword & Topic Research"
-        agent: seo-strategist
-        delegates_to: seo-strategist
+        agent: content-architect
+        delegates_to: content-seo-strategist
         action: |
-          Research:
-          - Primary keyword
-          - Secondary keywords
-          - Search intent
-          - Competitor content analysis
-          - Content gap opportunities
+          Commission content-SEO research: primary keyword, secondary
+          keywords, search intent, competitor content analysis,
+          content gap opportunities.
+        brief_template: "brief-templates/01-keyword-research.md"
         output: "keyword-research.md"
 
       - id: content-brief
         name: "Create Content Brief"
         agent: content-architect
         action: |
-          Create detailed brief:
-          - Headline options (5)
-          - Target keyword and semantics
-          - Content outline (H2s, H3s)
-          - Key points to cover
-          - Internal/external link suggestions
-          - CTA strategy
-          - Word count target
-          - Tone and style notes
+          Use capability CB (content brief): headline options (5),
+          target keyword and semantics, content outline (H2s, H3s),
+          key points to cover, internal/external link suggestions,
+          CTA strategy, word-count target, tone and style notes.
         output: "content-brief.md"
 
       - id: brief-approval
         name: "Brief Approval"
         agent: content-architect
         action: |
-          Present brief to user:
-          - Review headline options
-          - Validate outline
-          - Confirm direction
-          - Get approval to proceed
+          Present brief to user: review headlines, validate outline,
+          confirm direction, get approval to proceed.
         gate: "user_approval"
 
-  # === PHASE 2: CREATION ===
   - id: creation
     name: "Content Creation"
-    description: "Write and refine content"
+    description: "Write and refine content."
     steps:
       - id: first-draft
         name: "First Draft"
         agent: content-architect
         action: |
-          Write content following brief:
-          - Follow approved outline
-          - Integrate keywords naturally
-          - Include internal links
-          - Write compelling intro
-          - Craft strong conclusion
-          - Add CTA
+          Write content following the approved brief. Brand voice
+          per `brand-voice.md`. Numbers sourced or marked `[needs
+          source]`.
         output: "draft-v1.md"
 
       - id: seo-optimization
-        name: "SEO Optimization"
-        agent: seo-strategist
-        delegates_to: seo-strategist
+        name: "Content SEO Optimization"
+        agent: content-architect
+        delegates_to: content-seo-strategist
         action: |
-          Optimize draft for SEO:
-          - Meta title and description
-          - Header tag optimization
-          - Keyword density check
-          - Image alt text
-          - Schema markup suggestions
-          - Internal linking audit
+          Commission content-SEO optimization: meta title and
+          description, header optimization, keyword usage check
+          (content-side only — technical SEO is Tek Crawl's job),
+          image alt text suggestions, internal linking audit.
+        brief_template: "brief-templates/02-seo-optimization.md"
         output: "seo-optimizations.md"
 
       - id: content-revision
         name: "Content Revision"
         agent: content-architect
         action: |
-          Apply SEO feedback:
-          - Integrate optimizations
-          - Polish writing
-          - Check flow and readability
-          - Verify accuracy
+          Apply SEO feedback; polish; verify accuracy; check flow.
         output: "draft-v2.md"
 
       - id: content-review
         name: "Content Review"
         agent: content-architect
         action: |
-          Present to user:
-          - Share draft for review
-          - Gather feedback
-          - Make revisions
-          - Get final approval
+          Present to user for final approval.
         gate: "user_approval"
         output: "draft-final.md"
 
-  # === PHASE 3: PUBLICATION ===
   - id: publication
     name: "Publication & Distribution"
-    description: "Publish and promote content"
+    description: "Publish and promote content."
     steps:
       - id: publish-prep
         name: "Publication Preparation"
         agent: content-architect
         action: |
-          Prepare for publication:
-          - Final formatting
-          - Image selection/creation brief
-          - Featured image specs
-          - Category/tag assignment
-          - Publication date
+          Final formatting, image selection brief, featured image
+          specs, category / tag assignment, publication date.
         output: "publish-checklist.md"
 
       - id: social-distribution
         name: "Social Distribution Plan"
-        agent: social-media-strategist
+        agent: content-architect
         delegates_to: social-media-strategist
         action: |
-          Create distribution plan:
-          - Platform-specific posts
-          - Posting schedule
-          - Engagement strategy
-          - Repurposing opportunities
+          Commission Nova for distribution: per-platform posts,
+          schedule, engagement strategy, repurposing opportunities.
+        brief_template: "brief-templates/03-social-distribution.md"
         output: "distribution-plan.md"
 
       - id: publication
         name: "Content Publication"
         agent: content-architect
         action: |
-          Execute publication:
-          - Publish content
-          - Submit to search console
-          - Share on social (via distribution plan)
-          - Notify relevant stakeholders
+          Execute publication: publish content, submit to search
+          console, share via approved distribution plan, notify
+          stakeholders.
         output: "publication-confirmation.md"
 
-  # === PHASE 4: MONITORING ===
   - id: monitoring
     name: "Performance Monitoring"
-    description: "Track content performance"
+    description: "Track content performance (Pixel-validated)."
     steps:
       - id: initial-tracking
         name: "Initial Performance Check"
-        agent: growth-analyst
+        agent: content-architect
         delegates_to: growth-analyst
         action: |
-          Set up tracking:
-          - Verify analytics
-          - Note baseline metrics
-          - Schedule follow-up review
+          Verify analytics, note baseline metrics, schedule follow-up
+          review. Pixel validates the measurement.
         output: "tracking-setup.md"
 
       - id: performance-review
         name: "30-Day Performance Review"
         agent: growth-analyst
-        delegates_to: growth-analyst
         trigger: "scheduled_30_days"
         action: |
-          Analyze performance:
-          - Traffic metrics
-          - Engagement metrics
-          - Conversion data
-          - SEO ranking progress
-          - Recommendations for optimization
+          Analyze traffic, engagement, conversion, SEO ranking
+          progress. Recommend optimizations.
         output: "performance-report.md"
 
-# Workflow Outputs
 outputs:
   primary: "draft-final.md"
   supporting:
@@ -209,19 +167,17 @@ outputs:
     - "publication-confirmation.md"
     - "performance-report.md"
 
-# Quality Gates
 gates:
   - id: brief_approval
     phase: brief
-    description: "User approves content brief before writing begins"
+    description: "User approves content brief before writing begins."
     required: true
 
   - id: content_approval
     phase: creation
-    description: "User approves final draft before publication"
+    description: "User approves final draft before publication."
     required: true
 
-# Content Types Supported
 content_types:
   - id: blog-post
     name: "Blog Post"
@@ -248,11 +204,10 @@ content_types:
     word_count: "200-400 per email"
     timeline: "3-5 days"
 
-# Success Criteria
 success_criteria:
   - "Content brief approved before writing"
-  - "SEO optimization applied"
+  - "Content-SEO optimization applied"
   - "Final content approved by user"
   - "Content published successfully"
   - "Distribution executed on schedule"
-  - "Performance tracking active"
+  - "Performance tracking active (Pixel-validated)"

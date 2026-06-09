@@ -1,0 +1,97 @@
+# Experimentation Sprint Workflow
+# Trigger: WE
+# Lead: Greta Growth (Growth Marketing Lead)
+# Description: 2-week sprint: select → design → ship → read-out.
+
+workflow:
+  id: experimentation-sprint
+  name: "Experimentation Sprint"
+  version: "1.0.0"
+  trigger: "WE"
+  lead_agent: growth-marketing-orchestrator
+  description: |
+    2-week sprint: select 1-3 hypotheses, design rigorously, ship,
+    read out, decide rollout.
+
+duration:
+  typical: "2 weeks"
+
+phases:
+  - id: select
+    name: "Select"
+    description: "Pick 1-3 hypotheses from the backlog."
+    steps:
+      - id: backlog-review
+        name: "Backlog review"
+        agent: growth-marketing-orchestrator
+        action: |
+          Review the experiment backlog. Rank by impact × confidence
+          × effort. Pick 1-3 hypotheses for this sprint.
+        output: "sprint-selection.md"
+        gate: "user_approval"
+
+  - id: design
+    name: "Design"
+    description: "Eli Experiment specs each experiment."
+    steps:
+      - id: experiment-1
+        name: "Experiment 1 design"
+        agent: growth-marketing-orchestrator
+        delegates_to: experimentation-funnel-lead
+        action: "Issue experiment-design brief."
+        brief_template: "brief-templates/01-experiment.md"
+        output: "experiment-1.md"
+
+      - id: experiment-2
+        name: "Experiment 2 design"
+        agent: growth-marketing-orchestrator
+        delegates_to: experimentation-funnel-lead
+        condition: "selection-includes-2"
+        action: "Issue experiment-design brief."
+        brief_template: "brief-templates/01-experiment.md"
+        output: "experiment-2.md"
+
+      - id: experiment-3
+        name: "Experiment 3 design"
+        agent: growth-marketing-orchestrator
+        delegates_to: experimentation-funnel-lead
+        condition: "selection-includes-3"
+        action: "Issue experiment-design brief."
+        brief_template: "brief-templates/01-experiment.md"
+        output: "experiment-3.md"
+
+  - id: ship
+    name: "Ship"
+    description: "Implementation hand-off."
+    steps:
+      - id: implementation-handoff
+        name: "Implementation hand-off"
+        agent: growth-marketing-orchestrator
+        action: |
+          Per experiment, hand off implementation to the right agent:
+          web-cro-specialist for UI tests, lifecycle-activation for
+          message tests, marketing-automation-engineer for workflow
+          changes. Track ship status.
+        output: "ship-status.md"
+
+  - id: read-out
+    name: "Read-out & Decision"
+    description: "Apply pre-registered rollout criteria."
+    steps:
+      - id: read-outs
+        name: "Per-experiment read-out"
+        agent: experimentation-funnel-lead
+        action: |
+          For each experiment that hit sample size: apply pre-
+          registered rollout criterion verbatim. State decision
+          (ROLL OUT / DO NOT / EXTEND).
+        brief_template: "brief-templates/02-readout.md"
+        output: "read-outs.md"
+
+      - id: sprint-retro
+        name: "Sprint retro"
+        agent: growth-marketing-orchestrator
+        action: |
+          What worked, what didn't, what next sprint must do
+          differently. Update experiment backlog with new ideas.
+        output: "sprint-retro.md"

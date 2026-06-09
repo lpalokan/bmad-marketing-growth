@@ -1,0 +1,121 @@
+# Product Launch Workflow
+# Trigger: WL
+# Lead: Priya Position (Product Marketing Lead)
+# Description: Narrative → Bundles → Down-stream briefs → Launch day → Post-launch.
+
+workflow:
+  id: product-launch
+  name: "Product Launch"
+  version: "1.0.0"
+  trigger: "WL"
+  lead_agent: product-marketing-orchestrator
+  description: |
+    Full launch motion T-6 weeks through T+2 weeks. PMM owns the
+    narrative; PR / Digital / Field / Content receive briefs anchored
+    to it; launch day is coordinated; post-launch retro feeds the
+    next launch.
+
+phases:
+  - id: narrative
+    name: "Narrative & Bundle"
+    description: "PMM produces the launch narrative and sales bundle."
+    steps:
+      - id: launch-narrative
+        name: "Launch narrative"
+        agent: product-marketing-orchestrator
+        delegates_to: launch-sales-enablement-pmm
+        action: |
+          Issue brief to launch-sales-enablement-pmm using
+          brief-templates/01-launch-narrative.md. Acceptance criteria
+          per the brief.
+        brief_template: "brief-templates/01-launch-narrative.md"
+        output: "launch-narrative.md"
+        gate: "user_approval"
+
+      - id: sales-bundle
+        name: "Sales enablement bundle"
+        agent: launch-sales-enablement-pmm
+        action: |
+          Per launch tier (T1/T2/T3): produce one-pager, demo script,
+          FAQ. Battle card per competitive teardown.
+        brief_template: "brief-templates/02-sales-bundle.md"
+        output: "sales-bundle.md"
+        gate: "user_approval"
+
+  - id: down-stream-briefs
+    name: "Down-stream briefs"
+    description: "PR, Digital, Field, Content receive briefs."
+    steps:
+      - id: pr-brief
+        name: "PR launch brief"
+        agent: product-marketing-orchestrator
+        delegates_to: pr-comms-orchestrator
+        action: |
+          Issue PR brief: pitch list, press release, embargo plan,
+          monitoring.
+        brief_template: "brief-templates/03-pr-launch.md"
+        output: "pr-launch.md"
+
+      - id: digital-brief
+        name: "Digital launch campaign"
+        agent: product-marketing-orchestrator
+        delegates_to: digital-marketing-orchestrator
+        action: |
+          Issue Digital brief: paid campaign mix (search + demand-gen),
+          web hero / LP refresh, lifecycle nurture trigger.
+        brief_template: "brief-templates/04-digital-launch.md"
+        output: "digital-launch.md"
+
+      - id: field-brief
+        name: "Field launch motion"
+        agent: product-marketing-orchestrator
+        delegates_to: field-marketing-orchestrator
+        action: |
+          Issue Field brief: launch-day event / webinar, ABM-account
+          orchestration, social motion.
+        brief_template: "brief-templates/05-field-launch.md"
+        output: "field-launch.md"
+
+      - id: content-brief
+        name: "Content launch package"
+        agent: product-marketing-orchestrator
+        delegates_to: content-architect
+        action: |
+          Issue Content brief: pillar page, supporting articles,
+          technical-content piece if warranted.
+        brief_template: "brief-templates/06-content-launch.md"
+        output: "content-launch.md"
+
+  - id: launch-day
+    name: "Launch day"
+    description: "Coordinated motion across domains."
+    steps:
+      - id: launch-day-runbook
+        name: "Launch day run-of-show"
+        agent: product-marketing-orchestrator
+        action: |
+          15-minute time-blocks T-day-1 through T+1. Per block: owner,
+          action, contingency. Surface to all domain orchestrators.
+        brief_template: "brief-templates/07-launch-day-ops.md"
+        output: "launch-day-runbook.md"
+        gate: "user_approval"
+
+  - id: post-launch
+    name: "Post-launch"
+    description: "T+1 → T+14 wrap and retro."
+    steps:
+      - id: t-plus-1-wrap
+        name: "T+1 wrap"
+        agent: product-marketing-orchestrator
+        action: |
+          T+1: pull early metrics (coverage, web traffic, ad
+          performance, pipeline signals). Surface to user.
+        output: "t-plus-1-wrap.md"
+
+      - id: retro
+        name: "Post-launch retro"
+        agent: product-marketing-orchestrator
+        action: |
+          T+14: full retro. What worked, what didn't, what next launch
+          must do differently. Capture in launch-playbook.md sidecar.
+        output: "retro.md"

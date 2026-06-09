@@ -86,8 +86,8 @@ phases:
 
       - id: seo-strategy
         name: "SEO Strategy"
-        agent: seo-strategist
-        delegates_to: seo-strategist
+        agent: content-seo-strategist
+        delegates_to: content-seo-strategist
         action: |
           Define:
           - Target keyword clusters
@@ -126,11 +126,11 @@ phases:
 
       - id: launch-planning
         name: "Launch & Campaign Planning"
-        agent: launch-coordinator
-        delegates_to: launch-coordinator
+        agent: product-marketing-orchestrator
+        delegates_to: product-marketing-orchestrator
         action: |
           If applicable, plan:
-          - Product launches
+          - Product launches (run /product-launch workflow)
           - Major campaigns
           - Promotional calendar
         output: "launch-calendar.md"
@@ -199,20 +199,29 @@ success_criteria:
   - "KPIs and tracking framework established"
   - "User approval obtained"
 
-# Delegation Rules
+# Delegation Rules (v2)
 delegation:
+  product-marketing-orchestrator:
+    triggers: ["positioning", "messaging", "competitive", "launch narrative", "icp"]
+    workflow: "product-launch"
+  digital-marketing-orchestrator:
+    triggers: ["paid", "web", "cro", "automation", "technical seo"]
+    workflow: "paid-campaign-launch"
+  growth-marketing-orchestrator:
+    triggers: ["lifecycle", "activation", "experiment", "funnel"]
+    workflow: "experimentation-sprint"
+  brand-orchestrator:
+    triggers: ["brand voice", "brand narrative", "localization"]
   content-architect:
-    triggers: ["content strategy", "editorial", "blog", "articles"]
+    triggers: ["content strategy", "editorial", "blog", "articles", "pillar"]
     workflow: "content-pipeline"
-  seo-strategist:
-    triggers: ["seo", "keywords", "search", "rankings"]
-    workflow: "seo-sprint"
-  social-media-strategist:
-    triggers: ["social media", "twitter", "linkedin", "campaigns"]
-    workflow: "social-campaign"
-  launch-coordinator:
-    triggers: ["launch", "product release", "campaign"]
-    workflow: "launch-sequence"
+  field-marketing-orchestrator:
+    triggers: ["abm", "events", "webinars", "advocacy", "social"]
+    workflow: "abm-program"
+  pr-comms-orchestrator:
+    triggers: ["pr", "press", "analyst", "media", "crisis"]
+  channel-partner-orchestrator:
+    triggers: ["partner", "co-marketing", "marketplace", "channel"]
   growth-analyst:
-    triggers: ["metrics", "analytics", "kpis", "audit"]
+    triggers: ["metrics", "attribution", "kpis", "forecast", "dashboard"]
     workflow: "growth-audit"

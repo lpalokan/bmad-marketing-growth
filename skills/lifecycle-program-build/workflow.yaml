@@ -1,0 +1,59 @@
+# Lifecycle Program Build Workflow
+# Trigger: WF (Workflow - liFecycle)
+# Lead: Greta Growth (Growth Marketing Lead)
+
+workflow:
+  id: lifecycle-program-build
+  name: "Lifecycle Program Build"
+  version: "1.0.0"
+  trigger: "WF"
+  lead_agent: growth-marketing-orchestrator
+  description: |
+    End-to-end build of a lifecycle / activation program.
+
+phases:
+  - id: spec
+    name: "Spec"
+    steps:
+      - id: program-brief
+        name: "Program brief"
+        agent: growth-marketing-orchestrator
+        delegates_to: lifecycle-activation
+        action: "Issue lifecycle-program brief."
+        brief_template: "brief-templates/lifecycle.md"
+        output: "program-brief.md"
+
+  - id: design
+    name: "Design"
+    steps:
+      - id: sequence-design
+        name: "Sequence design"
+        agent: lifecycle-activation
+        action: |
+          Use capability LFC (lifecycle program map) or ACT (activation
+          program). Cross-channel; per-message copy.
+        output: "sequence.md"
+        gate: "user_approval"
+
+  - id: implement
+    name: "Implement"
+    steps:
+      - id: map-workflow
+        name: "MAP workflow build"
+        agent: growth-marketing-orchestrator
+        delegates_to: marketing-automation-engineer
+        action: "Issue MAP-workflow brief from approved design."
+        brief_template: "brief-templates/map-build.md"
+        output: "map-workflow.md"
+
+  - id: readout
+    name: "Read-out"
+    steps:
+      - id: measure
+        name: "Pixel-validated measurement"
+        agent: growth-marketing-orchestrator
+        delegates_to: growth-analyst
+        action: |
+          Validate measurement model; agree primary + guardrails;
+          set read cadence.
+        output: "readout.md"

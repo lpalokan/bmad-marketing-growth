@@ -1,0 +1,59 @@
+# Partner Co-Marketing Campaign Workflow
+# Trigger: WJ (Workflow - Joint)
+# Lead: Charlie Channel (Channel & Partner Marketing Lead)
+
+workflow:
+  id: partner-co-marketing-campaign
+  name: "Partner Co-Marketing Campaign"
+  version: "1.0.0"
+  trigger: "WJ"
+  lead_agent: channel-partner-orchestrator
+  description: |
+    6-8 week motion for a joint co-marketing campaign with a strategic
+    partner.
+
+phases:
+  - id: joint-planning
+    name: "Joint planning"
+    steps:
+      - id: align
+        name: "Align with partner"
+        agent: channel-partner-orchestrator
+        action: |
+          Confirm partner contact, joint goals, exec approvals, joint
+          pipeline target. Both companies' brand guidelines.
+        output: "joint-plan.md"
+
+  - id: build
+    name: "Build"
+    steps:
+      - id: joint-campaign-brief
+        name: "Joint campaign brief"
+        agent: channel-partner-orchestrator
+        delegates_to: partner-marketplace-manager
+        action: "Issue joint co-marketing brief."
+        brief_template: "brief-templates/joint.md"
+        output: "joint-brief.md"
+        gate: "user_approval"
+
+  - id: launch
+    name: "Launch"
+    steps:
+      - id: coordinated-launch
+        name: "Coordinated launch"
+        agent: partner-marketplace-manager
+        action: |
+          Execute per joint plan. Both companies fire on aligned
+          schedule.
+        output: "launch-confirmation.md"
+
+  - id: retro
+    name: "Retro"
+    steps:
+      - id: joint-retro
+        name: "Joint retro"
+        agent: partner-marketplace-manager
+        action: |
+          Use capability RR (retro). Joint read-out with partner;
+          decide scale / iterate / pause.
+        output: "joint-retro.md"

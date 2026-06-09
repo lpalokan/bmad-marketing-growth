@@ -1,0 +1,97 @@
+# ABM Program Workflow
+# Trigger: WN (Workflow - Named accounts)
+# Lead: Frank Field (Field Marketing Lead)
+# Description: Quarterly ABM motion against named accounts with paired AE pods.
+
+workflow:
+  id: abm-program
+  name: "ABM Program"
+  version: "1.0.0"
+  trigger: "WN"
+  lead_agent: field-marketing-orchestrator
+  description: |
+    Quarterly 12-week ABM motion: tiering, orchestration, signals,
+    measurement, retro. Paired with AE pods; double-count-aware
+    attribution.
+
+phases:
+  - id: tiering
+    name: "Tiering"
+    description: "Tier the named-account list."
+    steps:
+      - id: tier-accounts
+        name: "Tier accounts"
+        agent: field-marketing-orchestrator
+        delegates_to: abm-strategist
+        action: "Issue tiering brief."
+        brief_template: "brief-templates/01-tiering.md"
+        output: "tiering.md"
+        gate: "user_approval"
+
+  - id: orchestration
+    name: "Orchestration"
+    description: "Per-tier multi-channel calendar."
+    steps:
+      - id: orchestration-plan
+        name: "Orchestration plan"
+        agent: abm-strategist
+        action: |
+          Use capability OR (orchestration). Per tier: channels, touch
+          sequence, owner per touch, calendar 12 weeks out.
+        output: "orchestration.md"
+
+  - id: signals
+    name: "Signals & instrumentation"
+    description: "Signals-to-actions matrix."
+    steps:
+      - id: signals-matrix
+        name: "Signals-to-actions"
+        agent: abm-strategist
+        action: |
+          Use capability SM_AB (signals matrix). Inventory signals;
+          per signal: threshold, action, owner. Flag instrumentation
+          gaps for Mark Auto.
+        brief_template: "brief-templates/02-signals.md"
+        output: "signals.md"
+
+      - id: instrumentation
+        name: "Instrumentation hand-off"
+        agent: field-marketing-orchestrator
+        delegates_to: marketing-automation-engineer
+        condition: "instrumentation-gaps-exist"
+        action: "Issue MAP brief for any signal-to-action gap."
+        brief_template: "brief-templates/03-instrumentation.md"
+        output: "instrumentation.md"
+
+  - id: run
+    name: "Run"
+    description: "Execute with AE pods."
+    steps:
+      - id: kickoff
+        name: "Kickoff with AE pods"
+        agent: field-marketing-orchestrator
+        action: |
+          Kickoff meeting per AE pod: name accounts, name signals,
+          name AE response. Capture commitments.
+        output: "kickoff.md"
+
+      - id: weekly-check-in
+        name: "Weekly check-in"
+        agent: field-marketing-orchestrator
+        recurring: "weekly"
+        action: |
+          Each week: touch counts, signal volume, AE follow-up rate,
+          opportunity creation. Surface stalled accounts.
+        output: "weekly-checkin.md"
+
+  - id: retro
+    name: "Retro"
+    description: "End-of-program retro."
+    steps:
+      - id: program-retro
+        name: "Program retro"
+        agent: abm-strategist
+        action: |
+          Use capability AT (attribution) for the final number. Then
+          retro: what tier produced, what to keep / drop next quarter.
+        output: "retro.md"
