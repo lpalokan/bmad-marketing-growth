@@ -17,9 +17,9 @@ Feature: Bootstrap company context from an existing context folder
     And the recognized context files are icp.md, positioning.md,
         brand-voice.md, kpis.md, tech-stack.md
 
-  Scenario: Offer import mode at the start
+  Scenario: Offer all four modes at the start
     When the workflow starts
-    Then it asks: start from scratch, or import from an existing context folder?
+    Then it asks which mode to run: scratch, import, migrate, or ingest
 
   Scenario: Resolve a path that points straight at a context folder
     Given the user picks "import" and gives a path that directly contains
@@ -51,12 +51,13 @@ Feature: Bootstrap company context from an existing context folder
     Given recognized files were discovered in the source
     Then the user can include or exclude each recognized file individually
 
-  Scenario: Copy-then-adapt an included file
+  Scenario: Copy-then-adapt an included file, upgrading it to OKF
     Given the user includes icp.md
     When the file is imported
     Then the workflow copies it into {output_folder}/company-context/
-    And it refreshes the frontmatter: owner preserved, last_updated set to
-        today, last_updated_by set to user, schema_version preserved
+    And it upgrades the frontmatter to OKF: owner preserved, the OKF fields
+        added (type, title, description, tags, timestamp), schema_version
+        bumped to 2, last_updated set to today, last_updated_by set to user
     And it walks the user through the project-specific fields to adapt them
         for the new company, applying Source Fidelity — never invent
         numbers, and on missing data ask rather than fill

@@ -7,9 +7,11 @@ default_selected: false
 module_greeting: |
   Your AI marketing team is ready.
 
-  **First run?** Start with /company-context-bootstrap to fill the
-  shared company-context/ files (ICP, positioning, brand voice, KPIs,
-  tech stack) — every v2 agent reads these on activation.
+  **First run?** Start with /company-context-bootstrap to build the
+  shared company-context/ OKF bundle (ICP, positioning, brand voice,
+  KPIs, tech stack) — every v2 agent reads these on activation. The same
+  workflow can migrate older non-OKF context to OKF, and ingest an
+  input/ folder of raw files into the bundle anytime.
 
   Then talk to Max Growth (CMO) via /marketing-orchestrator, or jump
   directly to a domain orchestrator or specialist below.
@@ -67,6 +69,10 @@ questions:
     user_setting: false
     directories:
       - "{output_folder}"
+
+# Optional (not asked at install): set `marketing-growth.input_folder` in
+# _bmad/config.yaml to point company-context-bootstrap's INGEST mode at a
+# raw drop folder. Defaults to {project-root}/input when unset.
 
 # Agent roster — consumed by bmad-module-builder validation and any UI that
 # lists installed agents. Derived from each agent's customize.toml [agent] block.

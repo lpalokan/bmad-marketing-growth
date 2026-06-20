@@ -1,37 +1,110 @@
 # Company Context Bootstrap Workflow
 # Trigger: WB
 # Lead: Max Growth (Marketing Orchestrator)
-# Description: One-time intake → five company-context/ files.
+# Description: Intake / import / migrate / ingest → an OKF company-context/ bundle.
 
 workflow:
   id: company-context-bootstrap
   name: "Company Context Bootstrap"
-  version: "1.1.0"
+  version: "1.2.0"
   trigger: "WB"
   lead_agent: marketing-orchestrator
   description: |
-    Intake that produces the five shared company-context/ files every
-    v2 agent reads on activation. Run once at project start;
-    re-runnable as a refresh. Can also import & adapt an existing
-    project's context instead of starting from scratch.
+    Produces and maintains the shared company-context/ OKF bundle every
+    v2 agent reads on activation. Four modes:
+    - scratch: answer intake questions for each core file.
+    - import:  seed from another project's context, then adapt.
+    - migrate: upgrade an existing non-OKF company-context/ in place to
+               the OKF bundle format (one-time).
+    - ingest:  refactor the input/ folder into OKF concepts and fold new
+               knowledge into the bundle (run anytime).
+    Scratch/import run once at project start; migrate is a one-time
+    upgrade; ingest runs anytime.
+
+# Shared OKF conventions referenced by every phase that writes a file.
+# {output_folder}/company-context/ IS a Google Open Knowledge Format
+# (OKF) v0.1 bundle: a directory of Markdown concept files the agents
+# reason from. Keep this block and docs/company-context.md in lock-step.
+okf_conventions: |
+  The folder {output_folder}/company-context/ IS an OKF v0.1 bundle.
+  Every concept file is Markdown with this frontmatter (OKF fields +
+  retained BMAD fields). OKF requires only `type`; keep the BMAD fields
+  too — the agents and the single-writer rule depend on them:
+
+    ---
+    type: <OKF concept type>     # e.g. ICP, Positioning, Brand Voice,
+                                 #   KPI Set, Tech Stack, Persona, Metric,
+                                 #   Competitor, System, Reference
+    title: <human-readable name>
+    description: <one sentence>
+    tags: [company-context, <more>]
+    timestamp: <ISO 8601>        # mirrors last_updated, OKF-queryable
+    resource: <URI>              # optional; omit if none
+    owner: <agent-code>          # BMAD — one owner; only the owner writes
+    last_updated: YYYY-MM-DD
+    last_updated_by: <agent-code-or-user>
+    schema_version: 2
+    ---
+    Status: <Bootstrapped|In progress|Stable|Stale (needs refresh)>
+
+  Then the free-form Markdown body. Conventions:
+  - Concept identity is the file path minus `.md`.
+  - Link concepts with absolute, bundle-relative Markdown links, e.g.
+    `[CTO buyer](/personas/cto-buyer.md)`. Consumers tolerate broken
+    links, so linking forward to a not-yet-written concept is fine.
+  - Granularity is HYBRID: the five core files (icp.md, positioning.md,
+    brand-voice.md, kpis.md, tech-stack.md) ALWAYS stay at their paths as
+    hub concepts. Explode a sub-item into its own concept only when it
+    earns one — e.g. >= 2 distinct buyer personas -> personas/<slug>.md
+    (icp.md keeps a summary + links down), a KPI with a real definition
+    or citations -> metrics/<slug>.md, ingested competitors/systems/
+    sources -> their folders. An exploded hub keeps a short summary and
+    links down.
+  - Sub-concepts INHERIT their owner from the parent hub: personas/* and
+    positioning's competitors/* -> product-marketing-orchestrator;
+    metrics/* -> growth-analyst; systems/* -> marketing-automation-
+    engineer; sources/* -> last_updated_by: user (ingest).
+  - Reserved files (never used as concept docs):
+    * index.md — progressive disclosure. The ROOT index.md is the only
+      file allowed frontmatter, and only `okf_version: "0.1"`. Body is
+      grouped sections of `* [Title](/path) - description`. Subfolder
+      index.md files carry no frontmatter.
+    * log.md — bundle-root change history, newest first: `## YYYY-MM-DD`
+      headings then `* **Creation**: …` / `* **Update**: …` /
+      `* **Migration**: …` / `* **Ingest**: …`.
+  - Apply Source Fidelity (see SKILL.md) to every number, in every mode.
 
 phases:
   - id: source
     name: "Source selection"
-    description: "Start from scratch, or import & adapt an existing context folder."
+    description: "Pick a mode: scratch, import & adapt, migrate to OKF, or ingest the input folder."
     steps:
       - id: choose-mode
         name: "Choose bootstrap mode"
         agent: marketing-orchestrator
         action: |
-          Ask the user how they want to bootstrap:
-          - SCRATCH: answer intake questions for each file (default).
+          Ask the user which mode to run:
+          - SCRATCH: answer intake questions for each core file (default).
           - IMPORT:  seed from another project's company-context, then
                      adapt each file for this project.
+          - MIGRATE: upgrade an existing non-OKF company-context/ in place
+                     to the OKF bundle format (one-time).
+          - INGEST:  read the input/ folder, refactor its files into OKF
+                     concepts, and fold new knowledge into the bundle
+                     (run anytime).
 
-          If SCRATCH, set every file's mode to `fresh` and proceed to
-          the icp phase. If IMPORT, continue with the steps below.
-        output: "(no file — sets per-file mode: fresh | import)"
+          Route:
+          - SCRATCH -> set every core file's mode to `fresh`; run the
+            icp…tech-stack intake phases, then handoff.
+          - IMPORT  -> continue with resolve-source … copy-and-adapt
+            below, then the intake phases for any non-imported file, then
+            handoff.
+          - MIGRATE -> skip to the `migrate` phase; skip all intake.
+          - INGEST  -> skip to the `ingest` phase; skip all intake.
+
+          All four modes finish in the handoff phase, which writes/
+          refreshes the bundle's root index.md and log.md.
+        output: "(no file — sets mode and per-file modes)"
         gate: "user_approval"
 
       - id: resolve-source
@@ -90,10 +163,12 @@ phases:
              {output_folder}/company-context/, show existing vs incoming
              and ask keep / overwrite before writing. On `keep`, set the
              file's mode to `skip` and move on.
-          3. Copy the body into {output_folder}/company-context/.
-             Refresh frontmatter: preserve `owner` and `schema_version`;
-             set `last_updated` to today and `last_updated_by: user`.
-             Set the Status line to `In progress`.
+          3. Copy the body into {output_folder}/company-context/ as an
+             OKF concept (see okf_conventions). Preserve `owner`; UPGRADE
+             the frontmatter to schema_version 2 — add the OKF fields
+             (`type`, `title`, `description`, `tags`, `timestamp`, and
+             `resource` if one applies); set `last_updated` to today and
+             `last_updated_by: user`. Set the Status line to `In progress`.
           4. Adapt the imported draft for THIS project. Walk the
              project-specific fields (company name, segments, named
              references, numbers, vendor names) one focused question at
@@ -124,6 +199,14 @@ phases:
           - Top three pains the product addresses.
           - Triggers that cause them to look for a solution.
           - Anti-personas: who is explicitly NOT a fit.
+
+          Write icp.md as an OKF concept (see okf_conventions) with
+          `type: ICP`, owner product-marketing-orchestrator. HYBRID
+          explode: if the user names two or more distinct buyer personas,
+          create personas/<slug>.md for each (`type: Persona`, owner
+          inherited: product-marketing-orchestrator) and keep a one-line
+          summary + an absolute link to each in icp.md; otherwise keep
+          personas inline.
         output: "icp.md"
         gate: "user_approval"
 
@@ -147,6 +230,10 @@ phases:
           Then build a 3-tier value pyramid (functional / emotional /
           social) and three messaging pillars. Do not invent
           competitive claims; ask for sources.
+
+          Write positioning.md as an OKF concept (see okf_conventions)
+          with `type: Positioning`, owner product-marketing-orchestrator.
+          Link to any competitors/<slug>.md concepts that exist.
         output: "positioning.md"
         gate: "user_approval"
 
@@ -168,6 +255,9 @@ phases:
             one paragraph).
           - Tone modulation rules (e.g. "more formal in PR; more
             casual in onboarding emails").
+
+          Write brand-voice.md as an OKF concept (see okf_conventions)
+          with `type: Brand Voice`, owner brand-orchestrator.
         output: "brand-voice.md"
         gate: "user_approval"
 
@@ -199,6 +289,12 @@ phases:
 
           Cap at 5. If the user lists more, ask which 5 they'd put on
           the board deck.
+
+          Write kpis.md as an OKF concept (see okf_conventions) with
+          `type: KPI Set`, owner growth-analyst. HYBRID explode: if a KPI
+          has a real definition or citations worth its own concept,
+          create metrics/<slug>.md (`type: Metric`, owner inherited:
+          growth-analyst) and link it from kpis.md.
         output: "kpis.md"
         gate: "user_approval"
 
@@ -233,21 +329,154 @@ phases:
           The downstream test for "do we need this in bootstrap?": can
           one of {paid search, MAP spec, experimentation, SEO, MarOps
           audit} read the line and proceed? If not, omit.
+
+          Write tech-stack.md as an OKF concept (see okf_conventions) with
+          `type: Tech Stack`, owner marketing-automation-engineer. A
+          system that grows its own detail later becomes systems/<slug>.md
+          (`type: System`, owner inherited).
         output: "tech-stack.md"
         gate: "user_approval"
 
-  - id: handoff
-    name: "Handoff"
-    description: "Confirm files written and orient the user."
+  - id: migrate
+    name: "Migrate existing context to OKF"
+    description: "Upgrade an existing non-OKF company-context/ in place to the OKF bundle format."
     steps:
+      - id: migrate-scan
+        name: "Scan and report"
+        agent: marketing-orchestrator
+        condition: "mode == MIGRATE"
+        action: |
+          Scan {output_folder}/company-context/ for existing files.
+          Report which core files are present and whether each is already
+          OKF (has a non-empty `type` in frontmatter) or legacy
+          (schema_version 1 / no `type`). If the folder is missing or
+          empty, say so and offer to switch to SCRATCH. Do not write yet.
+        output: "(no file — inventory of existing files)"
+        gate: "user_approval"
+
+      - id: migrate-upgrade
+        name: "Upgrade each file in place"
+        agent: marketing-orchestrator
+        condition: "mode == MIGRATE"
+        action: |
+          For each legacy file, upgrade it in place to an OKF concept
+          (see okf_conventions) WITHOUT rewriting its substance:
+          1. Derive `type` from the file (icp.md→ICP, positioning.md→
+             Positioning, brand-voice.md→Brand Voice, kpis.md→KPI Set,
+             tech-stack.md→Tech Stack; any other file → a descriptive
+             type). Derive `title`/`description` from the existing heading
+             or first line; set `tags` and `timestamp` (today, ISO 8601).
+          2. PRESERVE `owner` and the Status line exactly. Bump
+             `schema_version` to 2. Keep `last_updated`/`last_updated_by`
+             unless the user is the one running this, in which case set
+             `last_updated` today and `last_updated_by: user`.
+          3. Show existing vs upgraded frontmatter and ask
+             keep / overwrite before writing each file. Never change the
+             body content during migration.
+          4. Offer to explode where the Hybrid heuristic warrants it
+             (e.g. multiple personas already listed in icp.md) — ask
+             before creating any personas/ or metrics/ files; link them
+             back from the hub.
+
+          Only ever write under {output_folder}/company-context/.
+        output: "(upgrades existing company-context files in place)"
+        gate: "user_approval"
+
+  - id: ingest
+    name: "Ingest the input folder"
+    description: "Refactor files dropped in input/ into OKF concepts and fold new knowledge into the bundle."
+    steps:
+      - id: ingest-resolve
+        name: "Locate and enumerate input"
+        agent: marketing-orchestrator
+        condition: "mode == INGEST"
+        action: |
+          Resolve the input folder: use config
+          `marketing-growth.input_folder` if set, else
+          {project-root}/input/. If it is missing or empty, tell the user
+          where it looked and stop (offer another mode). Otherwise list
+          every file found (recurse one level), with type and size, and
+          confirm the set to ingest. Read nothing outside this folder.
+        output: "(no file — list of input files)"
+        gate: "user_approval"
+
+      - id: ingest-refactor
+        name: "Refactor each input into OKF concepts"
+        agent: marketing-orchestrator
+        condition: "mode == INGEST"
+        action: |
+          For each confirmed input file, in user-approved order:
+          1. Read it (the Read tool handles PDF, DOCX, images, and
+             notebooks; read text / markdown / CSV / HTML directly).
+          2. Draft one or more OKF concept docs (see okf_conventions)
+             under {output_folder}/company-context/sources/, choosing a
+             descriptive `type` (Reference, Research, Persona, Competitor,
+             Transcript, …). Set `resource` to the original input path,
+             `timestamp` today, `last_updated_by: user`. Cross-link each
+             new concept to the relevant core hub(s) with absolute links,
+             and add a back-link from the hub when it aids navigation.
+          3. Summarize what each source asserts. Apply Source Fidelity:
+             carry numbers only as the source states them, cited; never
+             promote a source's figure into a core file without the
+             user's confirmation.
+
+          Show the planned sources/ files before writing; gate on
+          approval. Leave the original input files untouched.
+        output: "(writes sources/ concept files)"
+        gate: "user_approval"
+
+      - id: ingest-fold
+        name: "Propose core updates"
+        agent: marketing-orchestrator
+        condition: "mode == INGEST"
+        action: |
+          Where an ingested source bears on one of the five core files
+          (a new persona, a positioning shift, a new KPI, a new system),
+          propose a gated edit to THAT file's OWNER concept:
+          - Draft the change, show a before/after diff, and confirm every
+            number with the user (Source Fidelity).
+          - Respect the single-writer rule: edits land in the owner file
+            only; name which owner agent the change belongs to.
+          - Apply only on approval; on decline, leave the core file as is
+            (the knowledge still lives in its sources/ concept).
+          Bump the edited file's `last_updated`/`timestamp`.
+        output: "(optional gated edits to core owner files)"
+        gate: "user_approval"
+
+  - id: handoff
+    name: "Bundle refresh and handoff"
+    description: "Write/refresh the OKF index + log, confirm what changed, and orient the user."
+    steps:
+      - id: bundle-index
+        name: "Refresh index.md and log.md"
+        agent: marketing-orchestrator
+        action: |
+          Regenerate {output_folder}/company-context/index.md as the OKF
+          bundle root (frontmatter: only `okf_version: "0.1"`). Group the
+          entries: a "Core concepts" section (the five hubs), then a
+          section per subfolder that exists (personas/, metrics/,
+          competitors/, systems/, sources/); each entry is
+          `* [Title](/path) - description` using the concept's own
+          description. Create a frontmatter-less index.md inside any
+          populated subfolder.
+
+          Append to {output_folder}/company-context/log.md (create if
+          absent) a dated entry, newest first, recording what this run
+          did: **Creation** for scratch/import, **Migration** for migrate,
+          **Ingest** (one line per source) for ingest, and **Update** for
+          any core-file edits.
+        output: "index.md, log.md"
+        gate: "user_approval"
+
       - id: summary
         name: "Summary"
         agent: marketing-orchestrator
         action: |
-          List the five files written under
-          {output_folder}/company-context/ with a one-line summary of
-          each. Tell the user which agents to invoke next based on
-          their stated priority (refer to module.yaml::agents for the
-          full roster). Suggest running /marketing-orchestrator (Max
-          Growth) to plan first moves.
+          List what now exists under {output_folder}/company-context/:
+          the five core concepts, any sub-concept folders, and the
+          index.md / log.md. Note the bundle is OKF v0.1 — portable, and
+          viewable in Google's reference OKF HTML visualizer. Tell the
+          user which agents to invoke next based on their stated priority
+          (refer to module.yaml::agents for the full roster). Suggest
+          running /marketing-orchestrator (Max Growth) to plan first moves.
         output: "bootstrap-summary.md"

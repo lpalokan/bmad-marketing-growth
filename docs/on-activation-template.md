@@ -38,7 +38,9 @@ verbatim into a new SKILL.md, then fill the four placeholders.
    - Load `memories.md` (always). Also load `instructions.md` if present, and: {EXTRA-SIDECAR-FILES}.
 
 3. Load company context (tolerant of missing files):
-   - From `{output_folder}/company-context/`, read:
+   - `{output_folder}/company-context/` is an OKF v0.1 bundle. Read these
+     hub concepts (you MAY follow their absolute `/subfolder/…` links for
+     more detail, e.g. `/personas/…`):
      {COMPANY-CONTEXT-FILES}
    - If **any** required file is missing, before doing anything else
      tell the user: "Company context isn't set up yet. Run

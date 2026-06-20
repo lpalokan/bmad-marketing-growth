@@ -92,17 +92,16 @@ Full schemas, state machine, and rules: **[`docs/protocol.md`](docs/protocol.md)
 
 | Tier                                            | Purpose                                          | Owned by         | Lifecycle                |
 |-------------------------------------------------|--------------------------------------------------|------------------|--------------------------|
-| `_bmad-output/company-context/`                 | Shared, durable facts (ICP, positioning, KPIs…) | Per-file owner   | Read-mostly, refreshed    |
+| `_bmad-output/company-context/`                 | Shared, durable facts (ICP, positioning, KPIs…) — an OKF bundle | Per-file owner   | Read-mostly, refreshed    |
 | `_bmad-output/work/{id}/`                       | Per-deliverable trail (brief, versions, review) | Issuing orch.    | Frozen on accept          |
 | `_bmad/_memory/{code}-sidecar/memories.md`      | Per-agent private notes                          | The agent itself | Free-form, append on save |
 
 The sidecar pattern is **unchanged** from v1. See **[`docs/company-context.md`](docs/company-context.md)** for the company-context schema and ownership table.
 
-### One-time setup: bootstrap company context
+### Setup & upkeep: the company-context OKF bundle
 
-Before invoking any v2 agent, run the bootstrap workflow once. It fills
-the five shared `company-context/` files every agent reads on
-activation:
+Before invoking any v2 agent, run the bootstrap workflow once. It builds
+the shared `company-context/` files every agent reads on activation:
 
 ```
 /company-context-bootstrap
@@ -110,6 +109,29 @@ activation:
 
 Agents that find `company-context/` missing will refuse to act and ask
 you to run this first.
+
+`company-context/` **is a Google OKF (Open Knowledge Format) v0.1
+bundle** — a directory of Markdown concept files with YAML frontmatter,
+linked into a graph, plus a root `index.md` (`okf_version: "0.1"`) and a
+`log.md`. The five core files stay at their fixed paths as OKF *hub*
+concepts; richer detail explodes into `personas/`, `metrics/`,
+`competitors/`, `systems/`, and `sources/` only when it earns its own
+file. Because it is plain OKF, the bundle ships as a tarball or git repo
+and renders in Google's reference OKF HTML visualizer.
+
+The bootstrap workflow has four modes:
+
+- **scratch** — answer focused intake questions per core file.
+- **import** — seed from another project's context, then adapt.
+- **migrate** — upgrade an existing pre-OKF `company-context/` in place
+  (schema_version 1 → 2; bodies untouched). One-time.
+- **ingest** — drop raw files (research, exports, docs, PDFs) into
+  `input/` (or set `marketing-growth.input_folder`); the workflow
+  refactors each into OKF concepts under `sources/`, cross-links them,
+  and proposes gated edits to the owner of any core file the new
+  knowledge bears on. Run anytime.
+
+Schema, bundle layout, and ownership: **[`docs/company-context.md`](docs/company-context.md)**.
 
 ---
 
