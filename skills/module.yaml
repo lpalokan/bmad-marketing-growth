@@ -1,7 +1,7 @@
 code: marketing-growth
 name: "Marketing Growth Suite"
 description: "AI-powered marketing team for international B2B technology — CMO + 8 domain orchestrators + ~33 specialists, with brief-driven delegation (see docs/protocol.md). v2.0.0 — complete: Tier-1 (5) + Tier-2 (7) workflows + seo-sprint refresh. v2 epic feature-complete."
-module_version: 2.0.1
+module_version: 2.0.2
 default_selected: false
 
 module_greeting: |

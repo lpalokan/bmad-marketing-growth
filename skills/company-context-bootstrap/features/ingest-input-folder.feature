@@ -62,4 +62,5 @@ Feature: Ingest a raw input folder into the OKF company-context bundle
 
   Scenario: Honour write boundaries
     Then the workflow only ever writes under {output_folder}/company-context/
+    And it may also refresh the marketing-growth:okf block in {project-root}/AGENTS.md
     And it reads nothing outside the input folder and company-context/

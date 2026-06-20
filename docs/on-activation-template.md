@@ -42,6 +42,11 @@ verbatim into a new SKILL.md, then fill the four placeholders.
      hub concepts (you MAY follow their absolute `/subfolder/…` links for
      more detail, e.g. `/personas/…`):
      {COMPANY-CONTEXT-FILES}
+   - This bundle is read-context that **supports** the brief you are given;
+     it does not widen your mandate. When working a brief, read the
+     concepts its *Context (links)* names and deliver exactly its
+     Acceptance Criteria — finding more in the bundle is not licence to do
+     more (see `docs/protocol.md`).
    - If **any** required file is missing, before doing anything else
      tell the user: "Company context isn't set up yet. Run
      `/company-context-bootstrap` first, then come back to me." Then

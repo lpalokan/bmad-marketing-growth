@@ -110,6 +110,12 @@ the shared `company-context/` files every agent reads on activation:
 Agents that find `company-context/` missing will refuse to act and ask
 you to run this first.
 
+Bootstrap also writes/refreshes a `marketing-growth:okf` block in your
+project's `AGENTS.md` (idempotent, gated with a diff), so any agent or
+harness working in the project knows `company-context/` is read-context
+that **supports** a brief and never widens an agent's mandate. It coexists
+with any `bmad-manager:bmad` block.
+
 `company-context/` **is a Google OKF (Open Knowledge Format) v0.1
 bundle** — a directory of Markdown concept files with YAML frontmatter,
 linked into a graph, plus a root `index.md` (`okf_version: "0.1"`) and a
