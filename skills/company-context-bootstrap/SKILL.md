@@ -1,6 +1,6 @@
 ---
 name: company-context-bootstrap
-description: "Workflow that builds and maintains _bmad-output/company-context/ as a Google OKF (Open Knowledge Format) bundle — ICP, positioning, brand voice, KPIs, tech-stack, plus index.md and log.md. Four modes: scratch intake, import & adapt another project's context, migrate existing non-OKF files to OKF, and ingest the input/ folder (refactor dropped files into OKF concepts and fold new knowledge in). Must be run before any v2 agent. Lead: marketing-orchestrator. Use when user says set up company context, bootstrap, initial intake, reuse/clone/import context, migrate to OKF, refactor context to OKF, ingest input folder, or add knowledge to context."
+description: "Workflow that builds and maintains _bmad-output/company-context/ as a Google OKF (Open Knowledge Format) bundle — ICP, positioning, brand voice, KPIs, tech-stack, plus index.md and log.md, and refreshes the project's AGENTS.md OKF block. Four modes: scratch intake, import & adapt another project's context, migrate existing non-OKF files to OKF, and ingest the input/ folder (refactor dropped files into OKF concepts and fold new knowledge in). Must be run before any v2 agent. Lead: marketing-orchestrator. Use when user says set up company context, bootstrap, initial intake, reuse/clone/import context, migrate to OKF, refactor context to OKF, ingest input folder, or add knowledge to context."
 ---
 
 # Company Context Bootstrap Workflow
@@ -102,5 +102,8 @@ These rules override the persona.
    `last_updated_by`, `schema_version: 2`; Status line in the body).
 
 6. Always finish in the **handoff** phase: refresh the root `index.md`
-   (`okf_version: "0.1"`) and append a dated `log.md` entry. Outputs:
-   see `docs/company-context.md` for the file table and bundle layout.
+   (`okf_version: "0.1"`), append a dated `log.md` entry, and refresh the
+   `marketing-growth:okf` block in `{project-root}/AGENTS.md` (idempotent,
+   gated with a diff — read it from the sibling
+   `templates/agents-okf-block.md`). Outputs: see `docs/company-context.md`
+   for the file table and bundle layout.

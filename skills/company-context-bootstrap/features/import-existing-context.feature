@@ -78,3 +78,4 @@ Feature: Bootstrap company context from an existing context folder
 
   Scenario: Honour write boundaries
     Then the workflow only ever writes under {output_folder}/company-context/
+    And it may also refresh the marketing-growth:okf block in {project-root}/AGENTS.md

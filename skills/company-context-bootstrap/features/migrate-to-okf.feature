@@ -56,3 +56,4 @@ Feature: Migrate an existing non-OKF company-context to the OKF bundle format
 
   Scenario: Honour write boundaries
     Then the workflow only ever writes under {output_folder}/company-context/
+    And it may also refresh the marketing-growth:okf block in {project-root}/AGENTS.md

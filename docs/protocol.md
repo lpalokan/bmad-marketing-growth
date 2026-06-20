@@ -51,7 +51,8 @@ Required sections (in this order):
 2. **Context (links)** — bulleted list of paths to `company-context/`
    files the specialist must read first. MUST include at least one
    `company-context/` reference unless the brief is bootstrapping
-   company-context itself.
+   company-context itself. Link only the narrowest set that grounds the
+   task — listing the whole bundle invites scope creep (see rule 8).
 3. **Deliverable** — what file(s) to produce, where to write them
    (always under this `work/{id}/` folder unless explicitly stated),
    target length / format.
@@ -156,6 +157,12 @@ must follow them literally.
    `brief.md`. Adding new criteria at review time is forbidden — if a
    reviewer realises a criterion is missing, the right move is to issue
    a new brief that supersedes.
+8. **The bundle informs; the brief mandates.** The `company-context/`
+   files a brief lists in *Context (links)* are read-context that grounds
+   the work — not a licence to widen it. A specialist delivers exactly the
+   brief's Acceptance Criteria; discovering more in the bundle is grounds
+   to flag the orchestrator (who may issue a superseding brief), never to
+   expand scope, change the deliverable, or write outside `work/{id}/`.
 
 ## Worked example
 

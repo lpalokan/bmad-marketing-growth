@@ -445,7 +445,7 @@ phases:
 
   - id: handoff
     name: "Bundle refresh and handoff"
-    description: "Write/refresh the OKF index + log, confirm what changed, and orient the user."
+    description: "Write/refresh the OKF index + log, refresh the project AGENTS.md OKF block, confirm what changed, and orient the user."
     steps:
       - id: bundle-index
         name: "Refresh index.md and log.md"
@@ -468,14 +468,41 @@ phases:
         output: "index.md, log.md"
         gate: "user_approval"
 
+      - id: ensure-agents-file
+        name: "Refresh the project AGENTS.md OKF block"
+        agent: marketing-orchestrator
+        action: |
+          Ensure {project-root}/AGENTS.md carries the marketing-growth OKF
+          briefing-mandate block. Read the exact block from the sibling
+          `templates/agents-okf-block.md` in this skill's folder — it is
+          delimited by `<!-- marketing-growth:okf start -->` and
+          `<!-- marketing-growth:okf end -->`. Inject it idempotently:
+          1. {project-root}/AGENTS.md does not exist -> create it containing
+             exactly the block.
+          2. It exists and already contains the marketing-growth:okf markers
+             -> replace everything from the start marker through the end
+             marker with the current block; leave all other content (prose,
+             any `<!-- bmad-manager:bmad … -->` block) untouched.
+          3. It exists without the markers -> append the block after the
+             existing content (one blank line as separator), preserving
+             everything already there.
+          Show the user a before/after diff of AGENTS.md and gate on approval
+          before writing. {project-root}/AGENTS.md and {output_folder}/ are
+          the only places this workflow writes; never touch any other
+          project-root file.
+        output: "AGENTS.md (marketing-growth:okf block)"
+        gate: "user_approval"
+
       - id: summary
         name: "Summary"
         agent: marketing-orchestrator
         action: |
           List what now exists under {output_folder}/company-context/:
           the five core concepts, any sub-concept folders, and the
-          index.md / log.md. Note the bundle is OKF v0.1 — portable, and
-          viewable in Google's reference OKF HTML visualizer. Tell the
+          index.md / log.md, plus the refreshed marketing-growth:okf block
+          in {project-root}/AGENTS.md. Note the bundle is OKF v0.1 —
+          portable, and viewable in Google's reference OKF HTML visualizer.
+          Tell the
           user which agents to invoke next based on their stated priority
           (refer to module.yaml::agents for the full roster). Suggest
           running /marketing-orchestrator (Max Growth) to plan first moves.
