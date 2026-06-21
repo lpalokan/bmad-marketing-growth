@@ -1,0 +1,82 @@
+name: Release tag
+
+# Why this exists:
+# The BMAD installer records the git ref it was given as the downstream module
+# version — it does NOT read marketplace.json / module.yaml. So a release is only
+# correctly versioned downstream if a matching semver *tag* exists to install.
+# This workflow guarantees that: when the version in marketplace.json (the single
+# source of truth) changes on main, it creates and pushes a matching annotated
+# v<semver> tag at the released commit.
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+concurrency:
+  group: release-tag
+  cancel-in-progress: false
+
+jobs:
+  tag:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          fetch-tags: true
+
+      - name: Resolve and validate version
+        id: version
+        run: |
+          set -euo pipefail
+
+          V="$(jq -r '.plugins[0].version' .claude-plugin/marketplace.json)"
+          if [[ -z "$V" || "$V" == "null" ]]; then
+            echo "::error file=.claude-plugin/marketplace.json::Could not read plugins[0].version"
+            exit 1
+          fi
+
+          PLUGIN_V="$(jq -r '.version' .claude-plugin/plugin.json)"
+          MODULE_V="$(sed -nE 's/^module_version: (.*)$/\1/p' skills/module.yaml | head -n1)"
+
+          # Sync guard: all three version files must agree with the source of truth.
+          fail=0
+          if [[ "$PLUGIN_V" != "$V" ]]; then
+            echo "::error file=.claude-plugin/plugin.json::version '$PLUGIN_V' does not match marketplace.json '$V'"
+            fail=1
+          fi
+          if [[ "$MODULE_V" != "$V" ]]; then
+            echo "::error file=skills/module.yaml::module_version '$MODULE_V' does not match marketplace.json '$V'"
+            fail=1
+          fi
+          if [[ "$fail" -ne 0 ]]; then
+            echo "Version files are out of sync. Run scripts/bump-version.sh <semver> to fix." >&2
+            exit 1
+          fi
+
+          echo "version=$V" >> "$GITHUB_OUTPUT"
+          echo "tag=v$V" >> "$GITHUB_OUTPUT"
+          echo "Resolved version: $V (tag v$V)"
+
+      - name: Create and push tag if missing
+        env:
+          TAG: ${{ steps.version.outputs.tag }}
+        run: |
+          set -euo pipefail
+
+          if git rev-parse -q --verify "refs/tags/$TAG" >/dev/null; then
+            echo "Tag $TAG already exists — nothing to do."
+            exit 0
+          fi
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          git tag -a "$TAG" -m "Release $TAG"
+          git push origin "$TAG"
+          echo "Created and pushed annotated tag $TAG at $GITHUB_SHA"
