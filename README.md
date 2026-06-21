@@ -255,6 +255,36 @@ There is no skill regeneration step — every SKILL.md is canonical source, main
 
 ---
 
+## Releasing
+
+The version lives in three files, kept in lockstep, with
+`.claude-plugin/marketplace.json` (`plugins[].version`) as the single source of
+truth — the other two (`.claude-plugin/plugin.json` `version`,
+`skills/module.yaml` `module_version`) mirror it.
+
+To cut a release:
+
+```bash
+scripts/bump-version.sh 2.1.0     # bumps all three files in lockstep
+git add .claude-plugin/marketplace.json .claude-plugin/plugin.json skills/module.yaml
+git commit -m "Release v2.1.0"
+git push origin main
+```
+
+On push to `main`, the **Release tag** workflow (`.github/workflows/release-tag.yml`)
+reads the version, verifies all three files agree (it fails the build if they
+drift), and creates + pushes a matching annotated tag (`v2.1.0`) at the released
+commit.
+
+**Important — installing side:** the BMAD installer records the *git ref it is
+given* as the downstream module version; it does not read the version files. So a
+consumer only gets a correct semver in their `manifest.yaml` if they install the
+**tag** (e.g. `<repo-url>@v2.1.0`), not the `main` branch (which would record the
+version literally as `"main"`). The tag this pipeline produces is what makes a
+correct downstream version possible.
+
+---
+
 ## Customizing
 
 ### Add a new agent
