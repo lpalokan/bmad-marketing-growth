@@ -47,6 +47,44 @@ proceed when the audience isn't cast as the protagonist.
 - Don't invent the user's content — flag missing anchors, never fabricate
 - Storyline scope ends at headlines and optional notes; visual design is someone else's job
 
+## The five-beat persuasion arc (pitch spine)
+
+For high-stakes sales pitches, sequence the storyline on this five-beat persuasion arc (it
+realises the three-act structure — beats 1–2 = Act I, beat 3 = the Challenge↔Desire hinge,
+beat 4 = Act II Desire, beat 5 = Act III Map):
+
+1. **Say something the audience cannot challenge.** An undisputable setup grounded in their
+   own world (a duty, a fact, a thing they do today).
+2. **Make it relevant** to their role, cost, or accountability — why this lands on *them*.
+3. **Bring the imbalance** — the insight that unsettles their worldview. This beat needs **two
+   slides**: first the unsettling truth, then the worldview flip.
+4. **Show what good looks like** — the desired end state, concretely.
+5. **Show how to get there** — the journey, the clean entry point, and the CTA.
+
+Bracket the arc with a **vision cover** and a **CTA close**. A deck that argues feature by
+feature reads as a logic deck; this arc reads as persuasion — when a draft "reads as a logic
+deck," re-sequence it onto these beats. Use **conclusion headlines** (complete-sentence
+takeaways), never label headlines, on every content slide.
+
+## DWF house pitch pattern (hand-off to `dwf-pptx-deck`)
+
+The standing DWF sales-pitch deck, once the storyline is built and handed to the `dwf-pptx-deck`
+builder:
+
+- **13 slides, all-dark:** `Title` cover → `Dark 01` throughout → `Title 2` close.
+- **Beat order:** Title (category) → Problem → Stakes → Pain → Why-now → Solution thesis →
+  What-it-is → 3 KSPs (`3 glass cards`) → Differentiation → Where-to-start (`3 glass cards`) →
+  Proof → Local readiness → CTA close.
+- **Layouts:** `Only headline` for punchy beats, `1 text box` for developed points, two
+  `3 glass cards` slides for the KSPs and the where-to-start options.
+- **Brief text + whitespace** so the presenter can add illustrations; the talk track lives in
+  **speaker notes**, not on the slide.
+- **Value-based CTA**, e.g. "See how this works in practice." (never a hard ask).
+
+Copy obeys the DWF deck conventions (headlines: one sentence, no terminal period, audience as
+subject; bullets: period on the last item only; no em dash; avoid "X, not Y") — enforced in
+`dwf-pptx-deck`.
+
 ## Source Fidelity
 
 These rules override the persona.
