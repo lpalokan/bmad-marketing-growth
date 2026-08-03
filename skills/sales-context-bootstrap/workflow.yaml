@@ -1,0 +1,564 @@
+# Sales Context Bootstrap Workflow
+# Trigger: SB
+# Lead: Sam Sell (Sales Prospecting Orchestrator)
+# Description: Optionally extend the shared company-context OKF bundle with the
+#              sales layer. Scratch / import / ingest. Never required.
+
+workflow:
+  id: sales-context-bootstrap
+  name: "Sales Context Bootstrap"
+  version: "1.0.0"
+  trigger: "SB"
+  lead_agent: sales-prospecting-orchestrator
+  description: |
+    Optionally extends the shared {output_folder}/company-context/ OKF bundle
+    with the SALES LAYER — offerings, case studies, the ICP fit/scoring model,
+    the buying-committee model, the signal library, and the outreach playbooks.
+    It builds on the existing marketing core (icp.md, positioning.md,
+    brand-voice.md, kpis.md, tech-stack.md) rather than duplicating it, and it
+    NEVER rewrites those files. Three modes:
+    - scratch: answer intake questions for each sales concept.
+    - import:  seed offerings / case-studies / playbooks from another
+               project's company-context, then adapt.
+    - ingest:  refactor sales collateral dropped in the input folder (offering
+               decks, battlecards, case studies) into offerings/ + case-studies/
+               concepts and fold new knowledge into the bundle.
+    This workflow is OPTIONAL. The Sales Prospecting agents work without it and
+    each owner agent can self-create its concept on first use. It never blocks
+    and it is never a prerequisite.
+
+# Shared OKF conventions referenced by every phase that writes a file.
+# {output_folder}/company-context/ IS a Google Open Knowledge Format (OKF)
+# v0.1 bundle: a directory of Markdown concept files the agents reason from.
+# This is the SAME bundle the marketing suite writes — the sales layer is
+# added on top, never a separate bundle. Keep this block and
+# docs/company-context.md in lock-step.
+okf_conventions: |
+  The folder {output_folder}/company-context/ IS an OKF v0.1 bundle, shared
+  with the marketing suite. This workflow ADDS the sales layer on top; it never
+  creates a second bundle and never rewrites the marketing core files (icp.md,
+  positioning.md, brand-voice.md, kpis.md, tech-stack.md).
+
+  Every sales-layer concept file is Markdown with this frontmatter (OKF fields +
+  retained BMad fields). OKF requires only `type`; keep the BMad fields too —
+  the agents and the single-writer rule depend on them:
+
+    ---
+    type: <OKF concept type>     # Offering, Case Study, Scoring Model,
+                                 #   Buying Committee Model, Signal Library,
+                                 #   Playbook, Reference
+    title: <human-readable name>
+    description: <one sentence>
+    tags: [company-context, sales, <more>]
+    timestamp: <ISO 8601>        # mirrors last_updated, OKF-queryable
+    resource: <URI>              # optional; omit if none
+    owner: <agent-code>          # BMad — one owner; only the owner writes
+    last_updated: YYYY-MM-DD
+    last_updated_by: <agent-code-or-user>
+    schema_version: 2
+    ---
+    Status: <Bootstrapped|In progress|Stable|Stale (needs refresh)>
+
+  Then the free-form Markdown body. Conventions:
+  - Concept identity is the file path minus `.md`.
+  - Link concepts with absolute, bundle-relative Markdown links, e.g.
+    `[functional pain](/icp.md)`, `[pillar](/positioning.md)`,
+    `[Acme case study](/case-studies/acme.md)`. Consumers tolerate broken
+    links, so linking FORWARD to a not-yet-written marketing-core concept is
+    fine — that is exactly how the sales layer references icp.md / positioning.md
+    / brand-voice.md when the marketing bootstrap hasn't been run yet.
+  - LINK the marketing core, never duplicate it. buying-committee-model.md links
+    the personas in icp.md; icp-fit-model.md reads icp.md; signal-library.md
+    structures icp.md's triggers; the playbooks read positioning.md and
+    brand-voice.md. Copy no persona/pillar/voice text into the sales files.
+  - Ownership is FIXED per the table in docs/company-context.md — never change a
+    concept's owner:
+    * offerings.md + offerings/<slug>.md   -> service-offering-advisor
+    * case-studies/<slug>.md               -> service-offering-advisor
+      (defer to marketing's customer-advocacy-references / Cara Customer if
+       that agent is installed)
+    * icp-fit-model.md                     -> fit-scoring-strategist
+    * buying-committee-model.md            -> buying-committee-mapper
+    * signal-library.md                    -> signal-monitor
+    * playbooks/sequences.md               -> outreach-sequence-planner
+    * playbooks/objections.md              -> reply-objection-handler
+    * playbooks/message-frameworks.md      -> contact-approach-writer
+  - Granularity is HYBRID: offerings.md ALWAYS stays as the hub. Explode a
+    sub-item into its own concept only when it earns one — >= 2 distinct
+    offerings -> offerings/<slug>.md (offerings.md keeps a summary + links
+    down); each case study is its own concept under case-studies/<slug>.md;
+    the playbooks stay under playbooks/. An exploded hub keeps a short summary
+    and links down. Sub-concepts (offerings/*) INHERIT their owner from the hub
+    (service-offering-advisor).
+  - Reserved files (never used as concept docs):
+    * index.md — progressive disclosure. The ROOT index.md is the only file
+      allowed frontmatter, and only `okf_version: "0.1"`. Body is grouped
+      sections of `* [Title](/path) - description`. Subfolder index.md files
+      carry no frontmatter.
+    * log.md — bundle-root change history, newest first: `## YYYY-MM-DD`
+      headings then `* **Creation**: …` / `* **Update**: …` / `* **Ingest**: …`.
+  - Apply Source Fidelity (see SKILL.md) to every number, in every mode.
+
+phases:
+  - id: source
+    name: "Source selection"
+    description: "Confirm the sales layer is optional, check the marketing core (soft), then pick a mode: scratch, import & adapt, or ingest sales collateral."
+    steps:
+      - id: check-marketing-core
+        name: "Soft prerequisite check (never blocks)"
+        agent: sales-prospecting-orchestrator
+        action: |
+          Look under {output_folder}/company-context/ for the marketing core:
+          icp.md and positioning.md (and note brand-voice.md, kpis.md,
+          tech-stack.md).
+
+          - If icp.md AND positioning.md are present: note that the sales layer
+            will link to them, and proceed.
+          - If either is MISSING: tell the user plainly that the sales layer
+            will still be created and will LINK to icp.md / positioning.md as
+            forward-links (OKF tolerates broken links), and that they can run
+            `/company-context-bootstrap` anytime to fill the marketing core.
+            Then PROCEED. Do NOT hard-stop, do NOT require the marketing
+            bootstrap — this mirrors the suite principle that bootstraps are
+            never required.
+
+          Never rewrite or overwrite any marketing-core file in this workflow.
+        output: "(no file — reports what marketing core exists)"
+        gate: "user_approval"
+
+      - id: choose-mode
+        name: "Choose bootstrap mode"
+        agent: sales-prospecting-orchestrator
+        action: |
+          Ask the user which mode to run:
+          - SCRATCH: answer intake questions for each sales concept (default).
+          - IMPORT:  seed offerings / case-studies / playbooks from another
+                     project's company-context, then adapt for this project.
+          - INGEST:  read the input folder, refactor sales collateral (offering
+                     decks, battlecards, case studies) into offerings/ +
+                     case-studies/ concepts, and fold new knowledge in.
+
+          Route:
+          - SCRATCH -> set every sales concept's mode to `fresh`; run the
+            offerings … playbooks intake phases, then handoff.
+          - IMPORT  -> continue with resolve-source … copy-and-adapt below,
+            then the intake phases for any non-imported concept, then handoff.
+          - INGEST  -> skip to the `ingest` phase; skip all intake.
+
+          All modes finish in the handoff phase, which refreshes the bundle's
+          root index.md and log.md and the sales-prospecting:okf block in
+          AGENTS.md. No mode ever touches the marketing-core files.
+        output: "(no file — sets mode and per-concept modes)"
+        gate: "user_approval"
+
+      - id: resolve-source
+        name: "Resolve the source folder"
+        agent: sales-prospecting-orchestrator
+        condition: "mode == IMPORT"
+        action: |
+          Ask for a folder path, then resolve it (tolerant, never guess
+          content):
+          - If the path DIRECTLY contains any recognized sales-layer file
+            (offerings.md, icp-fit-model.md, buying-committee-model.md,
+            signal-library.md, or a playbooks/ or case-studies/ folder), use
+            it as the source folder.
+          - Else look for `_bmad-output/company-context/` then
+            `company-context/` directly beneath it; use the first that contains
+            recognized sales-layer files.
+          - Else treat the path as a CONTAINER: scan its immediate subfolders
+            for any that resolve to such a context folder. If two or more source
+            projects are found, list them and ask the user to choose exactly one.
+          - If nothing resolves, tell the user no sales-layer files were found
+            at that path and offer to switch to SCRATCH.
+
+          Do not read files outside the path the user gave.
+        output: "(no file — sets {source_folder})"
+        gate: "user_approval"
+
+      - id: select-concepts
+        name: "Report availability and select concepts"
+        agent: sales-prospecting-orchestrator
+        condition: "mode == IMPORT and {source_folder} resolved"
+        action: |
+          Scan {source_folder} for the sales-layer concepts: offerings.md
+          (+ offerings/), case-studies/, icp-fit-model.md,
+          buying-committee-model.md, signal-library.md, and playbooks/
+          (sequences.md, objections.md, message-frameworks.md). Report:
+          - present: which recognized sales concepts exist.
+          - missing: which are absent.
+          Ignore the marketing-core files and anything unrecognized.
+
+          Ask the user to include or exclude each PRESENT concept individually.
+          For each MISSING concept, ask: run the from-scratch intake for it, or
+          skip it.
+
+          Record per-concept mode: `import` (present + included), `fresh`
+          (missing + run intake), or `skip`.
+        output: "(no file — finalizes per-concept mode map)"
+        gate: "user_approval"
+
+      - id: copy-and-adapt
+        name: "Copy then adapt included concepts"
+        agent: sales-prospecting-orchestrator
+        condition: "any concept mode == import"
+        action: |
+          For each concept marked `import` (offerings.md + offerings/*,
+          case-studies/*, and the playbooks are the most portable; the scoring,
+          committee, and signal models are usually project-specific — flag them):
+
+          1. Read the source file(s) from {source_folder}.
+          2. If a file with the same path already exists under
+             {output_folder}/company-context/, show existing vs incoming and ask
+             keep / overwrite before writing. On `keep`, set that concept's mode
+             to `skip` and move on.
+          3. Copy the body in as an OKF concept (see okf_conventions). Preserve
+             the correct OWNER for the concept (per the ownership list — never
+             carry a different owner from the source); UPGRADE frontmatter to
+             schema_version 2 (add `type`, `title`, `description`, `tags`,
+             `timestamp`, `resource` if any); set `last_updated` to today and
+             `last_updated_by: user`. Set the Status line to `In progress`.
+          4. Adapt for THIS project. Walk the project-specific fields (offering
+             names, pricing, named case-study clients and their numbers, ICP
+             links) one focused question at a time. RE-POINT every marketing-core
+             link at THIS bundle's icp.md / positioning.md / brand-voice.md.
+             Apply Source Fidelity: never carry a client name, result, or metric
+             from the source project as this project's — confirm or replace each.
+          5. On the user's approval, set Status to `Bootstrapped`.
+
+          Concepts marked `skip` are left untouched. Concepts marked `fresh` are
+          handled by their intake phase below. Never write a marketing-core file.
+        output: "(writes the imported+adapted sales-layer files)"
+        gate: "user_approval"
+
+  - id: offerings
+    name: "Offerings intake"
+    description: "Capture the offering catalog (products / services sold)."
+    steps:
+      - id: offerings-intake
+        name: "Offerings"
+        agent: sales-prospecting-orchestrator
+        condition: "offerings.md mode == fresh"
+        action: |
+          If offerings.md was imported & adapted in the source phase, skip this
+          step. Otherwise ask the user, one focused question at a time, per
+          offering:
+          - Name and one-line description of the offering.
+          - What it comprises (scope / components / deliverables).
+          - Which ICP personas it is for (link, don't duplicate — reference the
+            personas in icp.md).
+          - The top pains it addresses and which positioning pillar(s) it maps to.
+          - Typical pricing / commercial shape (only if the user states it —
+            Source Fidelity: never invent price points).
+          - Proof to lead with (which case studies — captured next).
+
+          Write offerings.md as an OKF concept (see okf_conventions) with
+          `type: Offering`, owner service-offering-advisor. HYBRID explode: if
+          the user names two or more distinct offerings, create
+          offerings/<slug>.md for each (`type: Offering`, owner inherited:
+          service-offering-advisor) and keep a one-line summary + an absolute
+          link to each in offerings.md; otherwise keep them inline. Link each
+          offering to the relevant personas in icp.md and pillars in
+          positioning.md (forward-links are fine if those files don't exist yet).
+        output: "offerings.md (+ offerings/<slug>.md)"
+        gate: "user_approval"
+
+  - id: case-studies
+    name: "Case studies intake"
+    description: "Capture proof — customer case studies backing the offerings."
+    steps:
+      - id: case-studies-intake
+        name: "Case studies"
+        agent: sales-prospecting-orchestrator
+        condition: "case-studies mode == fresh"
+        action: |
+          If case studies were imported & adapted in the source phase, skip this
+          step. Otherwise, per case study the user can supply:
+          - Client name (or an anonymized descriptor if under NDA).
+          - Which offering(s) it proves — link to offerings.md / offerings/<slug>.
+          - The situation, what was done, and the outcome.
+          - Quantified results ONLY as the user / source states them, cited.
+            Source Fidelity: never invent or round a result; label any
+            illustrative figure `Example — illustrative, not benchmarks.`
+
+          Write each as case-studies/<slug>.md, `type: Case Study`, owner
+          service-offering-advisor. NOTE: if the marketing-growth
+          `customer-advocacy-references` agent (Cara Customer) is installed,
+          defer ownership of case-studies/ to it — set owner accordingly and say
+          so; otherwise service-offering-advisor owns them. Add a
+          case-studies/index.md (no frontmatter) if two or more exist. Link each
+          study back to the offering it proves.
+        output: "case-studies/<slug>.md"
+        gate: "user_approval"
+
+  - id: icp-fit-model
+    name: "ICP fit / scoring model intake"
+    description: "Capture the reusable fit ✕ timing scoring criteria (not any account's score)."
+    steps:
+      - id: icp-fit-model-intake
+        name: "ICP fit model"
+        agent: sales-prospecting-orchestrator
+        condition: "icp-fit-model.md mode == fresh"
+        action: |
+          If icp-fit-model.md was imported & adapted in the source phase, skip
+          this step. Otherwise capture the durable SCORING SHAPE (never any
+          specific account's score — that is a work artifact):
+          - Fit dimensions and their signals (firmographic, technographic,
+            segment fit) drawn from icp.md — keep FIT separate from TIMING.
+          - Timing / propensity dimensions (the buying triggers that raise
+            urgency; link to signal-library.md).
+          - A weighting or banding scheme (e.g. A/B/C tiers) and the threshold
+            for each action tier. Confirm weights with the user; don't invent.
+
+          Write icp-fit-model.md as an OKF concept (see okf_conventions) with
+          `type: Scoring Model`, owner fit-scoring-strategist. Link to icp.md
+          (the fit basis) and signal-library.md (the timing basis) — link, don't
+          duplicate.
+        output: "icp-fit-model.md"
+        gate: "user_approval"
+
+  - id: buying-committee-model
+    name: "Buying-committee model intake"
+    description: "Capture the reusable DMU role model that structures icp.md's personas (not any account's named people)."
+    steps:
+      - id: buying-committee-model-intake
+        name: "Buying committee model"
+        agent: sales-prospecting-orchestrator
+        condition: "buying-committee-model.md mode == fresh"
+        action: |
+          If buying-committee-model.md was imported & adapted in the source
+          phase, skip this step. Otherwise capture the reusable role model (the
+          named people for a specific account are a work artifact, not context):
+          - The MEDDPICC / DMU roles typically present (economic buyer,
+            champion, technical buyer, user, blocker, coach…).
+          - For each role, the icp.md persona(s) that usually fill it — LINK the
+            personas in icp.md, do NOT re-describe them here.
+          - Typical committee size / shape by segment, and the multi-thread
+            pattern that works.
+
+          Write buying-committee-model.md as an OKF concept (see okf_conventions)
+          with `type: Buying Committee Model`, owner buying-committee-mapper.
+          Link each role to its persona in icp.md (forward-links fine).
+        output: "buying-committee-model.md"
+        gate: "user_approval"
+
+  - id: signal-library
+    name: "Signal library intake"
+    description: "Capture the reusable catalog of buying signals that structures icp.md's triggers."
+    steps:
+      - id: signal-library-intake
+        name: "Signal library"
+        agent: sales-prospecting-orchestrator
+        condition: "signal-library.md mode == fresh"
+        action: |
+          If signal-library.md was imported & adapted in the source phase, skip
+          this step. Otherwise structure the buying signals (build on icp.md's
+          triggers — don't duplicate them):
+          - Signal categories (hiring, funding, leadership change, tech adoption,
+            regulatory, content/engagement, competitive displacement…).
+          - For each signal: what it looks like, where it is observed, and what
+            it implies about timing / urgency.
+          - Which signals feed the timing axis of icp-fit-model.md.
+
+          Write signal-library.md as an OKF concept (see okf_conventions) with
+          `type: Signal Library`, owner signal-monitor. Link to icp.md's triggers
+          and to icp-fit-model.md's timing axis.
+        output: "signal-library.md"
+        gate: "user_approval"
+
+  - id: playbooks
+    name: "Playbooks intake"
+    description: "Capture the reusable outreach playbooks: sequences, objections, message frameworks."
+    steps:
+      - id: sequences-intake
+        name: "Sequences playbook"
+        agent: sales-prospecting-orchestrator
+        condition: "playbooks/sequences.md mode == fresh"
+        action: |
+          If playbooks/sequences.md was imported & adapted in the source phase,
+          skip this step. Otherwise capture the reusable cadence shape:
+          - Default multi-touch, multi-channel cadence(s) (touch count, channels,
+            spacing) by segment or motion.
+          - Channel logic (when email vs LinkedIn vs call) and exit criteria.
+          Do NOT capture any account's actual sequence (a work artifact).
+
+          Write playbooks/sequences.md, `type: Playbook`, owner
+          outreach-sequence-planner. Reads brand-voice.md — link, don't copy.
+        output: "playbooks/sequences.md"
+        gate: "user_approval"
+
+      - id: objections-intake
+        name: "Objections playbook"
+        agent: sales-prospecting-orchestrator
+        condition: "playbooks/objections.md mode == fresh"
+        action: |
+          If playbooks/objections.md was imported & adapted in the source phase,
+          skip this step. Otherwise capture the reusable objection-handling
+          library:
+          - Common objections and reply classes (not interested, no budget,
+            timing, incumbent, "send me info"…).
+          - For each: the reframe / response angle, grounded in positioning.md.
+            Source Fidelity: cite any proof point used in a rebuttal.
+
+          Write playbooks/objections.md, `type: Playbook`, owner
+          reply-objection-handler. Reads positioning.md — link, don't copy.
+        output: "playbooks/objections.md"
+        gate: "user_approval"
+
+      - id: message-frameworks-intake
+        name: "Message frameworks playbook"
+        agent: sales-prospecting-orchestrator
+        condition: "playbooks/message-frameworks.md mode == fresh"
+        action: |
+          If playbooks/message-frameworks.md was imported & adapted in the
+          source phase, skip this step. Otherwise capture the reusable messaging
+          frameworks:
+          - The frameworks the team writes with (PAS, Before-After-Bridge,
+            Challenger insight opener…) and when to use each.
+          - Signal-specific opener patterns and personalization rules.
+          - Do/don't rules that keep messages on brand voice.
+
+          Write playbooks/message-frameworks.md, `type: Playbook`, owner
+          contact-approach-writer. Reads brand-voice.md — link, don't copy. Add
+          a playbooks/index.md (no frontmatter) once two or more playbooks exist.
+        output: "playbooks/message-frameworks.md"
+        gate: "user_approval"
+
+  - id: ingest
+    name: "Ingest sales collateral"
+    description: "Refactor sales collateral dropped in the input folder into OKF concepts and fold new knowledge into the sales layer."
+    steps:
+      - id: ingest-resolve
+        name: "Locate and enumerate input"
+        agent: sales-prospecting-orchestrator
+        condition: "mode == INGEST"
+        action: |
+          Resolve the input folder: use config `marketing-growth.input_folder`
+          if set, else {project-root}/input/. If it is missing or empty, tell the
+          user where it looked and stop (offer another mode). Otherwise list every
+          file found (recurse one level), with type and size, and confirm the set
+          to ingest. Read nothing outside this folder. Expect sales collateral:
+          offering decks / one-pagers, battlecards, case-study PDFs, pricing
+          sheets, sequence exports.
+        output: "(no file — list of input files)"
+        gate: "user_approval"
+
+      - id: ingest-refactor
+        name: "Refactor each input into OKF concepts"
+        agent: sales-prospecting-orchestrator
+        condition: "mode == INGEST"
+        action: |
+          For each confirmed input file, in user-approved order:
+          1. Read it (the Read tool handles PDF, DOCX, images, and notebooks;
+             read text / markdown / CSV / HTML directly).
+          2. Route it to the right sales concept by content, then draft OKF
+             concept doc(s) (see okf_conventions):
+             - Offering deck / one-pager  -> offerings/<slug>.md (or fold into
+               offerings.md), owner service-offering-advisor.
+             - Case study                 -> case-studies/<slug>.md, owner
+               service-offering-advisor (or Cara Customer if installed).
+             - Battlecard / competitor    -> a sources/<slug>.md Reference and a
+               proposed edit to positioning.md's owner (do NOT write positioning
+               yourself) plus objection material for playbooks/objections.md.
+             - Anything else              -> sources/<slug>.md (`type: Reference`).
+             Set `resource` to the original input path, `timestamp` today,
+             `last_updated_by: user`. Cross-link each new concept to the relevant
+             hub(s) with absolute links; add a back-link from the hub when it aids
+             navigation.
+          3. Summarize what each source asserts. Apply Source Fidelity: carry
+             numbers only as the source states them, cited; never promote a
+             source's figure into an owner concept without the user's confirmation.
+
+          Show the planned files before writing; gate on approval. Leave the
+          original input files untouched. Never write a marketing-core file.
+        output: "(writes offerings/, case-studies/, sources/ concept files)"
+        gate: "user_approval"
+
+      - id: ingest-fold
+        name: "Propose owner-concept updates"
+        agent: sales-prospecting-orchestrator
+        condition: "mode == INGEST"
+        action: |
+          Where an ingested source bears on an existing sales-layer concept (a
+          new offering, a new proof point, a new objection, a new signal),
+          propose a GATED edit to THAT concept's OWNER file:
+          - Draft the change, show a before/after diff, and confirm every number
+            with the user (Source Fidelity).
+          - Respect the single-writer rule: edits land in the owner file only;
+            name which owner agent the change belongs to. If a source bears on a
+            marketing-core file (icp.md, positioning.md, brand-voice.md), do NOT
+            edit it — note it as a suggestion to run /company-context-bootstrap
+            and keep the knowledge in its sources/ concept.
+          - Apply only on approval; on decline, leave the concept as is (the
+            knowledge still lives in its sources/ concept).
+          Bump the edited file's `last_updated`/`timestamp`.
+        output: "(optional gated edits to sales-layer owner concepts)"
+        gate: "user_approval"
+
+  - id: handoff
+    name: "Bundle refresh and handoff"
+    description: "Refresh the OKF index + log with the new sales sections, refresh the AGENTS.md sales OKF block, confirm what changed, and orient the user."
+    steps:
+      - id: bundle-index
+        name: "Refresh index.md and log.md"
+        agent: sales-prospecting-orchestrator
+        action: |
+          Regenerate {output_folder}/company-context/index.md as the OKF bundle
+          root (frontmatter: only `okf_version: "0.1"`). PRESERVE any existing
+          marketing "Core concepts" section verbatim; ADD a "Sales layer" section
+          (offerings.md, icp-fit-model.md, buying-committee-model.md,
+          signal-library.md) plus a section per new subfolder that exists
+          (offerings/, case-studies/, playbooks/, sources/). Each entry is
+          `* [Title](/path) - description` using the concept's own description.
+          Create a frontmatter-less index.md inside any populated new subfolder.
+          Do not delete or rewrite marketing sections.
+
+          Append to {output_folder}/company-context/log.md (create if absent) a
+          dated entry, newest first, recording what this run did: **Creation** /
+          **Update** for scratch & import, **Ingest** (one line per source) for
+          ingest.
+        output: "index.md, log.md"
+        gate: "user_approval"
+
+      - id: ensure-agents-file
+        name: "Refresh the project AGENTS.md sales OKF block"
+        agent: sales-prospecting-orchestrator
+        action: |
+          Ensure {project-root}/AGENTS.md carries the sales-layer OKF block. Read
+          the exact block from the sibling `templates/agents-okf-block.md` in this
+          skill's folder — it is delimited by `<!-- sales-prospecting:okf start -->`
+          and `<!-- sales-prospecting:okf end -->`. Inject it idempotently:
+          1. {project-root}/AGENTS.md does not exist -> create it containing
+             exactly the block.
+          2. It exists and already contains the sales-prospecting:okf markers ->
+             replace everything from the start marker through the end marker with
+             the current block; leave ALL other content (prose, any
+             `<!-- marketing-growth:okf … -->` block, any `<!-- bmad-manager:bmad
+             … -->` block) untouched.
+          3. It exists without the sales markers -> append the block after the
+             existing content (one blank line as separator), preserving
+             everything already there — including the marketing-growth:okf and
+             bmad-manager:bmad blocks.
+          Show the user a before/after diff of AGENTS.md and gate on approval
+          before writing. {project-root}/AGENTS.md and {output_folder}/ are the
+          only places this workflow writes; never touch any other project-root
+          file, and never rewrite a marketing-core concept.
+        output: "AGENTS.md (sales-prospecting:okf block)"
+        gate: "user_approval"
+
+      - id: summary
+        name: "Summary"
+        agent: sales-prospecting-orchestrator
+        action: |
+          List what the sales layer now adds under
+          {output_folder}/company-context/: offerings.md (+ offerings/),
+          case-studies/, icp-fit-model.md, buying-committee-model.md,
+          signal-library.md, the playbooks/, and any sources/, plus the refreshed
+          index.md / log.md and the sales-prospecting:okf block in
+          {project-root}/AGENTS.md. Note which marketing-core files it links to
+          and whether any are still missing (forward-links) — remind the user
+          they can run /company-context-bootstrap anytime to fill them, but that
+          the sales agents work without them. Note the bundle is OKF v0.1 —
+          portable, and viewable in Google's reference OKF HTML visualizer.
+          Suggest running /sales-prospecting-orchestrator (Sam Sell) to start an
+          account motion.
+        output: "(no file — orientation)"

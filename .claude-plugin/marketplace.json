@@ -10,8 +10,8 @@
     {
       "name": "marketing-growth",
       "source": "./",
-      "description": "AI-powered marketing team for international B2B technology — CMO + 8 domain orchestrators + ~33 specialists with brief-driven delegation (see docs/protocol.md). v2.0.0 — complete: Tier-1 (5) + Tier-2 (7 + seo-sprint refresh) workflows landed; v2 epic feature-complete.",
-      "version": "2.0.2",
+      "description": "AI-powered go-to-market team for international B2B technology — a GTM orchestrator above two wings: marketing (CMO + 8 domain orchestrators + ~33 specialists) and sales prospecting (New-Business Orchestrator + 10 specialists), with brief-driven delegation (see docs/protocol.md). v2.1 integrates the Sales Prospecting Suite into one package.",
+      "version": "2.1.0",
       "author": {
         "name": "Lauri Palokangas"
       },
@@ -28,9 +28,14 @@
         "content",
         "abm",
         "field",
-        "pr"
+        "pr",
+        "sales",
+        "prospecting",
+        "outbound",
+        "gtm"
       ],
       "skills": [
+        "./skills/gtm-orchestrator",
         "./skills/marketing-orchestrator",
         "./skills/growth-analyst",
         "./skills/product-marketing-orchestrator",
@@ -81,7 +86,19 @@
         "./skills/analyst-briefing",
         "./skills/lifecycle-program-build",
         "./skills/partner-co-marketing-campaign",
-        "./skills/localization-rollout"
+        "./skills/localization-rollout",
+        "./skills/sales-prospecting-orchestrator",
+        "./skills/account-sourcing-strategist",
+        "./skills/account-research-analyst",
+        "./skills/service-offering-advisor",
+        "./skills/fit-scoring-strategist",
+        "./skills/buying-committee-mapper",
+        "./skills/signal-monitor",
+        "./skills/account-storyline-developer",
+        "./skills/contact-approach-writer",
+        "./skills/outreach-sequence-planner",
+        "./skills/reply-objection-handler",
+        "./skills/sales-context-bootstrap"
       ]
     }
   ]

@@ -1,13 +1,18 @@
 # Marketing Growth Suite
 
-> **v2.0 — international B2B technology marketing.** The suite is being
-> refactored from a PLG/indie-SaaS roster to an 8-domain B2B marketing
-> org with a brief-driven delegation protocol. This README describes the
-> v2 target state. The rollout is phased — see **Rollout status** below.
+> **v2.1 — international B2B technology go-to-market.** v2.0 refactored
+> the suite into an 8-domain B2B marketing org with a brief-driven
+> delegation protocol. v2.1 integrates the **Sales Prospecting Suite**
+> (formerly the separate `bmad-module-sales-prospecting` module) into
+> the same package and adds a top-level **GTM orchestrator** aware of
+> every orchestrator and agent in both wings.
 
-An AI-powered marketing team for international B2B technology
-companies — a CMO orchestrator coordinating 8 domain orchestrators and
-~34 specialists, plus Tier-1 workflows that string them together.
+An AI-powered go-to-market team for international B2B technology
+companies — a GTM orchestrator (Rae Revenue) above two wings: a CMO
+orchestrator coordinating 8 domain orchestrators and ~34 marketing
+specialists, and a New-Business Orchestrator (Sam Sell) coordinating 10
+sales prospecting specialists — plus Tier-1/Tier-2 workflows that string
+them together.
 
 Distributed as **both** a native [Claude Code plugin](https://code.claude.com/docs/en/plugins.md) and a [BMAD framework](https://github.com/bmad-code-org/BMAD-METHOD) module. One physical copy of every skill; pick whichever installer you prefer.
 
@@ -31,8 +36,16 @@ This is the main behavioral difference from a generic AI marketing assistant.
 ### Org chart
 
 ```
+Rae Revenue — GTM Orchestrator          (aware of every orchestrator and agent below;
+│                                        routes requests, aligns the wings on one
+│                                        account narrative, final escalation before the user)
+│
+├── Sam Sell — New-Business Orchestrator (sales prospecting wing; see below)
+│
+└── Max Growth — CMO Orchestrator        (marketing wing)
+
 Max Growth — CMO Orchestrator
-Pixel Metrics — Measurement & Attribution Staff   (scope: attribution, forecasting, dashboards, scoring model design)
+Pixel Metrics — Measurement & Attribution Staff   (scope: attribution, forecasting, dashboards, scoring model design; serves both wings)
 
 ├── Product Marketing
 │   ├── Positioning & Messaging PMM
@@ -74,7 +87,34 @@ Pixel Metrics — Measurement & Attribution Staff   (scope: attribution, forecas
 │
 └── Channel & Partner Marketing
     └── Partner & Marketplace Manager
+
+Sam Sell — New-Business Orchestrator   (sales prospecting wing)
+├── Tara Target   — Account Sourcing Strategist
+├── Remy Research — Account Research Analyst
+├── Otto Offer    — Service Offering Advisor
+├── Mira Match    — Fit & Propensity Scorer
+├── Cleo Contact  — Buying Committee Mapper
+├── Sage Signal   — Signal Monitor
+├── Stella Story  — Account Storyline Developer   (co-develops with Pierce Pitch)
+├── Aria Approach — Contact Approach Writer
+├── Casey Cadence — Outreach Sequence Planner
+└── Ricky Reply   — Reply & Objection Handler
 ```
+
+The sales wing runs the prospecting motion end to end (source → research
+→ offering fit → score → map the committee → storyline → approach →
+sequence → reply) via the same brief-driven protocol. It reads the same
+`company-context/` OKF bundle the marketing wing maintains, extends it
+with a sales layer (offerings, scoring model, buying-committee model,
+signal library, playbooks — see `docs/company-context.md`), and never
+*requires* the bundle: sales agents proceed with what they have and ask
+focused questions for what's missing. `/sales-context-bootstrap`
+optionally pre-seeds the sales layer. The method behind the motion is
+documented in `docs/opportunity-brief-method.md` (with a
+regulated-industries overlay under `docs/overlays/`).
+
+Escalation path: specialist → domain orchestrator → Max Growth
+(marketing) or specialist → Sam Sell (sales) → Rae Revenue → user.
 
 ### Brief-driven delegation protocol
 
@@ -157,10 +197,13 @@ lockstep so installs never break mid-sequence.
 | 5     | Field + PR + Channel (9 new, 6 retired)       | Complete    |
 | 6     | Tier-1 workflows (5 new + 2 refreshed + 2 retired) | Complete |
 | 7     | Tier-2 workflows (7 new + seo-sprint refresh) | Complete    |
+| v2.1  | Sales Prospecting Suite integration (12 skills) + GTM orchestrator | Complete |
 
 All v2 epic phases are complete. `marketing-strategy` is kept from v1
 as a higher-level orchestration helper; the rest of the v1 roster has
-been retired or repurposed.
+been retired or repurposed. v2.1 merges the formerly separate
+`bmad-module-sales-prospecting` module into this package — one install
+now delivers both wings and the `gtm-orchestrator` above them.
 
 ---
 

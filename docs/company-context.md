@@ -34,6 +34,36 @@ A new file in a recognized subfolder (`personas/`, `metrics/`,
 in **OKF bundle layout** below and does not need a new table row; a new
 top-level core file does require updating this table.
 
+### Sales layer
+
+The sales prospecting wing extends the **same** bundle — there is no
+separate sales bundle. These concepts are durable and reusable **across
+all accounts**; they are added by `/sales-context-bootstrap` or
+self-created by the owner agent on first use, and are never required
+for any agent to act. The marketing core files above stay read-only for
+sales agents.
+
+| File / subfolder                        | `type`                 | Owner                                        | Contents (one-liner)                                             |
+|-----------------------------------------|------------------------|----------------------------------------------|------------------------------------------------------------------|
+| `offerings.md` + `offerings/<slug>.md`  | Offering               | service-offering-advisor (Otto Offer)        | Offering catalog; links `icp.md` personas + `positioning.md`.    |
+| `case-studies/<slug>.md`                | Case Study             | customer-advocacy-references (Cara Customer)* | Proof library for offerings, storyline, and approach.            |
+| `icp-fit-model.md`                      | Scoring Model          | fit-scoring-strategist (Mira Match)          | Fit ✕ timing scoring model; reads `icp.md`.                      |
+| `buying-committee-model.md`             | Buying Committee Model | buying-committee-mapper (Cleo Contact)       | Generic DMU/role model; links personas in `icp.md`.              |
+| `signal-library.md`                     | Signal Library         | signal-monitor (Sage Signal)                 | Buying triggers and intent signals, structured from `icp.md`.    |
+| `playbooks/sequences.md`                | Playbook               | outreach-sequence-planner (Casey Cadence)    | Reusable cadence patterns; reads `brand-voice.md`.               |
+| `playbooks/objections.md`               | Playbook               | reply-objection-handler (Ricky Reply)        | Objection-handling patterns; reads `positioning.md`.             |
+| `playbooks/message-frameworks.md`       | Playbook               | contact-approach-writer (Aria Approach)      | Message frameworks (PAS, BAB, openers); reads `brand-voice.md`.  |
+
+\* If `customer-advocacy-references` is unavailable, `service-offering-advisor`
+(Otto Offer) owns `case-studies/`.
+
+Per-account outputs are **work artifacts**, not context — they live
+under `{output_folder}/work/{account-id}/`, never in `company-context/`
+(`target-accounts.md`, `account-profile.md`, `fit-scorecard.md`,
+`buying-committee.md`, `account-storyline.md`, `approach-messages.md`,
+`sequence-plan.md`, `reply-log.md`). Rule of thumb: **reusable across
+accounts → context; about one account → work.**
+
 ## Schema
 
 The folder **is a Google OKF (Open Knowledge Format) v0.1 bundle** — a
@@ -91,7 +121,14 @@ company-context/
 ├── metrics/            # exploded KPIs (type: Metric)
 ├── competitors/        # exploded competitors (type: Competitor)
 ├── systems/            # exploded MarTech systems (type: System)
-└── sources/            # concepts refactored from the input/ folder
+├── sources/            # concepts refactored from the input/ folder
+├── offerings.md        # sales hub  (type: Offering)
+├── icp-fit-model.md    # sales hub  (type: Scoring Model)
+├── buying-committee-model.md   # sales hub (type: Buying Committee Model)
+├── signal-library.md   # sales hub  (type: Signal Library)
+├── offerings/          # exploded offerings (type: Offering)
+├── case-studies/       # proof library (type: Case Study)
+└── playbooks/          # sales playbooks (type: Playbook)
 ```
 
 **Reserved files** `index.md` and `log.md` are never used as concept
@@ -104,7 +141,10 @@ subfolder `index.md` files carry no frontmatter. `log.md` uses
 **Sub-concept ownership** is inherited from the parent hub: `personas/*`
 and `competitors/*` → product-marketing-orchestrator; `metrics/*` →
 growth-analyst; `systems/*` → marketing-automation-engineer; `sources/*`
-→ `last_updated_by: user` (written by ingest).
+→ `last_updated_by: user` (written by ingest); `offerings/*` →
+service-offering-advisor; `case-studies/*` → customer-advocacy-references
+(fallback: service-offering-advisor); `playbooks/*` → the specialist
+named in the **Sales layer** table above.
 
 ## Read/write lifecycle
 

@@ -1,23 +1,28 @@
 code: marketing-growth
 name: "Marketing Growth Suite"
-description: "AI-powered marketing team for international B2B technology — CMO + 8 domain orchestrators + ~33 specialists, with brief-driven delegation (see docs/protocol.md). v2.0.0 — complete: Tier-1 (5) + Tier-2 (7) workflows + seo-sprint refresh. v2 epic feature-complete."
-module_version: 2.0.2
+description: "AI-powered go-to-market team for international B2B technology — a GTM orchestrator above two wings: marketing (CMO + 8 domain orchestrators + ~33 specialists) and sales prospecting (New-Business Orchestrator + 10 specialists), with brief-driven delegation (see docs/protocol.md). v2.1 integrates the Sales Prospecting Suite into one package."
+module_version: 2.1.0
 default_selected: false
 
 module_greeting: |
-  Your AI marketing team is ready.
+  Your AI go-to-market team is ready — one suite, two wings.
+
+  **Don't know where to start?** Talk to Rae Revenue via
+  /gtm-orchestrator — the one orchestrator aware of every orchestrator
+  and agent in both wings. Rae routes any request, aligns marketing and
+  sales on one account narrative, and owns the final escalation.
 
   **First run?** Start with /company-context-bootstrap to build the
   shared company-context/ OKF bundle (ICP, positioning, brand voice,
-  KPIs, tech stack) — every v2 agent reads these on activation. The same
-  workflow can migrate older non-OKF context to OKF, and ingest an
-  input/ folder of raw files into the bundle anytime.
+  KPIs, tech stack) — every marketing agent reads these on activation.
+  Optionally run /sales-context-bootstrap to pre-seed the sales layer
+  (offerings, scoring model, signal library, playbooks) — the sales
+  wing works without it.
 
-  Then talk to Max Growth (CMO) via /marketing-orchestrator, or jump
-  directly to a domain orchestrator or specialist below.
-
-  Bootstrap: company-context-bootstrap
+  GTM Orchestrator: gtm-orchestrator (Rae Revenue)
+  Bootstrap: company-context-bootstrap · sales-context-bootstrap
   CMO: marketing-orchestrator (Max Growth)
+  New Business: sales-prospecting-orchestrator (Sam Sell)
   Measurement & Attribution Staff: growth-analyst (Pixel Metrics)
 
   Domain orchestrators:
@@ -40,10 +45,17 @@ module_greeting: |
     PR & Comms: media-relations-specialist, analyst-relations-specialist
     Channel: partner-marketplace-manager
 
+  Sales prospecting wing (under Sam Sell):
+    account-sourcing-strategist (Tara Target), account-research-analyst (Remy Research),
+    service-offering-advisor (Otto Offer), fit-scoring-strategist (Mira Match),
+    buying-committee-mapper (Cleo Contact), signal-monitor (Sage Signal),
+    account-storyline-developer (Stella Story), contact-approach-writer (Aria Approach),
+    outreach-sequence-planner (Casey Cadence), reply-objection-handler (Ricky Reply)
+
   Workflows (Tier-1, v2): annual-planning, product-launch, content-pipeline (refreshed), paid-campaign-launch, experimentation-sprint, abm-program, growth-audit (refreshed)
   Workflows (Tier-2, v2): positioning-workshop, competitive-teardown, webinar-production, analyst-briefing, lifecycle-program-build, partner-co-marketing-campaign, localization-rollout, seo-sprint (refreshed)
   Workflow (kept from v1): marketing-strategy
-  Bootstrap: company-context-bootstrap
+  Bootstraps: company-context-bootstrap, sales-context-bootstrap
 
 # Install-time questions. Answers flow into _bmad/config.yaml (shared) or
 # _bmad/config.user.yaml (personal, gitignored) per `user_setting`.
@@ -77,6 +89,13 @@ questions:
 # Agent roster — consumed by bmad-module-builder validation and any UI that
 # lists installed agents. Derived from each agent's customize.toml [agent] block.
 agents:
+  # GTM top-level orchestrator — aware of every orchestrator and agent in both wings
+  - code: gtm-orchestrator
+    name: "Rae Revenue"
+    title: "Go-to-Market Orchestrator"
+    icon: "🧭"
+    description: "Go-to-Market Orchestrator who sits above the CMO (Max Growth) and the New-Business Orchestrator (Sam Sell), routes any request to the right orchestrator or specialist across both wings, aligns marketing and sales motions on one account narrative, and is the final escalation path before the user."
+
   # CMO + Staff
   - code: marketing-orchestrator
     name: "Max Growth"
@@ -264,3 +283,60 @@ agents:
     title: "Partner & Marketplace Manager"
     icon: "🏪"
     description: "Partner & Marketplace Manager who runs joint campaigns, builds marketplace listings (AWS, Salesforce, Atlassian, etc.), and produces channel enablement. Operates inside the brief-driven protocol."
+
+  # Sales prospecting wing (integrated from the Sales Prospecting Suite)
+  - code: sales-prospecting-orchestrator
+    name: "Sam Sell"
+    title: "New-Business Orchestrator"
+    icon: "🎯"
+    description: "New-business orchestrator who sequences the prospecting motion end to end, issues briefs, owns review verdicts, and escalates. Delegates to the sales specialists via the brief-driven protocol."
+  - code: account-sourcing-strategist
+    name: "Tara Target"
+    title: "Account Sourcing Strategist"
+    icon: "🧭"
+    description: "Account sourcing strategist who turns the ICP into a sourced, A/B/C-tiered target-account list. Operates inside the brief-driven protocol."
+  - code: account-research-analyst
+    name: "Remy Research"
+    title: "Account Research Analyst"
+    icon: "🔎"
+    description: "Account research analyst who builds a comprehensive prospect profile from live web research and Clay company enrichment, and captures a why-now. Operates inside the brief-driven protocol."
+  - code: service-offering-advisor
+    name: "Otto Offer"
+    title: "Service Offering Advisor"
+    icon: "🧰"
+    description: "Service offering advisor who maintains the offering catalog and proof library and advises other agents on what each service comprises, its ICP, pains, personas, and case studies. Operates inside the brief-driven protocol."
+  - code: fit-scoring-strategist
+    name: "Mira Match"
+    title: "Fit & Propensity Scorer"
+    icon: "⚖️"
+    description: "Fit and propensity scorer who scores each offering's appeal for a prospect, keeping fit and timing as separate scores, and maintains the scoring model. Operates inside the brief-driven protocol."
+  - code: buying-committee-mapper
+    name: "Cleo Contact"
+    title: "Buying Committee Mapper"
+    icon: "🕸️"
+    description: "Buying committee mapper who identifies the right people in a target account using Clay contact enrichment and LinkedIn, mapping the MEDDPICC decision-making unit. Operates inside the brief-driven protocol."
+  - code: signal-monitor
+    name: "Sage Signal"
+    title: "Signal Monitor"
+    icon: "📡"
+    description: "Signal monitor who scans for buying triggers and intent, maintains the signal library, and re-fires the motion on a fresh why-now. Operates inside the brief-driven protocol."
+  - code: account-storyline-developer
+    name: "Stella Story"
+    title: "Account Storyline Developer"
+    icon: "📖"
+    description: "Account storyline developer who builds an account-level approach pitch as a Challenger insight and ABM message pillars, co-developed with Pierce Pitch. Operates inside the brief-driven protocol."
+  - code: contact-approach-writer
+    name: "Aria Approach"
+    title: "Contact Approach Writer"
+    icon: "✍️"
+    description: "Contact approach writer who crafts personalized per-contact outreach messages with PAS / Before-After-Bridge frameworks and signal-specific openers. Operates inside the brief-driven protocol."
+  - code: outreach-sequence-planner
+    name: "Casey Cadence"
+    title: "Outreach Sequence Planner"
+    icon: "🗓️"
+    description: "Outreach sequence planner who assembles per-contact messages into a multi-touch, multi-channel cadence with timing and channel logic. Operates inside the brief-driven protocol."
+  - code: reply-objection-handler
+    name: "Ricky Reply"
+    title: "Reply & Objection Handler"
+    icon: "💬"
+    description: "Reply and objection handler who classifies replies, drafts objection handling, drives to a booked meeting, and sets the CRM next step. Operates inside the brief-driven protocol."

@@ -146,8 +146,11 @@ must follow them literally.
    deliverable folder that references the frozen one.
 5. **Max revisions caps the loop.** If a brief reaches
    `revision > max_revisions`, the next review must be `ESCALATED` and
-   the orchestrator surfaces the deliverable to Max (CMO) or the user
-   directly. Default `max_revisions: 3`.
+   the orchestrator surfaces the deliverable to its wing's escalation
+   owner — Max Growth (CMO) for the marketing wing, Sam Sell for the
+   sales prospecting wing. Escalations they cannot resolve go to Rae
+   Revenue (`gtm-orchestrator`), then to the user directly. Default
+   `max_revisions: 3`.
 6. **Briefs must reference company context.** Every brief MUST list at
    least one `company-context/` file in its `Context (links)` section.
    The only exception is the company-context-bootstrap workflow itself,
