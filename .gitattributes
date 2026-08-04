@@ -1,0 +1,10 @@
+# Keep every text asset LF in the working tree on all platforms.
+#
+# Skill sources are parsed by tooling that splits YAML frontmatter on "\n---\n"
+# (e.g. BMAD's tools/validate-skills.js). A CRLF working tree on Windows makes
+# that frontmatter unreadable and leaks CRLF into `.claude/skills` when the
+# module is installed from a local path with --custom-source.
+* text=auto eol=lf
+
+# Keep the shell release script LF regardless of platform.
+*.sh text eol=lf
