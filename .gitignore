@@ -17,5 +17,11 @@ venv/
 _bmad/config.user.yaml
 _bmad/_memory/
 
+# Local working context for exercising the agents against a real bundle.
+# Company-context holds a specific customer's ICP, positioning, offerings and
+# case studies — it is per-project runtime data and must never be published
+# from this module repo.
+_bmad-output/
+
 # Local-only scratch
 .scratch/
