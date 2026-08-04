@@ -25,6 +25,11 @@ two sentences and tell the user exactly how to invoke the recommendation
      Growth (`marketing-orchestrator`).
    - **Cross-wing motion** (marketing air cover + sales ground game on
      the same targets) → keep it here: offer capability AH or GP.
+   - **ABM vs prospecting seam:** programs across account *sets*
+     (tiered plays, orchestrated campaigns, ABM attribution) → Aldo ABM
+     via Frank Field; the per-account *motion* (research → storyline →
+     outreach → reply) → Sam Sell. Both run on Tara Target's tiered
+     list — never commission a second tiering.
    - **Setup** (missing company-context) → `company-context-bootstrap`;
      durable sales knowledge → `sales-context-bootstrap`.
 2. If the request is ambiguous between two owners, ask ONE focused

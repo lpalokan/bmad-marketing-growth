@@ -1,16 +1,18 @@
 # Marketing Growth Suite
 
-> **v2.1 — international B2B technology go-to-market.** v2.0 refactored
+> **v2.2 — international B2B technology go-to-market.** v2.0 refactored
 > the suite into an 8-domain B2B marketing org with a brief-driven
-> delegation protocol. v2.1 integrates the **Sales Prospecting Suite**
+> delegation protocol. v2.1 integrated the **Sales Prospecting Suite**
 > (formerly the separate `bmad-module-sales-prospecting` module) into
-> the same package and adds a top-level **GTM orchestrator** aware of
-> every orchestrator and agent in both wings.
+> the same package and added a top-level **GTM orchestrator** aware of
+> every orchestrator and agent in both wings. v2.2 consolidated
+> overlapping specialists into a **39-agent roster** — see
+> **Consolidation (v2.2)** below.
 
 An AI-powered go-to-market team for international B2B technology
 companies — a GTM orchestrator (Rae Revenue) above two wings: a CMO
-orchestrator coordinating 8 domain orchestrators and ~34 marketing
-specialists, and a New-Business Orchestrator (Sam Sell) coordinating 10
+orchestrator coordinating 8 domain orchestrators and ~28 marketing
+specialists, and a New-Business Orchestrator (Sam Sell) coordinating 6
 sales prospecting specialists — plus Tier-1/Tier-2 workflows that string
 them together.
 
@@ -76,34 +78,32 @@ Pixel Metrics — Measurement & Attribution Staff   (scope: attribution, forecas
 │   ├── ABM Strategist
 │   ├── Events & Webinars Producer
 │   ├── Customer Advocacy & References
-│   └── Social Media Strategist (Nova; orchestrator, logically nested)
-│       ├── LinkedIn Creator (Ivy)
-│       └── YouTube Strategist (Yuri)
-│       (Twitter and Reddit are Nova's capabilities, not standalone agents)
+│   └── Social Media Strategist (Nova; logically nested)
+│       (LinkedIn, YouTube, Twitter/X and Reddit are all Nova's own
+│        capabilities — no standalone platform agents)
 │
 ├── PR & Communications
 │   ├── Media Relations Specialist
 │   └── Analyst Relations Specialist           (Gartner, Forrester, IDC)
 │
 └── Channel & Partner Marketing
-    └── Partner & Marketplace Manager
+    (Charlie Channel produces co-marketing, marketplace listings and
+     enablement directly — no separate specialist)
 
 Sam Sell — New-Business Orchestrator   (sales prospecting wing)
-├── Tara Target   — Account Sourcing Strategist
-├── Remy Research — Account Research Analyst
+├── Tara Target   — Account Sourcing & Scoring Strategist  (list tiering + fit ✕ timing)
+├── Remy Research — Account Research & Signals Analyst     (profile, why-now, triggers)
 ├── Otto Offer    — Service Offering Advisor
-├── Mira Match    — Fit & Propensity Scorer
 ├── Cleo Contact  — Buying Committee Mapper
-├── Sage Signal   — Signal Monitor
-├── Stella Story  — Account Storyline Developer   (co-develops with Pierce Pitch)
-├── Aria Approach — Contact Approach Writer
-├── Casey Cadence — Outreach Sequence Planner
+├── Aria Approach — Outbound Writer & Sequencer            (messages + cadence)
 └── Ricky Reply   — Reply & Objection Handler
+    (account storylines come from Pierce Pitch in the marketing wing)
 ```
 
-The sales wing runs the prospecting motion end to end (source → research
-→ offering fit → score → map the committee → storyline → approach →
-sequence → reply) via the same brief-driven protocol. It reads the same
+The sales wing runs the prospecting motion end to end (source & score →
+research & signals → offering fit → map the committee → storyline →
+write & sequence the approach → reply) via the same brief-driven
+protocol. It reads the same
 `company-context/` OKF bundle the marketing wing maintains, extends it
 with a sales layer (offerings, scoring model, buying-committee model,
 signal library, playbooks — see `docs/company-context.md`), and never
@@ -198,12 +198,43 @@ lockstep so installs never break mid-sequence.
 | 6     | Tier-1 workflows (5 new + 2 refreshed + 2 retired) | Complete |
 | 7     | Tier-2 workflows (7 new + seo-sprint refresh) | Complete    |
 | v2.1  | Sales Prospecting Suite integration (12 skills) + GTM orchestrator | Complete |
+| v2.2  | Specialist consolidation (46 → 39 agents)     | Complete    |
 
 All v2 epic phases are complete. `marketing-strategy` is kept from v1
 as a higher-level orchestration helper; the rest of the v1 roster has
 been retired or repurposed. v2.1 merges the formerly separate
 `bmad-module-sales-prospecting` module into this package — one install
 now delivers both wings and the `gtm-orchestrator` above them.
+
+### Consolidation (v2.2)
+
+The v2.1 merge left two rosters that had each been designed standalone,
+so several agents covered the same craft. v2.2 folds seven of them into
+the agent whose artifacts they already consumed or produced, and writes
+down two ownership seams. No capability was dropped — every capability
+code lives on in its absorbing agent.
+
+| Absorbed agent | Now part of | Why |
+|---|---|---|
+| `outreach-sequence-planner` (Casey Cadence) | `contact-approach-writer` (Aria Approach) → **Outbound Writer & Sequencer** | Casey's only input was Aria's output; writing the touches and ordering them is one craft. Aria owns both outbound playbooks. |
+| `fit-scoring-strategist` (Mira Match) | `account-sourcing-strategist` (Tara Target) → **Account Sourcing & Scoring Strategist** | Tiering a list and scoring one account are the same rubric at different granularity. Tara owns `icp-fit-model.md`. |
+| `signal-monitor` (Sage Signal) | `account-research-analyst` (Remy Research) → **Account Research & Signals Analyst** | The why-now is a research output; refreshing it is the same research re-run. Remy owns `signal-library.md`. |
+| `account-storyline-developer` (Stella Story) | `sales-presentation-advisor` (Pierce Pitch) → **Sales Presentation & Storyline Advisor** | Both build persuasion storylines; the forced "co-develop with Pierce" handoff was ceremony. Pierce gains capability `AS` and self-checks against his own review lenses. |
+| `linkedin-creator` (Ivy Pro) | `social-media-strategist` (Nova Reach), capability `LI` | Follows v2's own precedent — Twitter and Reddit were already Nova's capabilities, not agents. |
+| `youtube-strategist` (Yuri Views) | `social-media-strategist` (Nova Reach), capability `YT` | Same. Nova now owns all four B2B platforms directly; the nested-orchestrator layer under Field is gone. |
+| `partner-marketplace-manager` (Polly Partner) | `channel-partner-orchestrator` (Charlie Channel) | A domain orchestrator with exactly one specialist was pure brief-and-review overhead. Charlie now produces directly. |
+
+Two seams written down rather than merged:
+
+- **Proof library** — `case-studies/` is owned solely by
+  `customer-advocacy-references` (Cara Customer). Otto Offer reads it
+  heavily and requests changes through the orchestrator; he is only the
+  fallback writer if Cara is unavailable.
+- **ABM ↔ prospecting** — Aldo ABM runs *programs across account sets*
+  and consumes Tara's tiered list rather than re-tiering; the sales wing
+  runs the *per-account motion*. Neither commissions a second rubric.
+
+The sales motion is correspondingly shorter: 8 briefing hops became 5.
 
 ---
 

@@ -1,7 +1,7 @@
 ---
 brief_id: <slug-account-storyline>
 issued_by: sales-prospecting-orchestrator
-issued_to: account-storyline-developer
+issued_to: sales-presentation-advisor
 issued_at: <YYYY-MM-DD>
 status: open
 revision: 0
@@ -61,6 +61,6 @@ These rules override the persona.
 ## Instructions
 
 1. Read the Context (links) that exist. Do not block on missing context.
-2. Use capability DS (develop the storyline).
-3. Optionally use capability PR to route the storyline to Pierce Pitch (`sales-presentation-advisor`, part of this suite) for a review; if unavailable, self-review to the acceptance criteria above. Never block on Pierce being absent.
+2. Use capability AS (develop the account-level storyline).
+3. Self-check the storyline against your own review lenses — structure (SR), headline craft (HD), and Challenge ↔ Desire tension (TX) — before returning it; note what was tightened.
 4. Write `v1.md`; set `state.yaml` `status: in-review`; notify the orchestrator.

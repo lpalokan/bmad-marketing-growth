@@ -13,14 +13,14 @@ execute it through the standard brief-driven protocol.
      Sam Sell's motion works the warmed tier. Shared artifact: the tiered
      account list + per-account storyline.
    - **Launch → outbound** — Priya Position / Lana Launch produce the
-     launch narrative and sales bundle; Stella Story adapts it into
-     account storylines; Aria Approach and Casey Cadence carry it into
+     launch narrative and sales bundle; Pierce Pitch adapts it into
+     account storylines (AS); Aria Approach carries it into messages and
      sequences.
-   - **Signals → campaigns** — Sage Signal's triggers feed Dani Demand
-     (retargeting, demand-gen audiences) or Frank Field (event/ABM
-     plays).
-   - **Content → touches** — Milo Page's pieces become Casey Cadence's
-     value-add touches and Aria Approach's openers.
+   - **Signals → campaigns** — Remy Research's triggers (the signal
+     library) feed Dani Demand (retargeting, demand-gen audiences) or
+     Frank Field (event/ABM plays).
+   - **Content → touches** — Milo Page's pieces become Aria Approach's
+     value-add sequence touches and openers.
    - **Won/active accounts → advocacy** — Ricky Reply's booked meetings
      and closed accounts feed Cara Customer's advocate pipeline.
 2. For the chosen handoff, specify:

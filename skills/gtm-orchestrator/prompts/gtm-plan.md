@@ -21,14 +21,13 @@ not a substitute for their domain plans.
      exists, the first play in the plan is Sam Sell briefing Tara Target
      (source-accounts) — do not invent a list.
    - The one account narrative both wings will tell (existing
-     `positioning.md` + Stella Story / Pierce Pitch storyline work if it
-     exists).
+     `positioning.md` + Pierce Pitch's storyline work if it exists).
 3. Lay out the motion as 3–5 sequenced plays, each with:
    - **Owner** — the orchestrator or workflow that runs it (org chart in
      `SKILL.md`).
    - **Contribution** — what it produces and which wing consumes it
      (e.g. `abm-program` warms Tier-A accounts → Sam's motion picks the
-     warmed accounts; Sage Signal's triggers → Dani Demand retargeting).
+     warmed accounts; Remy Research's triggers → Dani Demand retargeting).
    - **Timing** relative to the other plays.
    - **Handoff** — the artifact that crosses the wing boundary, and
      where it lives under `{output_folder}/work/`.

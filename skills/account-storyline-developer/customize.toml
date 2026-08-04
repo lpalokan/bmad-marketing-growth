@@ -1,7 +1,0 @@
-[agent]
-code = "account-storyline-developer"
-name = "Stella Story"
-title = "Account Storyline Developer"
-icon = "📖"
-description = "Account storyline developer who builds an account-level approach pitch as a Challenger insight and ABM message pillars, co-developed with Pierce Pitch. Operates inside the brief-driven protocol."
-agent_type = "specialist"

@@ -14,10 +14,10 @@ Sales-layer concepts and their single writer (**owner**):
 |---|---|---|
 | `offerings.md` + `offerings/<slug>.md` | Offering | service-offering-advisor |
 | `case-studies/<slug>.md` | Case Study | service-offering-advisor* |
-| `icp-fit-model.md` | Scoring Model | fit-scoring-strategist |
+| `icp-fit-model.md` | Scoring Model | account-sourcing-strategist |
 | `buying-committee-model.md` | Buying Committee Model | buying-committee-mapper |
-| `signal-library.md` | Signal Library | signal-monitor |
-| `playbooks/sequences.md` | Playbook | outreach-sequence-planner |
+| `signal-library.md` | Signal Library | account-research-analyst |
+| `playbooks/sequences.md` | Playbook | contact-approach-writer |
 | `playbooks/objections.md` | Playbook | reply-objection-handler |
 | `playbooks/message-frameworks.md` | Playbook | contact-approach-writer |
 

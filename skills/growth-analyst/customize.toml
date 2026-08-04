@@ -1,7 +1,7 @@
 [agent]
 code = "growth-analyst"
 name = "Pixel Metrics"
-title = "Growth Analyst"
+title = "Measurement & Attribution Staff"
 icon = "📊"
 description = "Growth Analyst specialized in funnel diagnostics, KPI frameworks, and turning analytics into channel allocation decisions."
 agent_type = "orchestrator"

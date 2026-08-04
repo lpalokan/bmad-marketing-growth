@@ -42,10 +42,10 @@ These rules override the persona.
 
 ## Constraints
 
-- Channels: LinkedIn + Nova's owned (Twitter, Reddit). Other platforms
+- Channels: Nova's owned platforms (LinkedIn, YouTube, Twitter, Reddit). Other platforms
   are out of scope in v2 default roster.
 
 ## Instructions
 
-1. Use capability XP (cross-platform) + TW + RD as needed.
-2. Coordinate with linkedin-creator for LinkedIn-specific copy.
+1. Use capability XP (cross-platform) + TW + RD + LI + YT as needed.
+2. Use Nova's LI capability for LinkedIn-specific copy.

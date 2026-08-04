@@ -23,8 +23,9 @@ briefs and reviews under `{output_folder}/work/{account-id}/`.
 
    a. **account-sourcing-strategist** — only if the account came from a list
       request rather than a single named account; otherwise skip.
-   b. **signal-monitor** (SCN) — optional early scan for a fresh why-now; can
-      run in parallel with research.
+   b. **account-research-analyst → signal scan** (SS) — optional early scan for
+      a fresh why-now (signal-scan.md brief); can run in parallel with, or fold
+      into, the research brief.
    b2. **account-research-analyst → relationship layer** (RL) — **only if the
       account is warm/active.** Issue the `relationship-layer.md` brief first so the
       POC/relationship facts frame the public research; for an active POC, POC facts
@@ -37,13 +38,15 @@ briefs and reviews under `{output_folder}/work/{account-id}/`.
       Don't-know is named, and ≥1 confirmed pain candidate exists.
    d. **service-offering-advisor** — which offering(s) fit; can run in parallel
       with research once the segment and the field scan (§4) are known.
-   e. **fit-scoring-strategist** — fit ✕ timing scorecard + action tier. If the
-      tier is "deprioritize/drop", stop here and tell the user.
+   e. **account-sourcing-strategist → fit scoring** (SF) — fit ✕ timing
+      scorecard + action tier (fit-scoring.md brief). If the tier is
+      "deprioritize/drop", stop here and tell the user.
    f. **buying-committee-mapper** — the named committee.
-   g. **account-storyline-developer** — the account storyline (Pierce review if
-      installed).
-   h. **contact-approach-writer** — per-contact messages.
-   i. **outreach-sequence-planner** — the multi-touch cadence.
+   g. **sales-presentation-advisor** (AS) — the account storyline; Pierce
+      self-checks against his review lenses before returning it.
+   h. **contact-approach-writer** (WM) — per-contact messages.
+   i. **contact-approach-writer → sequence** (PS) — the multi-touch cadence
+      (outreach-sequence.md brief; may be combined with h into one brief).
    j. **reply-objection-handler** — stand by for replies (invoked when a reply
       arrives).
 

@@ -1,7 +1,7 @@
 ---
 brief_id: <slug-signal-scan>
 issued_by: sales-prospecting-orchestrator
-issued_to: signal-monitor
+issued_to: account-research-analyst
 issued_at: <YYYY-MM-DD>
 status: open
 revision: 0

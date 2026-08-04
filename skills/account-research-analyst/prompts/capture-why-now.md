@@ -21,6 +21,6 @@ Output is a short section appended to the account profile (or `v{n}.md`).
 4. If no genuine trigger exists, say so plainly ("No account-specific why-now
    found — timing is cold") rather than manufacturing urgency. Timing feeds
    Mira's separate timing score.
-5. Note 1-2 secondary/emerging signals worth monitoring (hand to Sage Signal).
+5. Note 1-2 secondary/emerging signals worth monitoring (track them via capability SS / the signal library).
 6. Write into the profile / `v{n}.md`; update `state.yaml` if in the protocol.
 </process>

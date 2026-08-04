@@ -1,7 +1,7 @@
 code: marketing-growth
 name: "Marketing Growth Suite"
-description: "AI-powered go-to-market team for international B2B technology — a GTM orchestrator above two wings: marketing (CMO + 8 domain orchestrators + ~33 specialists) and sales prospecting (New-Business Orchestrator + 10 specialists), with brief-driven delegation (see docs/protocol.md). v2.1 integrates the Sales Prospecting Suite into one package."
-module_version: 2.1.0
+description: "AI-powered go-to-market team for international B2B technology — a GTM orchestrator above two wings: marketing (CMO + 8 domain orchestrators + ~33 specialists) and sales prospecting (New-Business Orchestrator + 10 specialists), with brief-driven delegation (see docs/protocol.md). v2.1 integrated the Sales Prospecting Suite into one package; v2.2 consolidates overlapping specialists into a 39-agent roster."
+module_version: 2.2.0
 default_selected: false
 
 module_greeting: |
@@ -41,16 +41,17 @@ module_greeting: |
     Growth: lifecycle-activation, experimentation-funnel-lead
     Brand: brand-narrative-strategist, localization-international-lead
     Content: content-seo-strategist, technical-content-writer
-    Field: abm-strategist, events-webinars-producer, customer-advocacy-references, social-media-strategist (Nova), linkedin-creator, youtube-strategist
+    Field: abm-strategist, events-webinars-producer, customer-advocacy-references, social-media-strategist (Nova — owns LinkedIn, YouTube, Twitter, Reddit)
     PR & Comms: media-relations-specialist, analyst-relations-specialist
-    Channel: partner-marketplace-manager
+    Channel: (none — Charlie Channel produces directly)
 
   Sales prospecting wing (under Sam Sell):
-    account-sourcing-strategist (Tara Target), account-research-analyst (Remy Research),
-    service-offering-advisor (Otto Offer), fit-scoring-strategist (Mira Match),
-    buying-committee-mapper (Cleo Contact), signal-monitor (Sage Signal),
-    account-storyline-developer (Stella Story), contact-approach-writer (Aria Approach),
-    outreach-sequence-planner (Casey Cadence), reply-objection-handler (Ricky Reply)
+    account-sourcing-strategist (Tara Target — sourcing, tiering + fit/timing scoring),
+    account-research-analyst (Remy Research — account profile + signals),
+    service-offering-advisor (Otto Offer), buying-committee-mapper (Cleo Contact),
+    contact-approach-writer (Aria Approach — messages + cadence),
+    reply-objection-handler (Ricky Reply)
+    Account storylines come from sales-presentation-advisor (Pierce Pitch).
 
   Workflows (Tier-1, v2): annual-planning, product-launch, content-pipeline (refreshed), paid-campaign-launch, experimentation-sprint, abm-program, growth-audit (refreshed)
   Workflows (Tier-2, v2): positioning-workshop, competitive-teardown, webinar-production, analyst-briefing, lifecycle-program-build, partner-co-marketing-campaign, localization-rollout, seo-sprint (refreshed)
@@ -131,9 +132,9 @@ agents:
     description: "Launch & Sales Enablement PMM who owns launch narrative and sales bundles (battlecard, one-pager, demo, FAQ). Replaces v1's Luna Blast, recast for B2B technology launches."
   - code: sales-presentation-advisor
     name: "Pierce Pitch"
-    title: "Sales Presentation Advisor"
+    title: "Sales Presentation & Storyline Advisor"
     icon: "🎙️"
-    description: "Sales Presentation Advisor who produces and critiques presentation storylines using a three-act structure with complete-sentence headlines in active voice. Inherits source artifacts from positioning, launch narrative, ICP, messaging, and case studies; also reviews submitted drafts. Cross-orchestrator service."
+    description: "Sales Presentation & Storyline Advisor who produces and critiques presentation storylines using a three-act structure with complete-sentence headlines in active voice, and develops account-level storylines (Challenger insight + ABM message pillars) for the sales motion. Inherits source artifacts from positioning, launch narrative, ICP, messaging, and case studies; also reviews submitted drafts. Cross-orchestrator service."
 
   # v2 — Digital Marketing
   - code: digital-marketing-orchestrator
@@ -238,22 +239,12 @@ agents:
     name: "Cara Customer"
     title: "Customer Advocacy & References Specialist"
     icon: "🤝"
-    description: "Customer Advocacy & References Specialist who identifies advocates, runs case studies and reference-call programs, and partners with CSMs to prevent advocate burnout. Operates inside the brief-driven protocol."
+    description: "Customer Advocacy & References Specialist who identifies advocates, runs case studies and reference-call programs, owns the shared case-studies proof library, and partners with CSMs to prevent advocate burnout. Operates inside the brief-driven protocol."
   - code: social-media-strategist
     name: "Nova Reach"
     title: "Social Media Strategist"
     icon: "📱"
-    description: "Social Media Strategist who picks platforms, runs cross-platform strategy, and coordinates LinkedIn / YouTube creators. Twitter and Reddit are Nova's own capabilities in v2. Logically nested under Field; agent_type stays \"orchestrator\"."
-  - code: linkedin-creator
-    name: "Ivy Pro"
-    title: "LinkedIn Content Strategist"
-    icon: "💼"
-    description: "LinkedIn Content Strategist & B2B Growth Expert who creates professional content that generates leads and establishes industry authority."
-  - code: youtube-strategist
-    name: "Yuri Views"
-    title: "YouTube Growth Strategist & Video SEO Expert"
-    icon: "🎥"
-    description: "YouTube Growth Strategist & Video SEO Expert who optimizes channels for discovery, builds video content strategies, and maximizes retention."
+    description: "Social Media Strategist who owns the full multi-platform presence — picks platforms, runs cross-platform strategy, and handles LinkedIn, YouTube, Twitter / X, and Reddit directly as agent-owned capabilities. Logically nested under Field Marketing."
 
   # v2 — PR & Communications
   - code: pr-comms-orchestrator
@@ -277,12 +268,7 @@ agents:
     name: "Charlie Channel"
     title: "Channel & Partner Marketing Lead"
     icon: "🔗"
-    description: "Channel & Partner Marketing Lead who owns partner co-marketing, marketplace listings, and channel enablement. Delegates via the brief-driven protocol."
-  - code: partner-marketplace-manager
-    name: "Polly Partner"
-    title: "Partner & Marketplace Manager"
-    icon: "🏪"
-    description: "Partner & Marketplace Manager who runs joint campaigns, builds marketplace listings (AWS, Salesforce, Atlassian, etc.), and produces channel enablement. Operates inside the brief-driven protocol."
+    description: "Channel & Partner Marketing Lead who owns and produces partner co-marketing, marketplace listings (AWS, Salesforce, Atlassian, etc.), and channel enablement directly."
 
   # Sales prospecting wing (integrated from the Sales Prospecting Suite)
   - code: sales-prospecting-orchestrator
@@ -292,49 +278,29 @@ agents:
     description: "New-business orchestrator who sequences the prospecting motion end to end, issues briefs, owns review verdicts, and escalates. Delegates to the sales specialists via the brief-driven protocol."
   - code: account-sourcing-strategist
     name: "Tara Target"
-    title: "Account Sourcing Strategist"
+    title: "Account Sourcing & Scoring Strategist"
     icon: "🧭"
-    description: "Account sourcing strategist who turns the ICP into a sourced, A/B/C-tiered target-account list. Operates inside the brief-driven protocol."
+    description: "Account sourcing and scoring strategist who turns the ICP into a sourced, A/B/C-tiered target-account list, scores each offering's appeal per account keeping fit and timing as separate scores, and maintains the reusable scoring model. Operates inside the brief-driven protocol."
   - code: account-research-analyst
     name: "Remy Research"
-    title: "Account Research Analyst"
+    title: "Account Research & Signals Analyst"
     icon: "🔎"
-    description: "Account research analyst who builds a comprehensive prospect profile from live web research and Clay company enrichment, and captures a why-now. Operates inside the brief-driven protocol."
+    description: "Account research and signals analyst who builds a comprehensive prospect profile from live web research and Clay company enrichment, captures the why-now, scans for buying triggers and intent, and maintains the signal library. Operates inside the brief-driven protocol."
   - code: service-offering-advisor
     name: "Otto Offer"
     title: "Service Offering Advisor"
     icon: "🧰"
-    description: "Service offering advisor who maintains the offering catalog and proof library and advises other agents on what each service comprises, its ICP, pains, personas, and case studies. Operates inside the brief-driven protocol."
-  - code: fit-scoring-strategist
-    name: "Mira Match"
-    title: "Fit & Propensity Scorer"
-    icon: "⚖️"
-    description: "Fit and propensity scorer who scores each offering's appeal for a prospect, keeping fit and timing as separate scores, and maintains the scoring model. Operates inside the brief-driven protocol."
+    description: "Service offering advisor who maintains the offering catalog and advises other agents on what each service comprises, its ICP, pains, personas, and proof. Operates inside the brief-driven protocol."
   - code: buying-committee-mapper
     name: "Cleo Contact"
     title: "Buying Committee Mapper"
     icon: "🕸️"
     description: "Buying committee mapper who identifies the right people in a target account using Clay contact enrichment and LinkedIn, mapping the MEDDPICC decision-making unit. Operates inside the brief-driven protocol."
-  - code: signal-monitor
-    name: "Sage Signal"
-    title: "Signal Monitor"
-    icon: "📡"
-    description: "Signal monitor who scans for buying triggers and intent, maintains the signal library, and re-fires the motion on a fresh why-now. Operates inside the brief-driven protocol."
-  - code: account-storyline-developer
-    name: "Stella Story"
-    title: "Account Storyline Developer"
-    icon: "📖"
-    description: "Account storyline developer who builds an account-level approach pitch as a Challenger insight and ABM message pillars, co-developed with Pierce Pitch. Operates inside the brief-driven protocol."
   - code: contact-approach-writer
     name: "Aria Approach"
-    title: "Contact Approach Writer"
+    title: "Outbound Writer & Sequencer"
     icon: "✍️"
-    description: "Contact approach writer who crafts personalized per-contact outreach messages with PAS / Before-After-Bridge frameworks and signal-specific openers. Operates inside the brief-driven protocol."
-  - code: outreach-sequence-planner
-    name: "Casey Cadence"
-    title: "Outreach Sequence Planner"
-    icon: "🗓️"
-    description: "Outreach sequence planner who assembles per-contact messages into a multi-touch, multi-channel cadence with timing and channel logic. Operates inside the brief-driven protocol."
+    description: "Outbound writer and sequencer who crafts personalized per-contact outreach messages with PAS / Before-After-Bridge frameworks and signal-specific openers, then assembles them into a multi-touch, multi-channel cadence with timing and channel logic. Operates inside the brief-driven protocol."
   - code: reply-objection-handler
     name: "Ricky Reply"
     title: "Reply & Objection Handler"

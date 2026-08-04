@@ -3,8 +3,8 @@
 <instructions>
 Define or tune the reusable scoring model the whole suite scores against:
 `{output_folder}/company-context/icp-fit-model.md`. This is a Google OKF concept
-of `type: Scoring Model`, owned by fit-scoring-strategist — Mira is its single
-writer; every other agent reads it. This is the one `company-context/` file Mira
+of `type: Scoring Model`, owned by account-sourcing-strategist — Tara is its single
+writer; every other agent reads it. This is the one `company-context/` file Tara
 may write.
 </instructions>
 
@@ -37,9 +37,9 @@ may write.
    description: <one sentence>
    tags: [company-context, scoring, fit, propensity]
    timestamp: <ISO 8601>
-   owner: fit-scoring-strategist
+   owner: account-sourcing-strategist
    last_updated: <YYYY-MM-DD>
-   last_updated_by: fit-scoring-strategist
+   last_updated_by: account-sourcing-strategist
    schema_version: 2
    ---
    Status: <Bootstrapped | In progress | Stable | Stale (needs refresh)>
@@ -48,5 +48,5 @@ may write.
 
 5. Because this is a `company-context/` write, append the change to the bundle
    `log.md` (newest first) and update the root `index.md` entry if the concept is
-   new. This is the single exception to Mira's read-only stance on the bundle.
+   new. This is the single exception to Tara's read-only stance on the bundle.
 </process>

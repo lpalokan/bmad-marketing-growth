@@ -1,7 +1,7 @@
 ---
 brief_id: <slug-fit-scoring>
 issued_by: sales-prospecting-orchestrator
-issued_to: fit-scoring-strategist
+issued_to: account-sourcing-strategist
 issued_at: <YYYY-MM-DD>
 status: open
 revision: 0

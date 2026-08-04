@@ -7,7 +7,7 @@ description: "Partner co-marketing campaign workflow. Lead: Charlie Channel. End
 
 ## Overview
 A 6-8 week motion for a joint co-marketing campaign with a strategic
-partner. Lead is Charlie Channel; delegates to Polly Partner.
+partner. Lead is Charlie Channel, who produces the joint campaign directly.
 
 ## Phases
 1. **Joint planning** — confirm both companies' goals and approvals.

@@ -3,7 +3,7 @@
 <instructions>
 Maintain the canonical trigger taxonomy the whole suite reasons from. It is a
 single OKF `Signal Library` concept at
-`{output_folder}/company-context/signal-library.md`. Sage is the **single
+`{output_folder}/company-context/signal-library.md`. Remy is the **single
 writer** of this file. It structures the narrative triggers in `icp.md` into a
 weighted, sourced taxonomy. Follow the OKF frontmatter schema in
 `docs/company-context.md` exactly.
@@ -27,7 +27,7 @@ weighted, sourced taxonomy. Follow the OKF frontmatter schema in
    - **Stacking notes** — which signals combine into a credible why-now, and
      which are single-signal false positives on their own.
 4. Write the file with OKF frontmatter: `type: Signal Library`,
-   `owner: signal-monitor`, `schema_version: 2`, a `Status:` line, and the other
+   `owner: account-research-analyst`, `schema_version: 2`, a `Status:` line, and the other
    required fields per `docs/company-context.md`. Use bundle-relative links (e.g.
    `[ICP](/icp.md)`).
 5. Keep single-writer discipline — never edit `icp.md`. Append the change to the

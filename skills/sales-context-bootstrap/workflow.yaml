@@ -77,10 +77,10 @@ okf_conventions: |
     * case-studies/<slug>.md               -> service-offering-advisor
       (defer to marketing's customer-advocacy-references / Cara Customer if
        that agent is installed)
-    * icp-fit-model.md                     -> fit-scoring-strategist
+    * icp-fit-model.md                     -> account-sourcing-strategist
     * buying-committee-model.md            -> buying-committee-mapper
-    * signal-library.md                    -> signal-monitor
-    * playbooks/sequences.md               -> outreach-sequence-planner
+    * signal-library.md                    -> account-research-analyst
+    * playbooks/sequences.md               -> contact-approach-writer
     * playbooks/objections.md              -> reply-objection-handler
     * playbooks/message-frameworks.md      -> contact-approach-writer
   - Granularity is HYBRID: offerings.md ALWAYS stays as the hub. Explode a
@@ -310,7 +310,7 @@ phases:
             for each action tier. Confirm weights with the user; don't invent.
 
           Write icp-fit-model.md as an OKF concept (see okf_conventions) with
-          `type: Scoring Model`, owner fit-scoring-strategist. Link to icp.md
+          `type: Scoring Model`, owner account-sourcing-strategist. Link to icp.md
           (the fit basis) and signal-library.md (the timing basis) — link, don't
           duplicate.
         output: "icp-fit-model.md"
@@ -360,7 +360,7 @@ phases:
           - Which signals feed the timing axis of icp-fit-model.md.
 
           Write signal-library.md as an OKF concept (see okf_conventions) with
-          `type: Signal Library`, owner signal-monitor. Link to icp.md's triggers
+          `type: Signal Library`, owner account-research-analyst. Link to icp.md's triggers
           and to icp-fit-model.md's timing axis.
         output: "signal-library.md"
         gate: "user_approval"
@@ -382,7 +382,7 @@ phases:
           Do NOT capture any account's actual sequence (a work artifact).
 
           Write playbooks/sequences.md, `type: Playbook`, owner
-          outreach-sequence-planner. Reads brand-voice.md — link, don't copy.
+          contact-approach-writer. Reads brand-voice.md — link, don't copy.
         output: "playbooks/sequences.md"
         gate: "user_approval"
 

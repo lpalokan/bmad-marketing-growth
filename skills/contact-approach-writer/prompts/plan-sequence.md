@@ -1,7 +1,7 @@
 # Plan the Multi-Touch Outreach Sequence
 
 <instructions>
-Assemble Aria's per-contact messages into a multi-touch, multi-channel cadence —
+Assemble the per-contact approach messages (capability WM output) into a multi-touch, multi-channel cadence —
 email / LinkedIn / call — with explicit timing and spacing per step, per-role
 entry points across the buying committee, and a human-in-the-loop send gate.
 Output is `v{n}.md` (in the protocol) or
@@ -13,10 +13,10 @@ cadence to be multi-threaded and structured so reply-handling can run against it
 1. Confirm the account (name + domain). Read any brief and the context that
    exists: `brand-voice.md`, the owned `playbooks/sequences.md` (reusable cadence
    templates + channel rules), and — from the work folder — `approach-messages.md`
-   (Aria's per-contact messages) and `buying-committee.md` (the named DMU). Note
+   (the per-contact messages from capability WM) and `buying-committee.md` (the named DMU). Note
    what's absent and continue.
-2. Inventory the inputs. List each of Aria's messages and each committee member
-   with their role. Every step in the cadence must map to one of Aria's messages
+2. Inventory the inputs. List each approach message and each committee member
+   with their role. Every step in the cadence must map to one of the approach messages
    — the sequence tailors and orders copy, it never invents new copy.
 3. Rank personalization by **signal strength** (personalization-waterfall style):
    sort contacts / signals from strongest, most specific signal to weakest, and

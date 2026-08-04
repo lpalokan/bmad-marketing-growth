@@ -27,13 +27,11 @@ phases:
   - id: build
     name: "Build"
     steps:
-      - id: joint-campaign-brief
-        name: "Joint campaign brief"
+      - id: joint-campaign-build
+        name: "Joint campaign build"
         agent: channel-partner-orchestrator
-        delegates_to: partner-marketplace-manager
-        action: "Issue joint co-marketing brief."
-        brief_template: "brief-templates/joint.md"
-        output: "joint-brief.md"
+        action: "Use capability JC (joint co-marketing campaign) to produce the joint campaign package."
+        output: "joint-campaign.md"
         gate: "user_approval"
 
   - id: launch
@@ -41,7 +39,7 @@ phases:
     steps:
       - id: coordinated-launch
         name: "Coordinated launch"
-        agent: partner-marketplace-manager
+        agent: channel-partner-orchestrator
         action: |
           Execute per joint plan. Both companies fire on aligned
           schedule.
@@ -52,7 +50,7 @@ phases:
     steps:
       - id: joint-retro
         name: "Joint retro"
-        agent: partner-marketplace-manager
+        agent: channel-partner-orchestrator
         action: |
           Use capability RR (retro). Joint read-out with partner;
           decide scale / iterate / pause.

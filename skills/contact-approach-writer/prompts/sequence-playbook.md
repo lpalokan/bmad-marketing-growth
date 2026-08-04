@@ -4,7 +4,7 @@
 Maintain the canonical, reusable cadence playbook. It is a single OKF `Playbook`
 concept at `{output_folder}/company-context/playbooks/sequences.md`: reusable
 cadence templates and channel rules — touch counts, spacing, and channel mix by
-persona / tier. Casey is the **single writer** of this file. Follow the OKF
+persona / tier. Aria is the **single writer** of this file. Follow the OKF
 frontmatter schema in `docs/company-context.md` exactly.
 </instructions>
 
@@ -25,7 +25,7 @@ frontmatter schema in `docs/company-context.md` exactly.
    prefixed `Example — illustrative, not benchmarks.` Real numbers need a source
    cited inline; otherwise mark `[UNKNOWN — needs input]`.
 6. Write the file with OKF frontmatter: `type: Playbook`,
-   `owner: outreach-sequence-planner`, `schema_version: 2`, a `Status:` line, and
+   `owner: contact-approach-writer`, `schema_version: 2`, a `Status:` line, and
    the other required fields per `docs/company-context.md`. Use bundle-relative
    links (e.g. to `brand-voice.md` and `icp.md` personas). Keep single-writer
    discipline.

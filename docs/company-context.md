@@ -47,10 +47,10 @@ sales agents.
 |-----------------------------------------|------------------------|----------------------------------------------|------------------------------------------------------------------|
 | `offerings.md` + `offerings/<slug>.md`  | Offering               | service-offering-advisor (Otto Offer)        | Offering catalog; links `icp.md` personas + `positioning.md`.    |
 | `case-studies/<slug>.md`                | Case Study             | customer-advocacy-references (Cara Customer)* | Proof library for offerings, storyline, and approach.            |
-| `icp-fit-model.md`                      | Scoring Model          | fit-scoring-strategist (Mira Match)          | Fit ✕ timing scoring model; reads `icp.md`.                      |
+| `icp-fit-model.md`                      | Scoring Model          | account-sourcing-strategist (Tara Target)    | Fit ✕ timing scoring model; reads `icp.md`.                      |
 | `buying-committee-model.md`             | Buying Committee Model | buying-committee-mapper (Cleo Contact)       | Generic DMU/role model; links personas in `icp.md`.              |
-| `signal-library.md`                     | Signal Library         | signal-monitor (Sage Signal)                 | Buying triggers and intent signals, structured from `icp.md`.    |
-| `playbooks/sequences.md`                | Playbook               | outreach-sequence-planner (Casey Cadence)    | Reusable cadence patterns; reads `brand-voice.md`.               |
+| `signal-library.md`                     | Signal Library         | account-research-analyst (Remy Research)     | Buying triggers and intent signals, structured from `icp.md`.    |
+| `playbooks/sequences.md`                | Playbook               | contact-approach-writer (Aria Approach)      | Reusable cadence patterns; reads `brand-voice.md`.               |
 | `playbooks/objections.md`               | Playbook               | reply-objection-handler (Ricky Reply)        | Objection-handling patterns; reads `positioning.md`.             |
 | `playbooks/message-frameworks.md`       | Playbook               | contact-approach-writer (Aria Approach)      | Message frameworks (PAS, BAB, openers); reads `brand-voice.md`.  |
 

@@ -1,7 +1,7 @@
 ---
 brief_id: <slug-outreach-sequence>
 issued_by: sales-prospecting-orchestrator
-issued_to: outreach-sequence-planner
+issued_to: contact-approach-writer
 issued_at: <YYYY-MM-DD>
 status: open
 revision: 0

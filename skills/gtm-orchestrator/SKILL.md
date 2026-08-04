@@ -78,27 +78,24 @@ consulted on every plan in both wings.
 | `content-architect` (Milo Page) | Content Marketing | `content-seo-strategist` (Quinn Crawler), `technical-content-writer` (Theo Tech) |
 | `digital-marketing-orchestrator` (Dani Demand) | Digital Marketing | `web-cro-specialist` (Wes Web), `paid-search-specialist` (Sean SEM), `paid-social-demand-specialist` (Posy Paid), `marketing-automation-engineer` (Mark Auto), `technical-seo-engineer` (Tek Crawl) |
 | `growth-marketing-orchestrator` (Greta Growth) | Growth Marketing | `lifecycle-activation` (Ember Flow), `experimentation-funnel-lead` (Eli Experiment) |
-| `field-marketing-orchestrator` (Frank Field) | Field Marketing | `abm-strategist` (Aldo ABM), `events-webinars-producer` (Ella Event), `customer-advocacy-references` (Cara Customer), `social-media-strategist` (Nova Reach — nested orchestrator) → `linkedin-creator` (Ivy Pro), `youtube-strategist` (Yuri Views) |
+| `field-marketing-orchestrator` (Frank Field) | Field Marketing | `abm-strategist` (Aldo ABM), `events-webinars-producer` (Ella Event), `customer-advocacy-references` (Cara Customer — owns the shared `case-studies/` proof library), `social-media-strategist` (Nova Reach — owns LinkedIn, YouTube, Twitter / X, and Reddit directly) |
 | `pr-comms-orchestrator` (Penny PR) | PR & Communications | `media-relations-specialist` (Maddy Media), `analyst-relations-specialist` (Ana Analyst) |
-| `channel-partner-orchestrator` (Charlie Channel) | Channel & Partner | `partner-marketplace-manager` (Polly Partner) |
+| `channel-partner-orchestrator` (Charlie Channel) | Channel & Partner | (none — Charlie produces co-marketing, marketplace listings, and enablement directly) |
 
 ### Sales wing — Sam Sell (`sales-prospecting-orchestrator`), New Business
 
 Sam sequences the prospecting motion end to end:
-source → research → offering fit → score → map the committee →
-storyline → approach → sequence → reply.
+source & score → research & signals → map the committee →
+storyline (via Pierce Pitch) → write & sequence the approach → reply.
 
 | Specialist | Role |
 |---|---|
-| `account-sourcing-strategist` (Tara Target) | ICP → sourced, A/B/C-tiered target-account list |
-| `account-research-analyst` (Remy Research) | Account profile + why-now |
-| `service-offering-advisor` (Otto Offer) | Offering catalog, proof library, offering-fit advice |
-| `fit-scoring-strategist` (Mira Match) | Fit ✕ timing scorecard, scoring model |
+| `account-sourcing-strategist` (Tara Target) | ICP → sourced, A/B/C-tiered target-account list; fit ✕ timing scorecards; owns the scoring model |
+| `account-research-analyst` (Remy Research) | Account profile + why-now; buying triggers and intent; owns the signal library |
+| `service-offering-advisor` (Otto Offer) | Offering catalog and offering-fit advice (proof library belongs to Cara Customer) |
 | `buying-committee-mapper` (Cleo Contact) | Named buying committee (MEDDPICC DMU) |
-| `signal-monitor` (Sage Signal) | Buying triggers, signal library, refreshed why-now |
-| `account-storyline-developer` (Stella Story) | Account-level storyline (co-develops with Pierce Pitch) |
-| `contact-approach-writer` (Aria Approach) | Per-contact outreach messages |
-| `outreach-sequence-planner` (Casey Cadence) | Multi-touch, multi-channel cadence |
+| `sales-presentation-advisor` (Pierce Pitch — marketing wing, cross-orchestrator service) | Account-level storyline (Challenger insight + ABM pillars) via capability AS |
+| `contact-approach-writer` (Aria Approach) | Per-contact outreach messages + the multi-touch, multi-channel cadence; owns both outbound playbooks |
 | `reply-objection-handler` (Ricky Reply) | Reply classification → booked meeting |
 
 ### Workflows

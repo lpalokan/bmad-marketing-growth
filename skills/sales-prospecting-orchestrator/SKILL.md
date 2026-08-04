@@ -61,23 +61,29 @@ that document literally; do not paraphrase it here.
 | Specialist                    | Use for                                   | Brief template                                   |
 |-------------------------------|-------------------------------------------|--------------------------------------------------|
 | account-sourcing-strategist   | Sourced, A/B/C-tiered target list         | brief-templates/source-accounts.md               |
+| account-sourcing-strategist   | Fit ✕ timing scorecard + action tier      | brief-templates/fit-scoring.md                   |
 | account-research-analyst      | Account profile + why-now (six domains)   | brief-templates/account-research.md              |
 | account-research-analyst      | Field scan — who's circling (§4)          | brief-templates/field-scan.md                    |
 | account-research-analyst      | Relationship layer — warm accounts (§5)   | brief-templates/relationship-layer.md            |
+| account-research-analyst      | Signal scan + refreshed why-now           | brief-templates/signal-scan.md                   |
 | service-offering-advisor      | Which offering fits + proof to lead with  | brief-templates/offering-advice.md               |
-| fit-scoring-strategist        | Fit ✕ timing scorecard + action tier      | brief-templates/fit-scoring.md                   |
 | buying-committee-mapper       | The named buying committee (DMU)          | brief-templates/buying-committee.md              |
-| signal-monitor                | Signal scan + refreshed why-now           | brief-templates/signal-scan.md                   |
-| account-storyline-developer   | Account-level storyline (+ Pierce review) | brief-templates/account-storyline.md             |
+| sales-presentation-advisor    | Account-level storyline (Challenger insight + ABM pillars) | brief-templates/account-storyline.md |
 | contact-approach-writer       | Per-contact outreach messages             | brief-templates/contact-approach.md              |
-| outreach-sequence-planner     | Multi-touch, multi-channel cadence        | brief-templates/outreach-sequence.md             |
+| contact-approach-writer       | Multi-touch, multi-channel cadence        | brief-templates/outreach-sequence.md             |
 | reply-objection-handler       | Reply handling → booked meeting           | brief-templates/reply-handling.md                |
 
-The storyline specialist co-develops with **Pierce Pitch**
-(`sales-presentation-advisor`, part of this suite) — for a storyline review,
-that handoff uses Pierce's own template at
-`skills/sales-presentation-advisor/brief-templates/presentation-review.md`. If
-Pierce is unavailable, Stella reviews to her own acceptance criteria.
+The account storyline is built by **Pierce Pitch**
+(`sales-presentation-advisor`, the suite's cross-orchestrator storyline
+service) via his AS capability — one specialist, one craft, no co-develop
+handoff. Pierce self-checks the storyline against his own review lenses
+(structure, headlines, tension) before returning `v{n}.md`; Sam still owns
+the verdict.
+
+(v2.2 roster note: Mira Match's scoring lives with Tara Target, Sage
+Signal's monitoring lives with Remy Research, Casey Cadence's sequencing
+lives with Aria Approach, and Stella Story's storyline craft lives with
+Pierce Pitch.)
 
 ## Ownership
 

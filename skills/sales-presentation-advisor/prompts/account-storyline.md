@@ -1,12 +1,13 @@
-# Develop the Account-Level Storyline
+# Develop the Account-Level Storyline (sales motion)
 
 <instructions>
-Build ONE account-level point of view — a single value hypothesis — for the
-account, expressed as a Challenger teachable insight and 3–5 ABM message pillars.
-Output is `v{n}.md` (in the protocol) or
-`{output_folder}/work/{account-id}/account-storyline.md` (standalone). Structure
-it so `contact-approach-writer` and `outreach-sequence-planner` can tailor every
-touch from it.
+Build ONE account-level point of view — a single value hypothesis — for a
+named target account, expressed as a Challenger teachable insight and 3–5 ABM
+message pillars. This is the sales wing's approach pitch: the spine that every
+per-contact message is later a tailoring of. Output is `v{n}.md` (in the
+protocol) or `{output_folder}/work/{account-id}/account-storyline.md`
+(standalone). Structure it so `contact-approach-writer` (Aria Approach) can
+tailor every touch and sequence step from it.
 </instructions>
 
 <process>
@@ -33,8 +34,8 @@ touch from it.
    ladders up to this single line.
 
 4. Break the insight into **3–5 ABM message pillars.** Each pillar carries:
-   - **Headline** — a complete declarative sentence in active voice (Pierce's
-     standard), stating the idea, not labelling a topic.
+   - **Headline** — a complete declarative sentence in active voice (the house
+     headline standard), stating the idea, not labelling a topic.
    - **Value prop** — what changes for the account if this is true.
    - **Proof point** — a **named comparable** (a specific company/segment, drawn
      from `case-studies/` or a cited source) plus a **specific metric**. No
@@ -48,8 +49,11 @@ touch from it.
 6. Add a short **Committee map** note: which pillar leads for which role, so the
    contact writer can tailor without re-deriving the point of view.
 
-7. Write the storyline with a **Sources** section (each proof point traced to its
+7. Self-check the storyline against the review lenses before handing it back:
+   the three-act structure (capability SR), headline craft (HD), and the
+   Challenge ↔ Desire tension (TX). Fix what fails; note what was tightened.
+
+8. Write the storyline with a **Sources** section (each proof point traced to its
    case study or cited source) and a **Missing/assumptions** list. In the
    protocol, set `state.yaml` `status: in-review` and notify the orchestrator.
-   Offer capability **PR** to route it to Pierce Pitch for a storyline review.
 </process>
