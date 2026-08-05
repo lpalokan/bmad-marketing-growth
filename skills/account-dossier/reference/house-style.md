@@ -33,6 +33,12 @@ Test: could you say this sentence out loud to the buyer without embarrassment.
   subject and verb. Trailing clauses and ordinary lists are fine.
 - **No headline that labels a topic.** Headlines are complete sentences in active
   voice, with the audience as the subject where possible.
+- **No leading questions.** A question carrying its own conclusion buys a
+  confirmation, and a confirmation is worth nothing. Rewrite it open and neutral
+  so the reader reaches the conclusion themselves. This governs the discovery
+  questions in section 6 and any question inside a message.
+  Leading: "Control testing is your big priority this year, right?"
+  Neutral: "Where does control testing sit against your other priorities?"
 
 ## Lists
 

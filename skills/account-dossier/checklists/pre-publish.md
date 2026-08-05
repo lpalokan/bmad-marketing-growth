@@ -35,6 +35,15 @@ publication. The orchestrator owns this gate and no agent passes its own work.
 - [ ] The value hypothesis comes before the reasoning that produced it.
 - [ ] Discovery questions are numbered, specific and answerable, and derive from
       the recorded gaps.
+- [ ] They sit in the five altitude buckets, in order, opening on why now and
+      ending on change readiness.
+- [ ] No bucket holds more than two questions, and no two questions are the same
+      question reworded.
+- [ ] No question states its own conclusion. Each one is open and neutral.
+- [ ] Every question carries one line saying what the answer changes.
+- [ ] The list closes with a synthesis question that asks the prospect to direct
+      the next step.
+- [ ] Gaps that lost a bucket slot still appear in the gaps list in section 8.
 - [ ] No outreach sequence in the dossier.
 - [ ] No process narration, version numbers, agent names or reversed verdicts.
 - [ ] Sources are split into observed, inherited, our own, and gaps.

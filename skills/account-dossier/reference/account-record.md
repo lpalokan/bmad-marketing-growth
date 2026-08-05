@@ -57,7 +57,9 @@ ASSUME to a KNOW without doing the verification themselves.
 
 - **Sources.** Every fact already carries its URL, so section 8 assembles itself.
 - **Discovery questions.** Every GAP is already a named question, so section 6 is
-  rendered rather than invented.
+  rendered rather than invented. The altitude buckets and the two per bucket cap
+  in `structure.md` then decide which of them reach the AE. A gap that loses its
+  slot stays in the gaps list in section 8.
 - **A short overview.** The dossier renders a record instead of reproducing an
   essay, which is why the overview can be cut without losing anything.
 - **Traceability.** An AE challenged on a figure can find where it came from.

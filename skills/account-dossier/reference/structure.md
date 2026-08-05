@@ -85,8 +85,70 @@ LinkedIn connection note, and a pre-send checklist. See `message-craft.md`.
 
 ### 6. Questions for discovery
 
-Numbered, specific, and answerable by a person in the room. Render them from the
-GAP entries in the record rather than inventing them at the end. Ten to fifteen.
+Numbered, specific, and answerable by a person in the room. Ten at most, in five
+buckets of two, plus one synthesis question to close.
+
+#### Bucket by altitude
+
+Topic is the wrong axis. Sort every question into one of five stages instead.
+They mirror how trust builds across a call.
+
+1. Strategic context. Why now.
+2. Priorities and scope.
+3. Current operating model. How the work runs today.
+4. Pain, risk and exposure.
+5. Change readiness and next step.
+
+If a question does not obviously belong to a stage, ask whether it needs an
+earlier stage answered first. The answer tells you its depth.
+
+#### Order broad to narrow
+
+Keep the buckets in the order above. Never open on process or on pain. Open on
+why now, because it reframes everything after it. Objections and next steps come
+last, because they only make sense once the detail has been earned.
+
+#### Two per bucket, at most
+
+The cap forces the highest signal question per angle. Two questions that are the
+same question reworded count as one, so cut the weaker.
+
+#### Where the questions come from
+
+Render them from the GAP entries in the record rather than inventing them at the
+end. The buckets decide the shape. The gaps decide the content. Where the two
+disagree:
+
+- A bucket holding more than two gaps keeps the two highest signal. The rest stay
+  in the gaps list in section 8, so nothing is lost.
+- A bucket holding no gap still earns a question when that stage matters for the
+  call. Write it, and know it came from the conversation rather than from the
+  research.
+- The synthesis question is never gap derived.
+
+#### Neutral, never leading
+
+A question that states its conclusion inside itself buys a confirmation, and a
+confirmation is worth nothing. The prospect reaches the conclusion. You do not
+hand it to them.
+
+Leading: "Control testing is your big transformation priority this year, right?"
+Neutral: "Where does control testing sit against your other priorities this year?"
+
+#### One line of "why we ask" under each
+
+Every question carries a single line saying what the answer changes. If you
+cannot say what it changes, the question does not belong in the dossier. This is
+the test that cuts the list down.
+
+#### Close with a synthesis question
+
+The last item is not discovery. It hands the AE the bridge to the next step by
+asking the prospect to direct the conversation instead of disclosing one more
+fact. "What would you want us to cover when we come back, and what would you
+want us to stay away from."
+
+#### Specific and answerable
 
 Weak: "Current control-testing and GRC tooling."
 Strong: "What tooling supports control testing and workpapers today, or does the

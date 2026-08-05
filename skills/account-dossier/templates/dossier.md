@@ -117,6 +117,50 @@ approach. Then the timing, with the next dated event.>
 
 ## 6. Questions for discovery
 
+> *Five buckets, two questions each at most, in this order. Every question
+> carries one line saying what the answer changes. Delete any bucket heading you
+> did not fill.*
+
+### Strategic context, why now
+
+1. <question>
+   *Why we ask: <what the answer changes>.*
+2. <question>
+   *Why we ask: <what the answer changes>.*
+
+### Priorities and scope
+
+3. <question>
+   *Why we ask: <what the answer changes>.*
+4. <question>
+   *Why we ask: <what the answer changes>.*
+
+### Current operating model
+
+5. <question>
+   *Why we ask: <what the answer changes>.*
+6. <question>
+   *Why we ask: <what the answer changes>.*
+
+### Pain, risk and exposure
+
+7. <question>
+   *Why we ask: <what the answer changes>.*
+8. <question>
+   *Why we ask: <what the answer changes>.*
+
+### Change readiness and next step
+
+9. <question>
+   *Why we ask: <what the answer changes>.*
+10. <question>
+    *Why we ask: <what the answer changes>.*
+
+### To close
+
+11. <synthesis question, handing them the bridge to the next step>
+    *Why we ask: <what the answer changes>.*
+
 ---
 
 ## 7. Before you send
