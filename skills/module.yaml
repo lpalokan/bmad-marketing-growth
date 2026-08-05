@@ -56,6 +56,7 @@ module_greeting: |
   Workflows (Tier-1, v2): annual-planning, product-launch, content-pipeline (refreshed), paid-campaign-launch, experimentation-sprint, abm-program, growth-audit (refreshed)
   Workflows (Tier-2, v2): positioning-workshop, competitive-teardown, webinar-production, analyst-briefing, lifecycle-program-build, partner-co-marketing-campaign, localization-rollout, seo-sprint (refreshed)
   Workflow (kept from v1): marketing-strategy
+  Sales workflow: account-dossier (the dossier standard + build workflow)
   Bootstraps: company-context-bootstrap, sales-context-bootstrap
 
 # Install-time questions. Answers flow into _bmad/config.yaml (shared) or

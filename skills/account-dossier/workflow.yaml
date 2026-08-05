@@ -1,0 +1,164 @@
+# Account Dossier Workflow
+# Trigger: AD
+# Lead: Sam Sell (New-Business Orchestrator)
+#
+# Builds one AE-ready account dossier. Every phase writes into the shared
+# account record (reference/account-record.md); the dossier is a render of that
+# record plus the storyline, never a re-typing of seven separate documents.
+
+workflow:
+  id: account-dossier
+  name: "Account Dossier"
+  version: "1.0.0"
+  trigger: "AD"
+  lead_agent: sales-prospecting-orchestrator
+  description: |
+    Build a complete account dossier for one named account, written for an
+    Account Executive. Sequences the sales specialists, enforces the dossier
+    standard, and renders branded HTML.
+
+  standards:
+    structure: "reference/structure.md"
+    house_style: "reference/house-style.md"
+    source_fidelity: "reference/source-fidelity.md"
+    enrichment: "reference/enrichment-and-provenance.md"
+    account_record: "reference/account-record.md"
+    research_method: "reference/research-method.md"
+    message_craft: "reference/message-craft.md"
+    third_parties: "reference/third-parties.md"
+    checklist: "checklists/pre-publish.md"
+
+  inputs:
+    account_name: "required"
+    account_id: "slug, derived from account_name unless given"
+    lead_offering: "optional, otherwise decided in phase 2"
+
+phases:
+  - id: scope
+    name: "Scope"
+    steps:
+      - id: confirm-account
+        name: "Confirm the account and check for an existing dossier"
+        agent: sales-prospecting-orchestrator
+        action: |
+          Confirm the exact legal entity with the user. Names in this market
+          collide, so state which entity is in scope and which similarly named
+          companies are not. Record the exclusions in frontmatter only, never
+          in reader-facing prose (reference/third-parties.md).
+
+          Check {output_folder}/work/dossiers/{account-id}/ for an existing
+          dossier. If one exists, do not overwrite it. Create a dated file and
+          set `supersedes:` in the frontmatter.
+        output: "account.md (frontmatter and identity section)"
+
+  - id: research
+    name: "Research"
+    steps:
+      - id: account-overview
+        name: "Account overview, goals, plans, challenges, why-now"
+        agent: account-research-analyst
+        action: |
+          Follow reference/research-method.md for fetch order and live
+          verification. Write into the record sections you own per
+          reference/account-record.md. Label every fact KNOW, ASSUME or GAP with
+          a link at the point of capture. Produce the dated why-now signal table.
+        output: "account.md sections 1 to 7, sources"
+        gate: "exit_check"
+
+      - id: offering-fit
+        name: "Which offering fits"
+        agent: service-offering-advisor
+        action: |
+          Name the lead offering and any secondary. Carry our own proof points as
+          site claims until a named reference exists, and flag [PROOF NEEDED].
+        output: "account.md offering section"
+
+      - id: fit-verdict
+        name: "Fit, timing and tier"
+        agent: account-sourcing-strategist
+        action: |
+          Use capability SF. Score fit and timing separately, then set the action
+          tier. The dossier renders a short verdict rather than the full
+          scorecard.
+        output: "account.md fit verdict"
+
+  - id: people
+    name: "People"
+    steps:
+      - id: committee
+        name: "Buying committee"
+        agent: buying-committee-mapper
+        action: |
+          Verify the published leadership live this session. Enrichment-derived
+          people are corroborated before they enter the reader-facing table, or
+          they go in a separately headed block with a re-verify flag, per
+          reference/enrichment-and-provenance.md. Add seat detail on the few that
+          matter, the path to the buyer, blockers, and what they will weigh
+          instead of us.
+        output: "account.md committee sections"
+
+  - id: argument
+    name: "Argument"
+    steps:
+      - id: storyline
+        name: "Value hypothesis, reasoning, pillars, objections"
+        agent: sales-presentation-advisor
+        action: |
+          Use capability AS. Value hypothesis first, then the reasoning that
+          produced it, then the pillars. Add an objections section with the
+          answer to each. At most one analogy, and it must be businesslike.
+          Follow reference/house-style.md. Self-check against the storyline
+          review lenses (SR / HD / TX) before handing back — there is no
+          separate review step.
+        output: "storyline section"
+        gate: "user_approval"
+
+  - id: outreach
+    name: "First touches"
+    steps:
+      - id: messages
+        name: "First-touch messages"
+        agent: contact-approach-writer
+        action: |
+          One message per load-bearing seat, plus a forward note and a LinkedIn
+          note. Follow reference/message-craft.md. Third parties never appear in
+          outbound copy. Produce the pre-send checklist.
+        output: "messages section"
+
+      - id: sequence-note
+        name: "Cadence, if the runner wants one"
+        agent: contact-approach-writer
+        action: |
+          Use capability PS.
+          Optional and NOT dossier content. If a cadence is wanted, write it to
+          {output_folder}/work/dossiers/{account-id}/cadence-internal.md and
+          leave it out of the dossier.
+        output: "cadence-internal.md"
+
+  - id: assemble
+    name: "Assemble"
+    steps:
+      - id: write-dossier
+        name: "Render the record into the dossier"
+        agent: sales-prospecting-orchestrator
+        action: |
+          Use templates/dossier.md. Follow reference/structure.md for order.
+          Write the executive summary last, from the finished document. Render
+          discovery questions from the GAP entries rather than inventing them.
+          The reader sees the account and the plan, never the process.
+        output: "dossier.md (or dossier-{yyyy-mm-dd}.md when superseding)"
+
+      - id: qa
+        name: "Pre-publish gate"
+        agent: sales-prospecting-orchestrator
+        action: "Run checklists/pre-publish.md item by item. Any failure blocks."
+        gate: "checklist_pass"
+
+      - id: render
+        name: "Branded HTML"
+        agent: sales-prospecting-orchestrator
+        action: |
+          python tools/build_dossier_html.py {account-id} [source.md] [out-stem]
+          Verify the rendered page before showing it. Never overwrite another
+          account's render.
+        output: "dossiers-html/{account-id}.html"
