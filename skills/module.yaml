@@ -1,7 +1,7 @@
 code: marketing-growth
 name: "Marketing Growth Suite"
 description: "AI-powered go-to-market team for international B2B technology — a GTM orchestrator above two wings: marketing (CMO + 8 domain orchestrators + ~33 specialists) and sales prospecting (New-Business Orchestrator + 10 specialists), with brief-driven delegation (see docs/protocol.md). v2.1 integrated the Sales Prospecting Suite into one package; v2.2 consolidates overlapping specialists into a 39-agent roster; v2.3 renames the default output folder from _bmad-output/ to output/."
-module_version: 2.3.0
+module_version: 2.3.1
 default_selected: false
 
 module_greeting: |
