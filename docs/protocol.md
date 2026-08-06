@@ -7,14 +7,14 @@ one or more **versions** of the deliverable, and a **review** per version.
 
 The protocol is intentionally low-tech: plain Markdown files with YAML
 frontmatter, written under the user-configured `output_folder` (default
-`_bmad-output/`). No tooling is required.
+`output/`). No tooling is required.
 
 ## Folder layout
 
 Under `{output_folder}/work/{deliverable-id}/`:
 
 ```
-_bmad-output/work/{deliverable-id}/
+output/work/{deliverable-id}/
 ├── brief.md             # issued by orchestrator; immutable once issued
 ├── v1.md                # specialist's first attempt
 ├── v1-review.md         # orchestrator's verdict on v1
@@ -146,8 +146,11 @@ must follow them literally.
    deliverable folder that references the frozen one.
 5. **Max revisions caps the loop.** If a brief reaches
    `revision > max_revisions`, the next review must be `ESCALATED` and
-   the orchestrator surfaces the deliverable to Max (CMO) or the user
-   directly. Default `max_revisions: 3`.
+   the orchestrator surfaces the deliverable to its wing's escalation
+   owner — Max Growth (CMO) for the marketing wing, Sam Sell for the
+   sales prospecting wing. Escalations they cannot resolve go to Rae
+   Revenue (`gtm-orchestrator`), then to the user directly. Default
+   `max_revisions: 3`.
 6. **Briefs must reference company context.** Every brief MUST list at
    least one `company-context/` file in its `Context (links)` section.
    The only exception is the company-context-bootstrap workflow itself,
@@ -167,7 +170,7 @@ must follow them literally.
 ## Worked example
 
 ```
-_bmad-output/work/2026-q3-positioning/
+output/work/2026-q3-positioning/
 ├── brief.md             # status: accepted, revision: 1
 ├── v1.md
 ├── v1-review.md         # verdict: NEEDS_REVISION, 2 items failing

@@ -48,6 +48,19 @@ These rules override the persona.
 | HC | Reference health check | prompts/health-check.md |
 | SM | Save session to memory | (none — handled inline) |
 
+## Ownership
+
+Cara is the **single writer** of the shared proof library (see
+`docs/company-context.md`):
+
+- `{output_folder}/company-context/case-studies/<slug>.md` — OKF `Case Study`
+  concepts, the named-comparable proof both wings cite (offering advice,
+  account storylines, outreach messages, launch bundles).
+
+Approved case-study deliverables (capability CS) are distilled into these
+concepts. Otto Offer (`service-offering-advisor`) is the documented fallback
+writer only when Cara is unavailable.
+
 ## Brief-driven mode
 
 Operates inside `docs/protocol.md`.

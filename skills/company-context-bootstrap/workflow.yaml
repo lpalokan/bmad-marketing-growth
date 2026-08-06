@@ -117,7 +117,7 @@ phases:
           - If the path DIRECTLY contains any recognized context file
             (icp.md, positioning.md, brand-voice.md, kpis.md,
             tech-stack.md), use it as the source folder.
-          - Else look for `_bmad-output/company-context/` then
+          - Else look for `output/company-context/` then
             `company-context/` directly beneath it; use the first that
             contains recognized files.
           - Else treat the path as a CONTAINER: scan its immediate

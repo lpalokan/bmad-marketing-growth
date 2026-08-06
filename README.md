@@ -1,13 +1,20 @@
 # Marketing Growth Suite
 
-> **v2.0 — international B2B technology marketing.** The suite is being
-> refactored from a PLG/indie-SaaS roster to an 8-domain B2B marketing
-> org with a brief-driven delegation protocol. This README describes the
-> v2 target state. The rollout is phased — see **Rollout status** below.
+> **v2.2 — international B2B technology go-to-market.** v2.0 refactored
+> the suite into an 8-domain B2B marketing org with a brief-driven
+> delegation protocol. v2.1 integrated the **Sales Prospecting Suite**
+> (formerly the separate `bmad-module-sales-prospecting` module) into
+> the same package and added a top-level **GTM orchestrator** aware of
+> every orchestrator and agent in both wings. v2.2 consolidated
+> overlapping specialists into a **39-agent roster** — see
+> **Consolidation (v2.2)** below.
 
-An AI-powered marketing team for international B2B technology
-companies — a CMO orchestrator coordinating 8 domain orchestrators and
-~34 specialists, plus Tier-1 workflows that string them together.
+An AI-powered go-to-market team for international B2B technology
+companies — a GTM orchestrator (Rae Revenue) above two wings: a CMO
+orchestrator coordinating 8 domain orchestrators and ~28 marketing
+specialists, and a New-Business Orchestrator (Sam Sell) coordinating 6
+sales prospecting specialists — plus Tier-1/Tier-2 workflows that string
+them together.
 
 Distributed as **both** a native [Claude Code plugin](https://code.claude.com/docs/en/plugins.md) and a [BMAD framework](https://github.com/bmad-code-org/BMAD-METHOD) module. One physical copy of every skill; pick whichever installer you prefer.
 
@@ -31,8 +38,16 @@ This is the main behavioral difference from a generic AI marketing assistant.
 ### Org chart
 
 ```
+Rae Revenue — GTM Orchestrator          (aware of every orchestrator and agent below;
+│                                        routes requests, aligns the wings on one
+│                                        account narrative, final escalation before the user)
+│
+├── Sam Sell — New-Business Orchestrator (sales prospecting wing; see below)
+│
+└── Max Growth — CMO Orchestrator        (marketing wing)
+
 Max Growth — CMO Orchestrator
-Pixel Metrics — Measurement & Attribution Staff   (scope: attribution, forecasting, dashboards, scoring model design)
+Pixel Metrics — Measurement & Attribution Staff   (scope: attribution, forecasting, dashboards, scoring model design; serves both wings)
 
 ├── Product Marketing
 │   ├── Positioning & Messaging PMM
@@ -63,23 +78,48 @@ Pixel Metrics — Measurement & Attribution Staff   (scope: attribution, forecas
 │   ├── ABM Strategist
 │   ├── Events & Webinars Producer
 │   ├── Customer Advocacy & References
-│   └── Social Media Strategist (Nova; orchestrator, logically nested)
-│       ├── LinkedIn Creator (Ivy)
-│       └── YouTube Strategist (Yuri)
-│       (Twitter and Reddit are Nova's capabilities, not standalone agents)
+│   └── Social Media Strategist (Nova; logically nested)
+│       (LinkedIn, YouTube, Twitter/X and Reddit are all Nova's own
+│        capabilities — no standalone platform agents)
 │
 ├── PR & Communications
 │   ├── Media Relations Specialist
 │   └── Analyst Relations Specialist           (Gartner, Forrester, IDC)
 │
 └── Channel & Partner Marketing
-    └── Partner & Marketplace Manager
+    (Charlie Channel produces co-marketing, marketplace listings and
+     enablement directly — no separate specialist)
+
+Sam Sell — New-Business Orchestrator   (sales prospecting wing)
+├── Tara Target   — Account Sourcing & Scoring Strategist  (list tiering + fit ✕ timing)
+├── Remy Research — Account Research & Signals Analyst     (profile, why-now, triggers)
+├── Otto Offer    — Service Offering Advisor
+├── Cleo Contact  — Buying Committee Mapper
+├── Aria Approach — Outbound Writer & Sequencer            (messages + cadence)
+└── Ricky Reply   — Reply & Objection Handler
+    (account storylines come from Pierce Pitch in the marketing wing)
 ```
+
+The sales wing runs the prospecting motion end to end (source & score →
+research & signals → offering fit → map the committee → storyline →
+write & sequence the approach → reply) via the same brief-driven
+protocol. It reads the same
+`company-context/` OKF bundle the marketing wing maintains, extends it
+with a sales layer (offerings, scoring model, buying-committee model,
+signal library, playbooks — see `docs/company-context.md`), and never
+*requires* the bundle: sales agents proceed with what they have and ask
+focused questions for what's missing. `/sales-context-bootstrap`
+optionally pre-seeds the sales layer. The method behind the motion is
+documented in `docs/opportunity-brief-method.md` (with a
+regulated-industries overlay under `docs/overlays/`).
+
+Escalation path: specialist → domain orchestrator → Max Growth
+(marketing) or specialist → Sam Sell (sales) → Rae Revenue → user.
 
 ### Brief-driven delegation protocol
 
 Orchestrators don't dispatch via chat — they write a `brief.md` under
-`_bmad-output/work/{deliverable-id}/`. The specialist reads the brief,
+`output/work/{deliverable-id}/`. The specialist reads the brief,
 produces `v1.md`, and the orchestrator reviews against the acceptance
 criteria. Verdicts are `APPROVED`, `NEEDS_REVISION` (with a numbered
 list of required changes), or `ESCALATED` (after `max_revisions` is
@@ -92,8 +132,8 @@ Full schemas, state machine, and rules: **[`docs/protocol.md`](docs/protocol.md)
 
 | Tier                                            | Purpose                                          | Owned by         | Lifecycle                |
 |-------------------------------------------------|--------------------------------------------------|------------------|--------------------------|
-| `_bmad-output/company-context/`                 | Shared, durable facts (ICP, positioning, KPIs…) — an OKF bundle | Per-file owner   | Read-mostly, refreshed    |
-| `_bmad-output/work/{id}/`                       | Per-deliverable trail (brief, versions, review) | Issuing orch.    | Frozen on accept          |
+| `output/company-context/`                 | Shared, durable facts (ICP, positioning, KPIs…) — an OKF bundle | Per-file owner   | Read-mostly, refreshed    |
+| `output/work/{id}/`                       | Per-deliverable trail (brief, versions, review) | Issuing orch.    | Frozen on accept          |
 | `_bmad/_memory/{code}-sidecar/memories.md`      | Per-agent private notes                          | The agent itself | Free-form, append on save |
 
 The sidecar pattern is **unchanged** from v1. See **[`docs/company-context.md`](docs/company-context.md)** for the company-context schema and ownership table.
@@ -157,10 +197,44 @@ lockstep so installs never break mid-sequence.
 | 5     | Field + PR + Channel (9 new, 6 retired)       | Complete    |
 | 6     | Tier-1 workflows (5 new + 2 refreshed + 2 retired) | Complete |
 | 7     | Tier-2 workflows (7 new + seo-sprint refresh) | Complete    |
+| v2.1  | Sales Prospecting Suite integration (12 skills) + GTM orchestrator | Complete |
+| v2.2  | Specialist consolidation (46 → 39 agents)     | Complete    |
 
 All v2 epic phases are complete. `marketing-strategy` is kept from v1
 as a higher-level orchestration helper; the rest of the v1 roster has
-been retired or repurposed.
+been retired or repurposed. v2.1 merges the formerly separate
+`bmad-module-sales-prospecting` module into this package — one install
+now delivers both wings and the `gtm-orchestrator` above them.
+
+### Consolidation (v2.2)
+
+The v2.1 merge left two rosters that had each been designed standalone,
+so several agents covered the same craft. v2.2 folds seven of them into
+the agent whose artifacts they already consumed or produced, and writes
+down two ownership seams. No capability was dropped — every capability
+code lives on in its absorbing agent.
+
+| Absorbed agent | Now part of | Why |
+|---|---|---|
+| `outreach-sequence-planner` (Casey Cadence) | `contact-approach-writer` (Aria Approach) → **Outbound Writer & Sequencer** | Casey's only input was Aria's output; writing the touches and ordering them is one craft. Aria owns both outbound playbooks. |
+| `fit-scoring-strategist` (Mira Match) | `account-sourcing-strategist` (Tara Target) → **Account Sourcing & Scoring Strategist** | Tiering a list and scoring one account are the same rubric at different granularity. Tara owns `icp-fit-model.md`. |
+| `signal-monitor` (Sage Signal) | `account-research-analyst` (Remy Research) → **Account Research & Signals Analyst** | The why-now is a research output; refreshing it is the same research re-run. Remy owns `signal-library.md`. |
+| `account-storyline-developer` (Stella Story) | `sales-presentation-advisor` (Pierce Pitch) → **Sales Presentation & Storyline Advisor** | Both build persuasion storylines; the forced "co-develop with Pierce" handoff was ceremony. Pierce gains capability `AS` and self-checks against his own review lenses. |
+| `linkedin-creator` (Ivy Pro) | `social-media-strategist` (Nova Reach), capability `LI` | Follows v2's own precedent — Twitter and Reddit were already Nova's capabilities, not agents. |
+| `youtube-strategist` (Yuri Views) | `social-media-strategist` (Nova Reach), capability `YT` | Same. Nova now owns all four B2B platforms directly; the nested-orchestrator layer under Field is gone. |
+| `partner-marketplace-manager` (Polly Partner) | `channel-partner-orchestrator` (Charlie Channel) | A domain orchestrator with exactly one specialist was pure brief-and-review overhead. Charlie now produces directly. |
+
+Two seams written down rather than merged:
+
+- **Proof library** — `case-studies/` is owned solely by
+  `customer-advocacy-references` (Cara Customer). Otto Offer reads it
+  heavily and requests changes through the orchestrator; he is only the
+  fallback writer if Cara is unavailable.
+- **ABM ↔ prospecting** — Aldo ABM runs *programs across account sets*
+  and consumes Tara's tiered list rather than re-tiering; the sales wing
+  runs the *per-account motion*. Neither commissions a second rubric.
+
+The sales motion is correspondingly shorter: 8 briefing hops became 5.
 
 ---
 

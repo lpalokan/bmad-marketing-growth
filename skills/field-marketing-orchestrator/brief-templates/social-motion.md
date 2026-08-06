@@ -24,8 +24,8 @@ to a campaign or launch, business outcome.>
 ## Deliverable
 
 `work/{brief_id}/v1.md`: platform mix with rationale, content
-calendar by week, creator coordination plan (LinkedIn Creator,
-YouTube Strategist, and Nova's owned Twitter / Reddit capabilities),
+calendar by week, per-platform plan (Nova's owned LinkedIn, YouTube,
+Twitter / Reddit capabilities),
 measurement plan, brand-voice compliance check.
 
 ## Acceptance Criteria
@@ -60,7 +60,7 @@ These rules override the persona.
 ## Instructions
 
 1. Read linked context first.
-2. Nova: coordinate across LinkedIn Creator and YouTube Strategist;
+2. Nova: cover LinkedIn (LI) and YouTube (YT) directly;
    handle Twitter and Reddit posts directly per your SKILL.md
    capabilities.
 3. Write `v1.md`; update `state.yaml`.

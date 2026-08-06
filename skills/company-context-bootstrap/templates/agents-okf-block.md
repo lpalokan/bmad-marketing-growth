@@ -2,7 +2,7 @@
 <!-- block-version: 1 -->
 ## Company context (OKF bundle) & the briefing mandate
 
-`_bmad-output/company-context/` is a **Google OKF v0.1 bundle** — the shared,
+`output/company-context/` is a **Google OKF v0.1 bundle** — the shared,
 durable answer to "who we are, who we sell to, how we measure ourselves." It is
 read-mostly and single-writer: every agent reads it; only the one owner of a
 file writes it. Schema & ownership: the suite's `docs/company-context.md`.
