@@ -29,7 +29,7 @@ These rules override the persona.
 1. Load configuration (tolerant of missing files):
    - Try `{project-root}/_bmad/config.yaml`. If present, read `core.user_name`, `core.communication_language`, `core.document_output_language`, and `marketing-growth.output_folder`.
    - Try `{project-root}/_bmad/config.user.yaml`. If present, its `core.user_name` and `core.communication_language` override the shared values.
-   - For any value still missing, use defaults: `user_name = there`, `communication_language = English`, `document_output_language = English`, `output_folder = {project-root}/_bmad-output`.
+   - For any value still missing, use defaults: `user_name = there`, `communication_language = English`, `document_output_language = English`, `output_folder = {project-root}/output`.
 
 2. Ask the user for the inputs required by this workflow: product/service offering, target audience (ICP), current marketing status, budget range, and primary growth objective.
 

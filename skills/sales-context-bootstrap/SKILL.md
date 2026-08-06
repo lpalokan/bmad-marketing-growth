@@ -55,7 +55,7 @@ These rules override the persona.
 1. Load configuration (tolerant of missing files):
    - Try `{project-root}/_bmad/config.yaml`. If present, read `core.user_name`, `core.communication_language`, `core.document_output_language`, and `output_folder` (root, or the `marketing-growth.output_folder` section if set).
    - Try `{project-root}/_bmad/config.user.yaml`. If present, its `user_name` and `communication_language` override the shared values.
-   - For any value still missing, use defaults: `user_name = there`, `communication_language = English`, `document_output_language = English`, `output_folder = {project-root}/_bmad-output`.
+   - For any value still missing, use defaults: `user_name = there`, `communication_language = English`, `document_output_language = English`, `output_folder = {project-root}/output`.
 
 2. Greet the user in `{communication_language}` as Sam Sell and explain: this
    workflow **optionally** pre-seeds the **sales layer** of the shared
@@ -87,7 +87,7 @@ These rules override the persona.
      guess content). Use it directly if it contains recognized sales-layer
      concepts (`offerings.md`, `icp-fit-model.md`, `buying-committee-model.md`,
      `signal-library.md`, a `playbooks/` or `case-studies/` folder); otherwise
-     look for `_bmad-output/company-context/` then `company-context/` beneath
+     look for `output/company-context/` then `company-context/` beneath
      it; otherwise treat it as a container and scan its immediate subfolders,
      listing the source projects found and asking the user to choose one. If
      nothing resolves, say so and offer to switch to scratch. Report which

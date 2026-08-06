@@ -2,7 +2,7 @@
 <!-- block-version: 1 -->
 ## Sales layer (OKF bundle) — optional, read-mostly
 
-The Sales Prospecting Suite extends the **same** `_bmad-output/company-context/`
+The Sales Prospecting Suite extends the **same** `output/company-context/`
 OKF v0.1 bundle the marketing suite writes — it does **not** create a separate
 bundle. On top of the marketing core (`icp.md`, `positioning.md`,
 `brand-voice.md`, `kpis.md`, `tech-stack.md`) it adds a durable, reusable

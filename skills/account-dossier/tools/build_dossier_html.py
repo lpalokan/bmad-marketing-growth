@@ -34,8 +34,8 @@ from pathlib import Path
 import markdown
 
 TOOLS = Path(__file__).resolve().parent
-DEFAULT_ROOT = Path.cwd() / "_bmad-output" / "work" / "dossiers"
-DEFAULT_HTML = Path.cwd() / "_bmad-output" / "work" / "dossiers-html"
+DEFAULT_ROOT = Path.cwd() / "output" / "work" / "dossiers"
+DEFAULT_HTML = Path.cwd() / "output" / "work" / "dossiers-html"
 
 ROOT = Path(os.environ.get("DOSSIER_ROOT", DEFAULT_ROOT))
 OUT_DIR = Path(os.environ.get("DOSSIER_HTML", DEFAULT_HTML))

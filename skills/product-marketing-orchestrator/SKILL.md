@@ -78,7 +78,7 @@ Owns these company-context files (only this agent writes them):
 1. Load configuration (tolerant of missing files):
    - Try `{project-root}/_bmad/config.yaml`. If present, read `core.user_name`, `core.communication_language`, `core.document_output_language`, and `marketing-growth.output_folder`.
    - Try `{project-root}/_bmad/config.user.yaml`. If present, its `core.user_name` and `core.communication_language` override the shared values.
-   - For any value still missing, use defaults: `user_name = there`, `communication_language = English`, `document_output_language = English`, `output_folder = {project-root}/_bmad-output`.
+   - For any value still missing, use defaults: `user_name = there`, `communication_language = English`, `document_output_language = English`, `output_folder = {project-root}/output`.
 
 2. Prepare memory sidecar (self-create if missing):
    - Ensure `{project-root}/_bmad/_memory/product-marketing-orchestrator-sidecar/` exists. Use `mkdir -p` if creating.

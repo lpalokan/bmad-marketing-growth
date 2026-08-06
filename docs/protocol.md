@@ -7,14 +7,14 @@ one or more **versions** of the deliverable, and a **review** per version.
 
 The protocol is intentionally low-tech: plain Markdown files with YAML
 frontmatter, written under the user-configured `output_folder` (default
-`_bmad-output/`). No tooling is required.
+`output/`). No tooling is required.
 
 ## Folder layout
 
 Under `{output_folder}/work/{deliverable-id}/`:
 
 ```
-_bmad-output/work/{deliverable-id}/
+output/work/{deliverable-id}/
 ├── brief.md             # issued by orchestrator; immutable once issued
 ├── v1.md                # specialist's first attempt
 ├── v1-review.md         # orchestrator's verdict on v1
@@ -170,7 +170,7 @@ must follow them literally.
 ## Worked example
 
 ```
-_bmad-output/work/2026-q3-positioning/
+output/work/2026-q3-positioning/
 ├── brief.md             # status: accepted, revision: 1
 ├── v1.md
 ├── v1-review.md         # verdict: NEEDS_REVISION, 2 items failing

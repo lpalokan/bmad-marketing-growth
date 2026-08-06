@@ -21,6 +21,7 @@ _bmad/_memory/
 # Company-context holds a specific customer's ICP, positioning, offerings and
 # case studies — it is per-project runtime data and must never be published
 # from this module repo.
+output/
 _bmad-output/
 
 # Local-only scratch

@@ -119,7 +119,7 @@ Escalation path: specialist → domain orchestrator → Max Growth
 ### Brief-driven delegation protocol
 
 Orchestrators don't dispatch via chat — they write a `brief.md` under
-`_bmad-output/work/{deliverable-id}/`. The specialist reads the brief,
+`output/work/{deliverable-id}/`. The specialist reads the brief,
 produces `v1.md`, and the orchestrator reviews against the acceptance
 criteria. Verdicts are `APPROVED`, `NEEDS_REVISION` (with a numbered
 list of required changes), or `ESCALATED` (after `max_revisions` is
@@ -132,8 +132,8 @@ Full schemas, state machine, and rules: **[`docs/protocol.md`](docs/protocol.md)
 
 | Tier                                            | Purpose                                          | Owned by         | Lifecycle                |
 |-------------------------------------------------|--------------------------------------------------|------------------|--------------------------|
-| `_bmad-output/company-context/`                 | Shared, durable facts (ICP, positioning, KPIs…) — an OKF bundle | Per-file owner   | Read-mostly, refreshed    |
-| `_bmad-output/work/{id}/`                       | Per-deliverable trail (brief, versions, review) | Issuing orch.    | Frozen on accept          |
+| `output/company-context/`                 | Shared, durable facts (ICP, positioning, KPIs…) — an OKF bundle | Per-file owner   | Read-mostly, refreshed    |
+| `output/work/{id}/`                       | Per-deliverable trail (brief, versions, review) | Issuing orch.    | Frozen on accept          |
 | `_bmad/_memory/{code}-sidecar/memories.md`      | Per-agent private notes                          | The agent itself | Free-form, append on save |
 
 The sidecar pattern is **unchanged** from v1. See **[`docs/company-context.md`](docs/company-context.md)** for the company-context schema and ownership table.

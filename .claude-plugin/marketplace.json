@@ -10,8 +10,8 @@
     {
       "name": "marketing-growth",
       "source": "./",
-      "description": "AI-powered go-to-market team for international B2B technology — a GTM orchestrator above two wings: marketing (CMO + 8 domain orchestrators + specialists) and sales prospecting (New-Business Orchestrator + specialists), with brief-driven delegation (see docs/protocol.md). v2.2 consolidates overlapping specialists into a 39-agent roster.",
-      "version": "2.2.0",
+      "description": "AI-powered go-to-market team for international B2B technology — a GTM orchestrator above two wings: marketing (CMO + 8 domain orchestrators + specialists) and sales prospecting (New-Business Orchestrator + specialists), with brief-driven delegation (see docs/protocol.md). v2.2 consolidates overlapping specialists into a 39-agent roster; v2.3 renames the default output folder from _bmad-output/ to output/.",
+      "version": "2.3.0",
       "author": {
         "name": "Lauri Palokangas"
       },

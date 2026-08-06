@@ -162,7 +162,7 @@ phases:
             (offerings.md, icp-fit-model.md, buying-committee-model.md,
             signal-library.md, or a playbooks/ or case-studies/ folder), use
             it as the source folder.
-          - Else look for `_bmad-output/company-context/` then
+          - Else look for `output/company-context/` then
             `company-context/` directly beneath it; use the first that contains
             recognized sales-layer files.
           - Else treat the path as a CONTAINER: scan its immediate subfolders

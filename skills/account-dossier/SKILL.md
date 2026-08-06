@@ -94,7 +94,7 @@ block wins, so a project keeps its own look once it has one.
 1. Load configuration (tolerant of missing files):
    - Try `{project-root}/_bmad/config.yaml`. If present, read `core.user_name`, `core.communication_language`, `core.document_output_language`, and `marketing-growth.output_folder`.
    - Try `{project-root}/_bmad/config.user.yaml`. If present, its `core.user_name` and `core.communication_language` override the shared values.
-   - For any value still missing, use defaults: `user_name = there`, `communication_language = English`, `document_output_language = English`, `output_folder = {project-root}/_bmad-output`.
+   - For any value still missing, use defaults: `user_name = there`, `communication_language = English`, `document_output_language = English`, `output_folder = {project-root}/output`.
 
 2. Load context **if available — never required, never blocks:**
    - `{output_folder}/company-context/` is an OKF v0.1 bundle. If it exists,

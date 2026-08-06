@@ -1,6 +1,6 @@
 ---
 name: company-context-bootstrap
-description: "Workflow that builds and maintains _bmad-output/company-context/ as a Google OKF (Open Knowledge Format) bundle — ICP, positioning, brand voice, KPIs, tech-stack, plus index.md and log.md, and refreshes the project's AGENTS.md OKF block. Four modes: scratch intake, import & adapt another project's context, migrate existing non-OKF files to OKF, and ingest the input/ folder (refactor dropped files into OKF concepts and fold new knowledge in). Must be run before any v2 agent. Lead: marketing-orchestrator. Use when user says set up company context, bootstrap, initial intake, reuse/clone/import context, migrate to OKF, refactor context to OKF, ingest input folder, or add knowledge to context."
+description: "Workflow that builds and maintains output/company-context/ as a Google OKF (Open Knowledge Format) bundle — ICP, positioning, brand voice, KPIs, tech-stack, plus index.md and log.md, and refreshes the project's AGENTS.md OKF block. Four modes: scratch intake, import & adapt another project's context, migrate existing non-OKF files to OKF, and ingest the input/ folder (refactor dropped files into OKF concepts and fold new knowledge in). Must be run before any v2 agent. Lead: marketing-orchestrator. Use when user says set up company context, bootstrap, initial intake, reuse/clone/import context, migrate to OKF, refactor context to OKF, ingest input folder, or add knowledge to context."
 ---
 
 # Company Context Bootstrap Workflow
@@ -44,7 +44,7 @@ These rules override the persona.
 1. Load configuration (tolerant of missing files):
    - Try `{project-root}/_bmad/config.yaml`. If present, read `core.user_name`, `core.communication_language`, `core.document_output_language`, and `marketing-growth.output_folder`.
    - Try `{project-root}/_bmad/config.user.yaml`. If present, its `core.user_name` and `core.communication_language` override the shared values.
-   - For any value still missing, use defaults: `user_name = there`, `communication_language = English`, `document_output_language = English`, `output_folder = {project-root}/_bmad-output`.
+   - For any value still missing, use defaults: `user_name = there`, `communication_language = English`, `document_output_language = English`, `output_folder = {project-root}/output`.
 
 2. Greet the user in `{communication_language}` and explain: this
    workflow gathers the foundational knowledge the rest of the v2
@@ -65,7 +65,7 @@ These rules override the persona.
      never guess content). Use it directly if it contains recognized
      context files (`icp.md`, `positioning.md`, `brand-voice.md`,
      `kpis.md`, `tech-stack.md`); otherwise look for
-     `_bmad-output/company-context/` then `company-context/` beneath it;
+     `output/company-context/` then `company-context/` beneath it;
      otherwise treat it as a container and scan its immediate subfolders,
      listing the source projects found and asking the user to choose
      one. If nothing resolves, say so and offer to switch to scratch.

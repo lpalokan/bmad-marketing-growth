@@ -28,7 +28,7 @@ Feature: Bootstrap company context from an existing context folder
 
   Scenario: Resolve a path that points at a project or parent folder
     Given the path does not directly contain recognized context files
-    Then the workflow looks for "_bmad-output/company-context" then
+    Then the workflow looks for "output/company-context" then
          "company-context" beneath it, and uses the first that has files
 
   Scenario: Discover multiple source projects under a parent
