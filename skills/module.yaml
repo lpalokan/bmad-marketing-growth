@@ -59,8 +59,11 @@ module_greeting: |
   Sales workflow: account-dossier (the dossier standard + build workflow)
   Bootstraps: company-context-bootstrap, sales-context-bootstrap
 
-# Install-time questions. Answers flow into _bmad/config.yaml (shared) or
-# _bmad/config.user.yaml (personal, gitignored) per `user_setting`.
+# Install-time questions. On BMAD 6.x installers the answers flow into
+# _bmad/marketing-growth/config.yaml (module config) and the root
+# _bmad/config.toml / _bmad/config.user.toml per `user_setting`; legacy
+# installers wrote _bmad/config.yaml (shared) / _bmad/config.user.yaml
+# (personal, gitignored). Agents read all locations, newest layout first.
 questions:
   - key: user_name
     prompt: "What name should the agents use when addressing you?"
@@ -84,8 +87,9 @@ questions:
     directories:
       - "{output_folder}"
 
-# Optional (not asked at install): set `marketing-growth.input_folder` in
-# _bmad/config.yaml to point company-context-bootstrap's INGEST mode at a
+# Optional (not asked at install): set `input_folder` in
+# _bmad/marketing-growth/config.yaml (legacy: `marketing-growth.input_folder`
+# in _bmad/config.yaml) to point company-context-bootstrap's INGEST mode at a
 # raw drop folder. Defaults to {project-root}/input when unset.
 
 # Agent roster — consumed by bmad-module-builder validation and any UI that

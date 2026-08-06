@@ -22,10 +22,12 @@ verbatim into a new SKILL.md, then fill the four placeholders.
 ```markdown
 ## On Activation
 
-1. Load configuration (tolerant of missing files):
-   - Try `{project-root}/_bmad/config.yaml`. If present, read `core.user_name`, `core.communication_language`, `core.document_output_language`, and `marketing-growth.output_folder`.
-   - Try `{project-root}/_bmad/config.user.yaml`. If present, its `core.user_name` and `core.communication_language` override the shared values.
-   - For any value still missing, use defaults: `user_name = there`, `communication_language = English`, `document_output_language = English`, `output_folder = {project-root}/output`.
+1. Load configuration (tolerant of missing files; for each value, the first file that provides it wins):
+   - Try `{project-root}/_bmad/custom/config.user.toml`, then `{project-root}/_bmad/custom/config.toml` (pinned overrides -- always win when present).
+   - Try `{project-root}/_bmad/marketing-growth/config.yaml` (BMAD 6.x module config; flat keys `user_name`, `communication_language`, `document_output_language`, `output_folder`).
+   - Try `{project-root}/_bmad/config.user.toml`, then `{project-root}/_bmad/config.toml` (BMAD 6.x root config; `[core]` keys, e.g. `output_folder`, `document_output_language`).
+   - Legacy fallback: try `{project-root}/_bmad/config.yaml` (`core.user_name`, `core.communication_language`, `core.document_output_language`, `marketing-growth.output_folder`), with `{project-root}/_bmad/config.user.yaml` overriding `core.user_name` and `core.communication_language`.
+   - For any value still missing, use defaults: `user_name = there`, `communication_language = English`, `document_output_language = English`; `output_folder = {project-root}/_bmad-output` if that folder exists, else `{project-root}/output`.
 
 2. Prepare memory sidecar (self-create if missing):
    - Ensure `{project-root}/_bmad/_memory/{AGENT-CODE}-sidecar/` exists. Use `mkdir -p` if creating.
