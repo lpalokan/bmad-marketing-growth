@@ -293,11 +293,12 @@ git checkout feat/issue-4-v2-architecture   # optional, for v2
 npx bmad-method install --custom-source . --tools claude-code
 ```
 
-The installer prompts for the 4 questions declared in `skills/module.yaml` (user name, communication language, document output language, output folder) and writes the answers into your project's `_bmad/config.yaml` (shared) and `_bmad/config.user.yaml` (personal, gitignore-worthy). Use `--yes` to skip prompts and accept defaults. Agents read these at activation.
+The installer prompts for the 4 questions declared in `skills/module.yaml` (user name, communication language, document output language, output folder). BMAD 6.x installers write the answers into your project's `_bmad/marketing-growth/config.yaml` and the root `_bmad/config.toml` / `_bmad/config.user.toml`; legacy installers wrote `_bmad/config.yaml` (shared) and `_bmad/config.user.yaml` (personal, gitignore-worthy). Use `--yes` to skip prompts and accept defaults. Agents read all locations at activation, newest layout first, and fall back to `_bmad-output/` (then `output/`) when no config is found.
 
 Optional — gitignore personal settings:
 ```bash
-echo "_bmad/config.user.yaml" >> .gitignore
+echo "_bmad/config.user.toml" >> .gitignore   # BMAD 6.x
+echo "_bmad/config.user.yaml" >> .gitignore   # legacy
 ```
 
 Agents self-create their memory sidecars on first activation and fall back to sensible defaults if no config is present.
