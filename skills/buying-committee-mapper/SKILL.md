@@ -99,7 +99,8 @@ not required.
    - Try `{project-root}/_bmad/marketing-growth/config.yaml` (BMAD 6.x module config; flat keys `user_name`, `communication_language`, `document_output_language`, `output_folder`).
    - Try `{project-root}/_bmad/config.user.toml`, then `{project-root}/_bmad/config.toml` (BMAD 6.x root config; `[core]` keys, e.g. `output_folder`, `document_output_language`).
    - Legacy fallback: try `{project-root}/_bmad/config.yaml` (`core.user_name`, `core.communication_language`, `core.document_output_language`, `output_folder` at root or `marketing-growth.output_folder`), with `{project-root}/_bmad/config.user.yaml` overriding `user_name` and `communication_language`.
-   - For any value still missing, use defaults: `user_name = there`, `communication_language = English`, `document_output_language = English`; `output_folder = {project-root}/_bmad-output` if that folder exists, else `{project-root}/output`.
+   - For any value still missing, use defaults: `user_name = there`, `communication_language = English`, `document_output_language = English`.
+   - Resolve `output_folder` **silently — never ask the user**. Normalize a relative value against `{project-root}`. Then use the first of these that already contains a `company-context/` folder: the configured value, `{project-root}/output`, `{project-root}/_bmad-output` (legacy name, retired in v2.4). If none does, glob the project for `**/company-context/index.md` and `**/company-context/icp.md` (excluding `.git/`, `node_modules/`, `_bmad/`, `**/work/**`) and use its parent when there is exactly one match. Still nothing: use `{project-root}/output`. `output/` is the canonical name; `_bmad-output/` is read-only compatibility — never create it.
 
 2. Prepare memory sidecar (self-create if missing):
    - Ensure `{project-root}/_bmad/_memory/buying-committee-mapper-sidecar/` exists. Use `mkdir -p` if creating.

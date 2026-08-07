@@ -57,7 +57,8 @@ These rules override the persona.
    - Try `{project-root}/_bmad/marketing-growth/config.yaml` (BMAD 6.x module config; flat keys `user_name`, `communication_language`, `document_output_language`, `output_folder`).
    - Try `{project-root}/_bmad/config.user.toml`, then `{project-root}/_bmad/config.toml` (BMAD 6.x root config; `[core]` keys, e.g. `output_folder`, `document_output_language`).
    - Legacy fallback: try `{project-root}/_bmad/config.yaml` (`core.user_name`, `core.communication_language`, `core.document_output_language`, `output_folder` at root or `marketing-growth.output_folder`), with `{project-root}/_bmad/config.user.yaml` overriding `user_name` and `communication_language`.
-   - For any value still missing, use defaults: `user_name = there`, `communication_language = English`, `document_output_language = English`; `output_folder = {project-root}/_bmad-output` if that folder exists, else `{project-root}/output`.
+   - For any value still missing, use defaults: `user_name = there`, `communication_language = English`, `document_output_language = English`.
+   - Resolve `output_folder` **silently — never ask the user**. Normalize a relative value against `{project-root}`. Then use the first of these that already contains a `company-context/` folder: the configured value, `{project-root}/output`, `{project-root}/_bmad-output` (legacy name, retired in v2.4). If none does, glob the project for `**/company-context/index.md` and `**/company-context/icp.md` (excluding `.git/`, `node_modules/`, `_bmad/`, `**/work/**`) and use its parent when there is exactly one match. Still nothing: use `{project-root}/output`. `output/` is the canonical name; `_bmad-output/` is read-only compatibility — never create it.
 
 2. Greet the user in `{communication_language}` as Sam Sell and explain: this
    workflow **optionally** pre-seeds the **sales layer** of the shared
@@ -78,9 +79,17 @@ These rules override the persona.
    the marketing bootstrap. This mirrors the suite principle that bootstraps are
    never required.
 
-4. Check `{output_folder}/company-context/` for existing sales-layer concepts.
-   For each that exists, show the user the current content and ask:
-   keep / refresh / skip-this-concept. Never touch the marketing-core files.
+4. Locate the bundle before assuming there isn't one. Check
+   `{output_folder}/company-context/`; if that is empty or absent, glob the
+   project for `**/company-context/icp.md` and `**/company-context/index.md`,
+   excluding `.git/`, `node_modules/`, `_bmad/` and `**/work/**`. One hit — use
+   it and say which path you found, in one line, without asking anything.
+   Several hits — list them and ask which to use. No hits — a new bundle goes
+   in `{output_folder}/company-context/`.
+
+   Then, for each existing sales-layer concept, show the user the current
+   content and ask: keep / refresh / skip-this-concept. Never touch the
+   marketing-core files.
 
 5. Ask which mode to use: **scratch**, **import & adapt**, or **ingest** (see
    the three `## Overview` modes).
@@ -89,10 +98,15 @@ These rules override the persona.
      guess content). Use it directly if it contains recognized sales-layer
      concepts (`offerings.md`, `icp-fit-model.md`, `buying-committee-model.md`,
      `signal-library.md`, a `playbooks/` or `case-studies/` folder); otherwise
-     look for `output/company-context/` then `company-context/` beneath
-     it; otherwise treat it as a container and scan its immediate subfolders,
-     listing the source projects found and asking the user to choose one. If
-     nothing resolves, say so and offer to switch to scratch. Report which
+     glob up to **three levels** below it for any folder holding two or more
+     recognized concepts. That finds `output/company-context/`,
+     `_bmad-output/company-context/`, a bare `company-context/`, and the
+     `context/<company>/` layout the companion `dwf-marketing-skills` repo
+     uses — without needing the folder to be named anything in particular.
+     One match: use it. Two or more: list each as
+     `<relative path> (N recognized concepts)` and ask the user to choose one.
+     If nothing resolves, say where you looked and offer to switch to
+     scratch. Report which
      recognized sales concepts are present vs missing (ignore the
      marketing-core files and anything unrecognized), let the user
      include/exclude each, then for each included concept: copy it in (upgrade
@@ -105,8 +119,11 @@ These rules override the persona.
      missing from the source fall back to the from-scratch intake or are
      skipped, per the user's choice.
 
-   - **Ingest**: resolve the input folder (config
-     `marketing-growth.input_folder`, else `{project-root}/input/`), refactor
+   - **Ingest**: resolve the input folder silently, same rule as
+     `output_folder` — the first of these that exists and is non-empty: a
+     configured `input_folder` (flat key, or legacy
+     `marketing-growth.input_folder`), `{project-root}/input`,
+     `{project-root}/_bmad-input` (legacy). Default `{project-root}/input`. Refactor
      each file into OKF concept docs — offering material into `offerings/`,
      case studies into `case-studies/`, everything else into `sources/`
      (`resource` = original path) — cross-link to the relevant hubs, then

@@ -1,8 +1,12 @@
 <!-- sales-prospecting:okf start -->
-<!-- block-version: 1 -->
+<!-- block-version: 2 -->
+<!-- When writing this block, substitute {output_folder} with the path you
+     resolved on activation (canonically `output`, but honour a legacy
+     `_bmad-output` bundle that already holds content). Never emit the
+     placeholder literally. -->
 ## Sales layer (OKF bundle) — optional, read-mostly
 
-The Sales Prospecting Suite extends the **same** `output/company-context/`
+The Sales Prospecting Suite extends the **same** `{output_folder}/company-context/`
 OKF v0.1 bundle the marketing suite writes — it does **not** create a separate
 bundle. On top of the marketing core (`icp.md`, `positioning.md`,
 `brand-voice.md`, `kpis.md`, `tech-stack.md`) it adds a durable, reusable

@@ -59,7 +59,7 @@ Operates inside `docs/protocol.md`. Receives `brief.md`, produces
 
 2. Prepare memory sidecar at `{project-root}/_bmad/_memory/localization-international-lead-sidecar/`. Load `memories.md` (always) and `instructions.md`, `locale-playbooks.md` if present.
 
-3. Load company context: `brand-voice.md`, `positioning.md`, `icp.md`. If missing, refer the user to `/company-context-bootstrap` and STOP.
+3. Load company context: `brand-voice.md`, `positioning.md`, `icp.md`. Read whichever of those are present and note what is absent — a missing file is never a hard stop. Only if the bundle itself does not exist anywhere in the project, say so once, suggest `/company-context-bootstrap`, and ask the user whether to continue without it.
 
 4. If a `work/{brief_id}/brief.md` is in scope, read it. Otherwise greet `{user_name}` as Lily Locale and present the Capabilities table.
 

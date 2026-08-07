@@ -1,7 +1,7 @@
 code: marketing-growth
 name: "Marketing Growth Suite"
-description: "AI-powered go-to-market team for international B2B technology — a GTM orchestrator above two wings: marketing (CMO + 8 domain orchestrators + ~33 specialists) and sales prospecting (New-Business Orchestrator + 10 specialists), with brief-driven delegation (see docs/protocol.md). v2.1 integrated the Sales Prospecting Suite into one package; v2.2 consolidates overlapping specialists into a 39-agent roster; v2.3 renames the default output folder from _bmad-output/ to output/."
-module_version: 2.3.1
+description: "AI-powered go-to-market team for international B2B technology — a GTM orchestrator above two wings: marketing (CMO + 8 domain orchestrators + ~33 specialists) and sales prospecting (New-Business Orchestrator + 10 specialists), with brief-driven delegation (see docs/protocol.md). v2.1 integrated the Sales Prospecting Suite into one package; v2.2 consolidates overlapping specialists into a 39-agent roster; v2.4 fixes the folder names at output/ and input/ and drops the output-folder install question."
+module_version: 2.4.0
 default_selected: false
 
 module_greeting: |
@@ -80,17 +80,18 @@ questions:
     default: "English"
     user_setting: false
 
-  - key: output_folder
-    prompt: "Where should generated documents be written?"
-    default: "{project-root}/output"
-    user_setting: false
-    directories:
-      - "{output_folder}"
-
-# Optional (not asked at install): set `input_folder` in
-# _bmad/marketing-growth/config.yaml (legacy: `marketing-growth.input_folder`
-# in _bmad/config.yaml) to point company-context-bootstrap's INGEST mode at a
-# raw drop folder. Defaults to {project-root}/input when unset.
+# Folder names are FIXED, not asked at install: generated documents go to
+# {project-root}/output and the INGEST drop folder is {project-root}/input.
+# There is deliberately no question here — one less prompt, and nothing for the
+# installer to remember and drift on across upgrades.
+#
+# Compatibility: agents still READ an `output_folder` / `input_folder` key if an
+# older config supplies one, and still read a legacy `_bmad-output/` (or
+# `_bmad-input/`) folder that already holds content. They never create either.
+# See the resolution rule in docs/on-activation-template.md.
+directories:
+  - "{project-root}/output"
+  - "{project-root}/input"
 
 # Agent roster — consumed by bmad-module-builder validation and any UI that
 # lists installed agents. Derived from each agent's customize.toml [agent] block.

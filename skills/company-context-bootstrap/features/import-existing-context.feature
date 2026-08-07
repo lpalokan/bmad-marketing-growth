@@ -28,13 +28,23 @@ Feature: Bootstrap company context from an existing context folder
 
   Scenario: Resolve a path that points at a project or parent folder
     Given the path does not directly contain recognized context files
-    Then the workflow looks for "output/company-context" then
-         "company-context" beneath it, and uses the first that has files
+    Then the workflow globs up to three levels below it for any folder
+         holding two or more recognized files
+    And it resolves regardless of the folder's name, covering
+         "output/company-context", "_bmad-output/company-context",
+         a bare "company-context", and "context/<company>"
+
+  Scenario: Import from the companion dwf-marketing-skills repo
+    Given the user gives the path of a repo whose bundles live at
+          "context/<company>/"
+    When the path is the repo root, not the bundle
+    Then the workflow still discovers each bundle under context/
+    And prompts the user to choose exactly one
 
   Scenario: Discover multiple source projects under a parent
     Given the path is a container with several subfolders that each have
           a company-context
-    Then the workflow lists each discovered source project
+    Then the workflow lists each as "<relative path> (N recognized files)"
     And prompts the user to choose exactly one before continuing
 
   Scenario: No context found at the path

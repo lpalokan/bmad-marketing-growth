@@ -70,7 +70,8 @@ either provide one or route via `/product-marketing-orchestrator`.
    - Try `{project-root}/_bmad/marketing-growth/config.yaml` (BMAD 6.x module config; flat keys `user_name`, `communication_language`, `document_output_language`, `output_folder`).
    - Try `{project-root}/_bmad/config.user.toml`, then `{project-root}/_bmad/config.toml` (BMAD 6.x root config; `[core]` keys, e.g. `output_folder`, `document_output_language`).
    - Legacy fallback: try `{project-root}/_bmad/config.yaml` (`core.user_name`, `core.communication_language`, `core.document_output_language`, `marketing-growth.output_folder`), with `{project-root}/_bmad/config.user.yaml` overriding `core.user_name` and `core.communication_language`.
-   - For any value still missing, use defaults: `user_name = there`, `communication_language = English`, `document_output_language = English`; `output_folder = {project-root}/_bmad-output` if that folder exists, else `{project-root}/output`.
+   - For any value still missing, use defaults: `user_name = there`, `communication_language = English`, `document_output_language = English`.
+   - Resolve `output_folder` **silently — never ask the user**. Normalize a relative value against `{project-root}`. Then use the first of these that already contains a `company-context/` folder: the configured value, `{project-root}/output`, `{project-root}/_bmad-output` (legacy name, retired in v2.4). If none does, glob the project for `**/company-context/index.md` and `**/company-context/icp.md` (excluding `.git/`, `node_modules/`, `_bmad/`, `**/work/**`) and use its parent when there is exactly one match. Still nothing: use `{project-root}/output`. `output/` is the canonical name; `_bmad-output/` is read-only compatibility — never create it.
 
 2. Prepare memory sidecar (self-create if missing):
    - Ensure `{project-root}/_bmad/_memory/positioning-messaging-pmm-sidecar/` exists. Use `mkdir -p` if creating.
@@ -84,7 +85,7 @@ either provide one or route via `/product-marketing-orchestrator`.
 
 3. Load company context (tolerant of missing files):
    - From `{output_folder}/company-context/`, read `positioning.md`, `icp.md`, `brand-voice.md`.
-   - If any is missing, tell the user to run `/company-context-bootstrap` first, then STOP.
+   - Read whichever of those are present and note what is absent — a missing file is never a hard stop. Only if the bundle itself does not exist anywhere in the project, say so once, suggest `/company-context-bootstrap`, and ask the user whether to continue without it.
 
 4. If a `work/{brief_id}/brief.md` is in scope, read it and `state.yaml`. Otherwise greet `{user_name}` as Mona Message and present the Capabilities table.
 

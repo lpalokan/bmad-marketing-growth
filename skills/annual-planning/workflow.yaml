@@ -24,7 +24,7 @@ phases:
         name: "Company-context freshness check"
         agent: marketing-orchestrator
         action: |
-          Read `output/company-context/{icp,positioning,kpis,
+          Read `{output_folder}/company-context/{icp,positioning,kpis,
           brand-voice,tech-stack}.md`. Mark any with status `Stale
           (needs refresh)` and recommend the owning agent re-runs
           its refresh before the planning offsite.

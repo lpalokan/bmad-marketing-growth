@@ -46,7 +46,8 @@ These rules override the persona.
    - Try `{project-root}/_bmad/marketing-growth/config.yaml` (BMAD 6.x module config; flat keys `user_name`, `communication_language`, `document_output_language`, `output_folder`).
    - Try `{project-root}/_bmad/config.user.toml`, then `{project-root}/_bmad/config.toml` (BMAD 6.x root config; `[core]` keys, e.g. `output_folder`, `document_output_language`).
    - Legacy fallback: try `{project-root}/_bmad/config.yaml` (`core.user_name`, `core.communication_language`, `core.document_output_language`, `marketing-growth.output_folder`), with `{project-root}/_bmad/config.user.yaml` overriding `core.user_name` and `core.communication_language`.
-   - For any value still missing, use defaults: `user_name = there`, `communication_language = English`, `document_output_language = English`; `output_folder = {project-root}/_bmad-output` if that folder exists, else `{project-root}/output`.
+   - For any value still missing, use defaults: `user_name = there`, `communication_language = English`, `document_output_language = English`.
+   - Resolve `output_folder` **silently — never ask the user**. Normalize a relative value against `{project-root}`. Then use the first of these that already contains a `company-context/` folder: the configured value, `{project-root}/output`, `{project-root}/_bmad-output` (legacy name, retired in v2.4). If none does, glob the project for `**/company-context/index.md` and `**/company-context/icp.md` (excluding `.git/`, `node_modules/`, `_bmad/`, `**/work/**`) and use its parent when there is exactly one match. Still nothing: use `{project-root}/output`. `output/` is the canonical name; `_bmad-output/` is read-only compatibility — never create it.
 
 2. Greet the user in `{communication_language}` and explain: this
    workflow gathers the foundational knowledge the rest of the v2
@@ -56,9 +57,19 @@ These rules override the persona.
    depending on how much is already documented; migrate and ingest are
    shorter.
 
-3. Check `{output_folder}/company-context/` for existing files. For
-   each that exists, show the user the current content and ask:
-   keep / refresh / skip-this-file.
+3. Locate the bundle before assuming there isn't one. Check
+   `{output_folder}/company-context/`; if that is empty or absent, glob
+   the project for `**/company-context/icp.md` and
+   `**/company-context/index.md`, excluding `.git/`, `node_modules/`,
+   `_bmad/` and `**/work/**`. One hit — use it as the bundle and say
+   which path you found, in one line, without asking anything. Several
+   hits — list them with file counts and ask which to use (this is the
+   only case worth a question; guessing would be wrong). No hits — there
+   is genuinely no bundle, and a new one goes in
+   `{output_folder}/company-context/`.
+
+   Then, for each existing file, show the user the current content and
+   ask: keep / refresh / skip-this-file.
 
 4. Ask which mode to use: **scratch**, **import & adapt**, **migrate**,
    or **ingest** (see the four `## Overview` modes).
@@ -66,11 +77,15 @@ These rules override the persona.
    - **Import & adapt**: ask for a folder path and resolve it (tolerant,
      never guess content). Use it directly if it contains recognized
      context files (`icp.md`, `positioning.md`, `brand-voice.md`,
-     `kpis.md`, `tech-stack.md`); otherwise look for
-     `output/company-context/` then `company-context/` beneath it;
-     otherwise treat it as a container and scan its immediate subfolders,
-     listing the source projects found and asking the user to choose
-     one. If nothing resolves, say so and offer to switch to scratch.
+     `kpis.md`, `tech-stack.md`); otherwise glob up to **three levels**
+     below it for any folder holding two or more recognized files. That
+     finds `output/company-context/`, `_bmad-output/company-context/`,
+     a bare `company-context/`, and the `context/<company>/` layout the
+     companion `dwf-marketing-skills` repo uses — without needing the
+     folder to be named anything in particular. One match: use it. Two
+     or more: list each as `<relative path> (N recognized files)` and
+     ask the user to choose one. If nothing resolves, say where you
+     looked and offer to switch to scratch.
      Report which recognized files are present vs missing (ignore
      unrecognized files like `bootstrap-summary.md`), let the user
      include/exclude each, then for each included file: copy it in
@@ -88,9 +103,12 @@ These rules override the persona.
      preserve `owner` and the Status line, bump `schema_version` to 2,
      leave bodies untouched, gate each write with a diff.
 
-   - **Ingest**: resolve the input folder (config
-     `marketing-growth.input_folder`, else `{project-root}/input/`),
-     refactor each file into OKF concept docs under `sources/`
+   - **Ingest**: resolve the input folder silently, same rule as
+     `output_folder` — the first of these that exists and is non-empty:
+     a configured `input_folder` (flat key, or legacy
+     `marketing-growth.input_folder`), `{project-root}/input`,
+     `{project-root}/_bmad-input` (legacy). Default `{project-root}/input`.
+     Then refactor each file into OKF concept docs under `sources/`
      (`resource` = original path), cross-link to the core hubs, then
      propose **gated** edits to the owner of any core file the new
      knowledge bears on. Apply **Source Fidelity** to every number.
