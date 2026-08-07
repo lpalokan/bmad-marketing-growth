@@ -60,13 +60,27 @@ Feature: Relocate a legacy _bmad-output/ bundle to output/
     When both have been moved
     Then _bmad-output/ is deleted
 
-  Scenario: Pin the setting so it survives the next install
+  Scenario: Write no configuration at all
     When the relocation runs
-    Then output_folder is set to {project-root}/output under [core] in
-         {project-root}/_bmad/custom/config.toml
-    And any content already in that file is preserved
-    And _bmad/config.toml is NOT edited
+    Then _bmad/config.toml is NOT edited
     And _bmad/marketing-growth/config.yaml is NOT edited
+    And _bmad/custom/config.toml is NOT edited
+    And no [core] output_folder value anywhere is changed
+
+  Scenario: The move alone is enough to make output/ stick
+    Given config still says output_folder is _bmad-output
+    And the relocation has emptied _bmad-output/ of company-context/
+    When any agent activates afterwards
+    Then step 1 skips the _bmad-output candidate, which no longer holds
+         the bundle
+    And it resolves to {project-root}/output
+
+  Scenario: Leave the other BMAD modules' output alone
+    Given core, bmm, bmb and cis each carry their own
+          output_folder: _bmad-output in _bmad/<module>/config.yaml
+    When the relocation runs
+    Then none of those files is touched
+    And those modules keep writing exactly where they did before
 
   Scenario: Record it in the bundle log
     When the relocation runs

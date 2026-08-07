@@ -299,7 +299,9 @@ The installer prompts for the 3 questions declared in `skills/module.yaml` (user
 
 Agents are fault-tolerant about where things actually are: they honour an `output_folder` / `input_folder` key from an older config, and a project holding its bundle in the pre-v2.3 `_bmad-output/` keeps working, because activation picks whichever candidate really contains `company-context/`. Regular agents never move anything.
 
-**The two bootstraps do relocate it, once.** If `_bmad-output/` holds `company-context/` or `work/` — which is how `bmad-manager` seeds new projects — running either bootstrap moves those two folders to `output/`, pins `output_folder` in `_bmad/custom/config.toml` so it survives future installs, tells you in one line, and carries on. Files already present at the destination are never overwritten. `planning-artifacts/` and `implementation-artifacts/` are left where they are: they belong to the **bmm** module, whose `_bmad/config.toml` still points at them, so `_bmad-output/` may survive holding only those.
+**The two bootstraps do relocate it, once.** If `_bmad-output/` holds `company-context/` or `work/` — which is how `bmad-manager` seeds new projects — running either bootstrap moves those two folders to `output/`, tells you in one line, and carries on. Files already present at the destination are never overwritten.
+
+The relocation writes **no configuration**. It doesn't need to: once the bundle is no longer in `_bmad-output/`, activation resolves to `output/` by itself, because it skips any candidate that doesn't actually contain `company-context/`. That keeps other BMAD modules out of it — `core`, `bmm`, `bmb` and `cis` each carry their own `output_folder: _bmad-output`, and repointing the shared `[core]` key would split their existing output across two folders. Likewise `planning-artifacts/` and `implementation-artifacts/` stay put; they are **bmm**'s, so `_bmad-output/` may survive holding only those.
 
 Optional — gitignore personal settings:
 ```bash

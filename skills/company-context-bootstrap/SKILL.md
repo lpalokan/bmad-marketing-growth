@@ -62,13 +62,17 @@ These rules override the persona.
      and `implementation-artifacts/` belong to the **bmm** module and its
      `_bmad/config.toml` still points at them — moving those would break
      bmm. Delete `_bmad-output/` only if it is now empty.
-   - Pin the setting so it survives future installs: set
-     `output_folder = "{project-root}/output"` under `[core]` in
-     `{project-root}/_bmad/custom/config.toml`, creating that file if
-     needed and preserving anything already in it. It is the documented
-     pinned-override location and the installer never regenerates it. Do
-     **not** edit `_bmad/config.toml` or
-     `_bmad/marketing-growth/config.yaml` — the installer overwrites both.
+   - **Write no config at all.** No pin is needed: once
+     `_bmad-output/company-context/` is gone and
+     `output/company-context/` exists, step 1's rule already resolves to
+     `output/`, because it skips any candidate that does not actually
+     contain the bundle. Never edit `_bmad/config.toml`,
+     `_bmad/marketing-growth/config.yaml`, or `_bmad/custom/config.toml`.
+     `output_folder` under `[core]` is shared with **core**, **bmm**,
+     **bmb** and **cis** — they have their own `_bmad/<module>/config.yaml`
+     pointing at `_bmad-output`, and repointing it would split their
+     existing output across two folders. This module fixes its own folder
+     by moving files, not by rewriting anyone's configuration.
    - Set `{output_folder}` to `{project-root}/output` for the rest of this
      run, tell the user in **one line** what moved, and continue without
      asking.
