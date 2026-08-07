@@ -60,7 +60,37 @@ These rules override the persona.
    - For any value still missing, use defaults: `user_name = there`, `communication_language = English`, `document_output_language = English`.
    - Resolve `output_folder` **silently — never ask the user**. Normalize a relative value against `{project-root}`. Then use the first of these that already contains a `company-context/` folder: the configured value, `{project-root}/output`, `{project-root}/_bmad-output` (legacy name, retired in v2.4). If none does, glob the project for `**/company-context/index.md` and `**/company-context/icp.md` (excluding `.git/`, `node_modules/`, `_bmad/`, `**/work/**`) and use its parent when there is exactly one match. Still nothing: use `{project-root}/output`. `output/` is the canonical name; `_bmad-output/` is read-only compatibility — never create it.
 
-2. Greet the user in `{communication_language}` as Sam Sell and explain: this
+2. **Relocate a legacy `_bmad-output/` bundle — automatic, one line, no
+   question.** If `{project-root}/_bmad-output/` holds `company-context/`
+   or `work/` (bmad-manager seeds new projects there), move this module's
+   folders to the canonical `{project-root}/output/`:
+
+   - Move `_bmad-output/company-context/` and `_bmad-output/work/` into
+     `{project-root}/output/`, creating it if absent. **Merge, never
+     overwrite**: where a file already exists at the destination, keep the
+     destination file and list the ones you skipped.
+   - Leave everything else in `_bmad-output/` alone. `planning-artifacts/`
+     and `implementation-artifacts/` belong to the **bmm** module and its
+     `_bmad/config.toml` still points at them — moving those would break
+     bmm. Delete `_bmad-output/` only if it is now empty.
+   - Pin the setting so it survives future installs: set
+     `output_folder = "{project-root}/output"` under `[core]` in
+     `{project-root}/_bmad/custom/config.toml`, creating that file if
+     needed and preserving anything already in it. It is the documented
+     pinned-override location and the installer never regenerates it. Do
+     **not** edit `_bmad/config.toml` or
+     `_bmad/marketing-growth/config.yaml` — the installer overwrites both.
+   - Set `{output_folder}` to `{project-root}/output` for the rest of this
+     run, tell the user in **one line** what moved, and continue without
+     asking.
+   - Record it in the handoff `log.md` entry as a **Relocation**.
+
+   If `_bmad-output/` is absent, or holds neither folder, skip this step
+   silently — say nothing. This is the same relocation
+   `/company-context-bootstrap` performs; whichever bootstrap runs first
+   does it, and the other then finds nothing to move.
+
+3. Greet the user in `{communication_language}` as Sam Sell and explain: this
    workflow **optionally** pre-seeds the **sales layer** of the shared
    **OKF v0.1 bundle** under `{output_folder}/company-context/` (offerings,
    case studies, the fit/scoring model, the buying-committee model, the signal
@@ -69,7 +99,7 @@ These rules override the persona.
    20–40 minutes depending on how much is already documented; import and ingest
    are shorter.
 
-3. **Soft prerequisite check — never blocks.** Look under
+4. **Soft prerequisite check — never blocks.** Look under
    `{output_folder}/company-context/` for the marketing core. If `icp.md` and
    `positioning.md` are present, note that the sales layer will link to them and
    proceed. If either is **missing**, tell the user the sales layer will still
@@ -79,7 +109,7 @@ These rules override the persona.
    the marketing bootstrap. This mirrors the suite principle that bootstraps are
    never required.
 
-4. Locate the bundle before assuming there isn't one. Check
+5. Locate the bundle before assuming there isn't one. Check
    `{output_folder}/company-context/`; if that is empty or absent, glob the
    project for `**/company-context/icp.md` and `**/company-context/index.md`,
    excluding `.git/`, `node_modules/`, `_bmad/` and `**/work/**`. One hit — use
@@ -91,7 +121,7 @@ These rules override the persona.
    content and ask: keep / refresh / skip-this-concept. Never touch the
    marketing-core files.
 
-5. Ask which mode to use: **scratch**, **import & adapt**, or **ingest** (see
+6. Ask which mode to use: **scratch**, **import & adapt**, or **ingest** (see
    the three `## Overview` modes).
 
    - **Import & adapt**: ask for a folder path and resolve it (tolerant, never
@@ -133,8 +163,8 @@ These rules override the persona.
      bears on one, suggest `/company-context-bootstrap` and keep the knowledge
      in `sources/`.
 
-6. Execute the sibling `workflow.yaml` phase by phase for the chosen mode (skip
-   any intake phase whose concept was imported & adapted in step 5; ingest skips
+7. Execute the sibling `workflow.yaml` phase by phase for the chosen mode (skip
+   any intake phase whose concept was imported & adapted in step 6; ingest skips
    intake entirely). Write every concept per `workflow.yaml::okf_conventions`
    and the schema in `docs/company-context.md` (OKF frontmatter + `owner`,
    `last_updated`, `last_updated_by`, `schema_version: 2`; Status line in the
@@ -142,7 +172,7 @@ These rules override the persona.
    in `docs/company-context.md` (note: `case-studies/` ownership defers to the
    `customer-advocacy-references` / Cara Customer agent, part of this suite).
 
-7. Always finish in the **handoff** phase: refresh the root `index.md`
+8. Always finish in the **handoff** phase: refresh the root `index.md`
    (`okf_version: "0.1"`) by **adding** the sales sections/subfolders while
    preserving any existing marketing sections, append a dated `log.md` entry,
    and refresh the `sales-prospecting:okf` block in `{project-root}/AGENTS.md`

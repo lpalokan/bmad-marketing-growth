@@ -96,7 +96,8 @@ okf_conventions: |
       sections of `* [Title](/path) - description`. Subfolder index.md files
       carry no frontmatter.
     * log.md — bundle-root change history, newest first: `## YYYY-MM-DD`
-      headings then `* **Creation**: …` / `* **Update**: …` / `* **Ingest**: …`.
+      headings then `* **Creation**: …` / `* **Update**: …` / `* **Ingest**: …` /
+      `* **Relocation**: …` (the legacy _bmad-output/ move, SKILL.md step 2).
   - Apply Source Fidelity (see SKILL.md) to every number, in every mode.
 
 phases:
@@ -521,7 +522,8 @@ phases:
           Append to {output_folder}/company-context/log.md (create if absent) a
           dated entry, newest first, recording what this run did: **Creation** /
           **Update** for scratch & import, **Ingest** (one line per source) for
-          ingest.
+          ingest, and **Relocation** when SKILL.md step 2 moved the bundle out
+          of a legacy _bmad-output/.
         output: "index.md, log.md"
         gate: "user_approval"
 

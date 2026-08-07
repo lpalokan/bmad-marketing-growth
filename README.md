@@ -295,7 +295,11 @@ npx bmad-method install --custom-source . --tools claude-code
 
 The installer prompts for the 3 questions declared in `skills/module.yaml` (user name, communication language, document output language). BMAD 6.x installers write the answers into your project's `_bmad/marketing-growth/config.yaml` and the root `_bmad/config.toml` / `_bmad/config.user.toml`; legacy installers wrote `_bmad/config.yaml` (shared) and `_bmad/config.user.yaml` (personal, gitignore-worthy). Use `--yes` to skip prompts and accept defaults. Agents read all locations at activation, newest layout first.
 
-**Folders are fixed, not configured.** Generated documents go to `output/`; the bootstraps' INGEST mode reads `input/`. As of v2.4 there is no output-folder question — one less prompt, and nothing for the installer to remember and drift on across upgrades. Agents remain fault-tolerant about it: they still honour an `output_folder` / `input_folder` key from an older config, and a project that already holds its bundle in the pre-v2.3 `_bmad-output/` keeps working untouched, because activation picks whichever candidate actually contains `company-context/`. Nothing is moved and you are never prompted about it. `_bmad-output/` is read-only compatibility — it is never newly created.
+**Folders are fixed, not configured.** Generated documents go to `output/`; the bootstraps' INGEST mode reads `input/`. As of v2.4 there is no output-folder question — one less prompt, and nothing for the installer to remember and drift on across upgrades.
+
+Agents are fault-tolerant about where things actually are: they honour an `output_folder` / `input_folder` key from an older config, and a project holding its bundle in the pre-v2.3 `_bmad-output/` keeps working, because activation picks whichever candidate really contains `company-context/`. Regular agents never move anything.
+
+**The two bootstraps do relocate it, once.** If `_bmad-output/` holds `company-context/` or `work/` — which is how `bmad-manager` seeds new projects — running either bootstrap moves those two folders to `output/`, pins `output_folder` in `_bmad/custom/config.toml` so it survives future installs, tells you in one line, and carries on. Files already present at the destination are never overwritten. `planning-artifacts/` and `implementation-artifacts/` are left where they are: they belong to the **bmm** module, whose `_bmad/config.toml` still points at them, so `_bmad-output/` may survive holding only those.
 
 Optional — gitignore personal settings:
 ```bash

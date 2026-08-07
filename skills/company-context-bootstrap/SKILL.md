@@ -49,7 +49,36 @@ These rules override the persona.
    - For any value still missing, use defaults: `user_name = there`, `communication_language = English`, `document_output_language = English`.
    - Resolve `output_folder` **silently — never ask the user**. Normalize a relative value against `{project-root}`. Then use the first of these that already contains a `company-context/` folder: the configured value, `{project-root}/output`, `{project-root}/_bmad-output` (legacy name, retired in v2.4). If none does, glob the project for `**/company-context/index.md` and `**/company-context/icp.md` (excluding `.git/`, `node_modules/`, `_bmad/`, `**/work/**`) and use its parent when there is exactly one match. Still nothing: use `{project-root}/output`. `output/` is the canonical name; `_bmad-output/` is read-only compatibility — never create it.
 
-2. Greet the user in `{communication_language}` and explain: this
+2. **Relocate a legacy `_bmad-output/` bundle — automatic, one line, no
+   question.** If `{project-root}/_bmad-output/` holds `company-context/`
+   or `work/` (bmad-manager seeds new projects there), move this module's
+   folders to the canonical `{project-root}/output/`:
+
+   - Move `_bmad-output/company-context/` and `_bmad-output/work/` into
+     `{project-root}/output/`, creating it if absent. **Merge, never
+     overwrite**: where a file already exists at the destination, keep the
+     destination file and list the ones you skipped.
+   - Leave everything else in `_bmad-output/` alone. `planning-artifacts/`
+     and `implementation-artifacts/` belong to the **bmm** module and its
+     `_bmad/config.toml` still points at them — moving those would break
+     bmm. Delete `_bmad-output/` only if it is now empty.
+   - Pin the setting so it survives future installs: set
+     `output_folder = "{project-root}/output"` under `[core]` in
+     `{project-root}/_bmad/custom/config.toml`, creating that file if
+     needed and preserving anything already in it. It is the documented
+     pinned-override location and the installer never regenerates it. Do
+     **not** edit `_bmad/config.toml` or
+     `_bmad/marketing-growth/config.yaml` — the installer overwrites both.
+   - Set `{output_folder}` to `{project-root}/output` for the rest of this
+     run, tell the user in **one line** what moved, and continue without
+     asking.
+   - Record it in the handoff `log.md` entry as a **Relocation** (distinct
+     from the OKF **Migration** mode).
+
+   If `_bmad-output/` is absent, or holds neither folder, skip this step
+   silently — say nothing.
+
+3. Greet the user in `{communication_language}` and explain: this
    workflow gathers the foundational knowledge the rest of the v2
    marketing suite needs and writes it as an **OKF v0.1 bundle** under
    `{output_folder}/company-context/` (the five core files plus
@@ -57,7 +86,7 @@ These rules override the persona.
    depending on how much is already documented; migrate and ingest are
    shorter.
 
-3. Locate the bundle before assuming there isn't one. Check
+4. Locate the bundle before assuming there isn't one. Check
    `{output_folder}/company-context/`; if that is empty or absent, glob
    the project for `**/company-context/icp.md` and
    `**/company-context/index.md`, excluding `.git/`, `node_modules/`,
@@ -71,7 +100,7 @@ These rules override the persona.
    Then, for each existing file, show the user the current content and
    ask: keep / refresh / skip-this-file.
 
-4. Ask which mode to use: **scratch**, **import & adapt**, **migrate**,
+5. Ask which mode to use: **scratch**, **import & adapt**, **migrate**,
    or **ingest** (see the four `## Overview` modes).
 
    - **Import & adapt**: ask for a folder path and resolve it (tolerant,
@@ -114,14 +143,14 @@ These rules override the persona.
      knowledge bears on. Apply **Source Fidelity** to every number.
      Leave the original input files untouched.
 
-5. Execute the sibling `workflow.yaml` phase by phase for the chosen
+6. Execute the sibling `workflow.yaml` phase by phase for the chosen
    mode (skip any intake phase whose file was imported & adapted in
-   step 4; migrate and ingest skip intake entirely). Write every concept
+   step 5; migrate and ingest skip intake entirely). Write every concept
    per `workflow.yaml::okf_conventions` and the schema in
    `docs/company-context.md` (OKF frontmatter + `owner`, `last_updated`,
    `last_updated_by`, `schema_version: 2`; Status line in the body).
 
-6. Always finish in the **handoff** phase: refresh the root `index.md`
+7. Always finish in the **handoff** phase: refresh the root `index.md`
    (`okf_version: "0.1"`), append a dated `log.md` entry, and refresh the
    `marketing-growth:okf` block in `{project-root}/AGENTS.md` (idempotent,
    gated with a diff — read it from the sibling
