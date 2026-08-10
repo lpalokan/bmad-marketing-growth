@@ -1,8 +1,12 @@
 <!-- marketing-growth:okf start -->
-<!-- block-version: 1 -->
+<!-- block-version: 2 -->
+<!-- When writing this block, substitute {output_folder} with the path you
+     resolved on activation (canonically `output`, but honour a legacy
+     `_bmad-output` bundle that already holds content). Never emit the
+     placeholder literally. -->
 ## Company context (OKF bundle) & the briefing mandate
 
-`output/company-context/` is a **Google OKF v0.1 bundle** — the shared,
+`{output_folder}/company-context/` is a **Google OKF v0.1 bundle** — the shared,
 durable answer to "who we are, who we sell to, how we measure ourselves." It is
 read-mostly and single-writer: every agent reads it; only the one owner of a
 file writes it. Schema & ownership: the suite's `docs/company-context.md`.

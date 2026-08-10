@@ -71,7 +71,8 @@ okf_conventions: |
       index.md files carry no frontmatter.
     * log.md — bundle-root change history, newest first: `## YYYY-MM-DD`
       headings then `* **Creation**: …` / `* **Update**: …` /
-      `* **Migration**: …` / `* **Ingest**: …`.
+      `* **Migration**: …` / `* **Ingest**: …` / `* **Relocation**: …`
+      (Relocation = the legacy _bmad-output/ move, SKILL.md step 2).
   - Apply Source Fidelity (see SKILL.md) to every number, in every mode.
 
 phases:
@@ -117,15 +118,17 @@ phases:
           - If the path DIRECTLY contains any recognized context file
             (icp.md, positioning.md, brand-voice.md, kpis.md,
             tech-stack.md), use it as the source folder.
-          - Else look for `output/company-context/` then
-            `company-context/` directly beneath it; use the first that
-            contains recognized files.
-          - Else treat the path as a CONTAINER: scan its immediate
-            subfolders for any that resolve (by the two rules above) to
-            a context folder. If two or more source projects are found,
-            list them and ask the user to choose exactly one.
-          - If nothing resolves, tell the user no context files were
-            found at that path and offer to switch to SCRATCH.
+          - Else glob up to THREE levels below the path for any folder
+            holding two or more recognized files. Do not hard-code
+            folder names: this must find output/company-context/,
+            _bmad-output/company-context/, a bare company-context/, and
+            the context/<company>/ layout used by the companion
+            dwf-marketing-skills repo, whichever is present.
+          - Exactly one match: use it. Two or more: list each as
+            `<relative path> (N recognized files)` and ask the user to
+            choose exactly one.
+          - If nothing resolves, tell the user where you looked and
+            offer to switch to SCRATCH.
 
           Do not read files outside the path the user gave.
         output: "(no file — sets {source_folder})"
@@ -346,11 +349,14 @@ phases:
         agent: marketing-orchestrator
         condition: "mode == MIGRATE"
         action: |
-          Scan {output_folder}/company-context/ for existing files.
+          Scan {output_folder}/company-context/ for existing files. If it
+          is missing or empty, fall back to the bundle located in
+          SKILL.md step 4 (the project-wide company-context/ glob) before
+          concluding there is nothing to migrate.
           Report which core files are present and whether each is already
           OKF (has a non-empty `type` in frontmatter) or legacy
-          (schema_version 1 / no `type`). If the folder is missing or
-          empty, say so and offer to switch to SCRATCH. Do not write yet.
+          (schema_version 1 / no `type`). If no bundle exists anywhere,
+          say so and offer to switch to SCRATCH. Do not write yet.
         output: "(no file — inventory of existing files)"
         gate: "user_approval"
 
@@ -391,10 +397,12 @@ phases:
         agent: marketing-orchestrator
         condition: "mode == INGEST"
         action: |
-          Resolve the input folder: use config
-          `marketing-growth.input_folder` if set, else
-          {project-root}/input/. If it is missing or empty, tell the user
-          where it looked and stop (offer another mode). Otherwise list
+          Resolve the input folder silently — the first of these that
+          exists and is non-empty: a configured `input_folder` (flat key,
+          or legacy `marketing-growth.input_folder`),
+          {project-root}/input, {project-root}/_bmad-input (legacy).
+          Default {project-root}/input. If none has content, tell the
+          user where it looked and stop (offer another mode). Otherwise list
           every file found (recurse one level), with type and size, and
           confirm the set to ingest. Read nothing outside this folder.
         output: "(no file — list of input files)"
@@ -463,8 +471,9 @@ phases:
           Append to {output_folder}/company-context/log.md (create if
           absent) a dated entry, newest first, recording what this run
           did: **Creation** for scratch/import, **Migration** for migrate,
-          **Ingest** (one line per source) for ingest, and **Update** for
-          any core-file edits.
+          **Ingest** (one line per source) for ingest, **Update** for any
+          core-file edits, and **Relocation** when SKILL.md step 2 moved the
+          bundle out of a legacy _bmad-output/.
         output: "index.md, log.md"
         gate: "user_approval"
 

@@ -96,7 +96,8 @@ okf_conventions: |
       sections of `* [Title](/path) - description`. Subfolder index.md files
       carry no frontmatter.
     * log.md — bundle-root change history, newest first: `## YYYY-MM-DD`
-      headings then `* **Creation**: …` / `* **Update**: …` / `* **Ingest**: …`.
+      headings then `* **Creation**: …` / `* **Update**: …` / `* **Ingest**: …` /
+      `* **Relocation**: …` (the legacy _bmad-output/ move, SKILL.md step 2).
   - Apply Source Fidelity (see SKILL.md) to every number, in every mode.
 
 phases:
@@ -162,14 +163,17 @@ phases:
             (offerings.md, icp-fit-model.md, buying-committee-model.md,
             signal-library.md, or a playbooks/ or case-studies/ folder), use
             it as the source folder.
-          - Else look for `output/company-context/` then
-            `company-context/` directly beneath it; use the first that contains
-            recognized sales-layer files.
-          - Else treat the path as a CONTAINER: scan its immediate subfolders
-            for any that resolve to such a context folder. If two or more source
-            projects are found, list them and ask the user to choose exactly one.
-          - If nothing resolves, tell the user no sales-layer files were found
-            at that path and offer to switch to SCRATCH.
+          - Else glob up to THREE levels below the path for any folder holding
+            two or more recognized concepts. Do not hard-code folder names:
+            this must find output/company-context/,
+            _bmad-output/company-context/, a bare company-context/, and the
+            context/<company>/ layout used by the companion
+            dwf-marketing-skills repo, whichever is present.
+          - Exactly one match: use it. Two or more: list each as
+            `<relative path> (N recognized concepts)` and ask the user to
+            choose exactly one.
+          - If nothing resolves, tell the user where you looked and offer to
+            switch to SCRATCH.
 
           Do not read files outside the path the user gave.
         output: "(no file — sets {source_folder})"
@@ -432,8 +436,11 @@ phases:
         agent: sales-prospecting-orchestrator
         condition: "mode == INGEST"
         action: |
-          Resolve the input folder: use config `marketing-growth.input_folder`
-          if set, else {project-root}/input/. If it is missing or empty, tell the
+          Resolve the input folder silently — the first of these that exists and
+          is non-empty: a configured `input_folder` (flat key, or legacy
+          `marketing-growth.input_folder`), {project-root}/input,
+          {project-root}/_bmad-input (legacy). Default {project-root}/input. If
+          none has content, tell the
           user where it looked and stop (offer another mode). Otherwise list every
           file found (recurse one level), with type and size, and confirm the set
           to ingest. Read nothing outside this folder. Expect sales collateral:
@@ -515,7 +522,8 @@ phases:
           Append to {output_folder}/company-context/log.md (create if absent) a
           dated entry, newest first, recording what this run did: **Creation** /
           **Update** for scratch & import, **Ingest** (one line per source) for
-          ingest.
+          ingest, and **Relocation** when SKILL.md step 2 moved the bundle out
+          of a legacy _bmad-output/.
         output: "index.md, log.md"
         gate: "user_approval"
 

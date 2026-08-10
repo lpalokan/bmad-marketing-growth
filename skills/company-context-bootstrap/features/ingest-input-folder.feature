@@ -15,8 +15,12 @@ Feature: Ingest a raw input folder into the OKF company-context bundle
 
   Background:
     Given the company-context-bootstrap workflow is activated
-    And the input folder is config marketing-growth.input_folder if set,
-        else {project-root}/input/
+    And the input folder resolves silently to the first of these that
+        exists and is non-empty: a configured input_folder (flat key, or
+        legacy marketing-growth.input_folder), {project-root}/input,
+        {project-root}/_bmad-input (legacy)
+    And it defaults to {project-root}/input when none has content
+    And the user is never asked which folder to use
 
   Scenario: Offer ingest mode at the start
     When the workflow starts

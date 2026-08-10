@@ -293,7 +293,15 @@ git checkout feat/issue-4-v2-architecture   # optional, for v2
 npx bmad-method install --custom-source . --tools claude-code
 ```
 
-The installer prompts for the 4 questions declared in `skills/module.yaml` (user name, communication language, document output language, output folder). BMAD 6.x installers write the answers into your project's `_bmad/marketing-growth/config.yaml` and the root `_bmad/config.toml` / `_bmad/config.user.toml`; legacy installers wrote `_bmad/config.yaml` (shared) and `_bmad/config.user.yaml` (personal, gitignore-worthy). Use `--yes` to skip prompts and accept defaults. Agents read all locations at activation, newest layout first, and fall back to `_bmad-output/` (then `output/`) when no config is found.
+The installer prompts for the 3 questions declared in `skills/module.yaml` (user name, communication language, document output language). BMAD 6.x installers write the answers into your project's `_bmad/marketing-growth/config.yaml` and the root `_bmad/config.toml` / `_bmad/config.user.toml`; legacy installers wrote `_bmad/config.yaml` (shared) and `_bmad/config.user.yaml` (personal, gitignore-worthy). Use `--yes` to skip prompts and accept defaults. Agents read all locations at activation, newest layout first.
+
+**Folders are fixed, not configured.** Generated documents go to `output/`; the bootstraps' INGEST mode reads `input/`. As of v2.4 there is no output-folder question — one less prompt, and nothing for the installer to remember and drift on across upgrades.
+
+Agents are fault-tolerant about where things actually are: they honour an `output_folder` / `input_folder` key from an older config, and a project holding its bundle in the pre-v2.3 `_bmad-output/` keeps working, because activation picks whichever candidate really contains `company-context/`. Regular agents never move anything.
+
+**The two bootstraps do relocate it, once.** If `_bmad-output/` holds `company-context/` or `work/` — which is how `bmad-manager` seeds new projects — running either bootstrap moves those two folders to `output/`, tells you in one line, and carries on. Files already present at the destination are never overwritten.
+
+The relocation writes **no configuration**. It doesn't need to: once the bundle is no longer in `_bmad-output/`, activation resolves to `output/` by itself, because it skips any candidate that doesn't actually contain `company-context/`. That keeps other BMAD modules out of it — `core`, `bmm`, `bmb` and `cis` each carry their own `output_folder: _bmad-output`, and repointing the shared `[core]` key would split their existing output across two folders. Likewise `planning-artifacts/` and `implementation-artifacts/` stay put; they are **bmm**'s, so `_bmad-output/` may survive holding only those.
 
 Optional — gitignore personal settings:
 ```bash

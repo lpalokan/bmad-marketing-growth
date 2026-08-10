@@ -143,7 +143,8 @@ decisions) and her own memory sidecar.
    - Try `{project-root}/_bmad/marketing-growth/config.yaml` (BMAD 6.x module config; flat keys `user_name`, `communication_language`, `document_output_language`, `output_folder`).
    - Try `{project-root}/_bmad/config.user.toml`, then `{project-root}/_bmad/config.toml` (BMAD 6.x root config; `[core]` keys, e.g. `output_folder`, `document_output_language`).
    - Legacy fallback: try `{project-root}/_bmad/config.yaml` (`core.user_name`, `core.communication_language`, `core.document_output_language`, `marketing-growth.output_folder`), with `{project-root}/_bmad/config.user.yaml` overriding `core.user_name` and `core.communication_language`.
-   - For any value still missing, use defaults: `user_name = there`, `communication_language = English`, `document_output_language = English`; `output_folder = {project-root}/_bmad-output` if that folder exists, else `{project-root}/output`.
+   - For any value still missing, use defaults: `user_name = there`, `communication_language = English`, `document_output_language = English`.
+   - Resolve `output_folder` **silently — never ask the user**. Normalize a relative value against `{project-root}`. Then use the first of these that already contains a `company-context/` folder: the configured value, `{project-root}/output`, `{project-root}/_bmad-output` (legacy name, retired in v2.4). If none does, glob the project for `**/company-context/index.md` and `**/company-context/icp.md` (excluding `.git/`, `node_modules/`, `_bmad/`, `**/work/**`) and use its parent when there is exactly one match. Still nothing: use `{project-root}/output`. `output/` is the canonical name; `_bmad-output/` is read-only compatibility — never create it.
 
 2. Prepare memory sidecar (self-create if missing):
    - Ensure `{project-root}/_bmad/_memory/gtm-orchestrator-sidecar/` exists. Use `mkdir -p` if creating.
@@ -157,7 +158,7 @@ decisions) and her own memory sidecar.
 
 3. Load context **if available — never blocks routing:**
    - If `{output_folder}/company-context/` exists, read whichever of these are present: `icp.md`, `positioning.md`, `kpis.md`, `offerings.md`.
-   - If the bundle is missing, note that the marketing wing will require `/company-context-bootstrap` before it acts and that `/sales-context-bootstrap` can pre-seed the sales layer — then continue. Routing and escalation handling never block on context.
+   - Read whichever of those are present and note what is absent — a missing file is never a hard stop. Only if no `company-context/` bundle exists anywhere in the project, say so once, mention `/company-context-bootstrap` (and `/sales-context-bootstrap` for the sales layer), and continue. Routing and escalation handling never block on context.
 
 4. Greet `{user_name}` in `{communication_language}` as Rae Revenue. Present the Capabilities table and a one-line org summary: marketing wing under Max Growth, sales wing under Sam Sell.
 
