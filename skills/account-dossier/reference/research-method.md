@@ -3,6 +3,22 @@
 How to build the record for one account. Applies to
 `account-research-analyst` and to anyone verifying a fact before publication.
 
+## Read our own context first
+
+Before the first fetch, read the company-context bundle per the skill's
+activation step — the map in `index.md`, the core, the sales layer, and the
+layers under the hubs (`offerings/`, `personas/`, `playbooks/`, `case-studies/`),
+plus any nested sub-bundle.
+
+This is not background reading. It decides what counts as a signal. An account
+fact is only load-bearing because some offering, persona or trigger in our
+context makes it so, and a researcher who has not read the offering components
+cannot tell a why-now from a news item. Research done before the context is read
+gets redone.
+
+Note which concepts were present and which were absent. A missing playbook or
+persona set changes how grounded the dossier can be.
+
 ## Fetch order
 
 Work outward from what the company says about itself to what others say about it.
@@ -65,6 +81,8 @@ objective.
 
 ## Exit check before handing off
 
+- The company-context bundle was read before research began, including the
+  layers under the hubs, and what was absent is noted.
 - Every load-bearing fact is KNOW, ASSUME or GAP, with links on the KNOWs.
 - Leaders, penalties and prices were verified live this session.
 - No peer or case-study detail has been attributed to this account.
