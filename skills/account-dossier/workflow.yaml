@@ -9,7 +9,7 @@
 workflow:
   id: account-dossier
   name: "Account Dossier"
-  version: "1.0.0"
+  version: "1.1.0"
   trigger: "AD"
   lead_agent: sales-prospecting-orchestrator
   description: |
@@ -69,9 +69,28 @@ phases:
         name: "Which offering fits"
         agent: service-offering-advisor
         action: |
-          Name the lead offering and any secondary. Carry our own proof points as
-          site claims until a named reference exists, and flag [PROOF NEEDED].
-        output: "account.md offering section"
+          Read every file in the bundle's offerings/ folder, not just
+          offerings.md, plus any nested sub-bundle's offerings. The hub states
+          what the business area sells; the components are what let this account
+          differ from the last one.
+
+          Name the lead offering and any secondary. Then name two things the hub
+          alone cannot give you:
+            - the entry point — the first engagement that fits this account's
+              automation posture, not the bundle's default entry ask;
+            - the commercial tier or delivery shape, where the offering has more
+              than one.
+
+          Where the fit model carries offering-line or business-area routing, run
+          the account through it and state which line it lands on and why. Where
+          the bundle sells a single offering, say what about this account decided
+          the entry point, and name what would have pointed to a different one.
+          A recommendation that could have been written before reading the
+          account is not a finding — send it back.
+
+          Carry our own proof points as site claims until a named reference
+          exists, and flag [PROOF NEEDED].
+        output: "account.md offering section (lead, secondary, entry point, tier, routing rationale)"
 
       - id: fit-verdict
         name: "Fit, timing and tier"
@@ -89,6 +108,12 @@ phases:
         name: "Buying committee"
         agent: buying-committee-mapper
         action: |
+          Read the bundle's buying-committee-model.md and every file in
+          personas/ first. Map each verified seat onto the persona that fits it,
+          and take "what they care about" from the persona rather than
+          reinventing it. Where a real seat has no matching persona, say so —
+          that is a finding about the account and a gap in our context.
+
           Verify the published leadership live this session. Enrichment-derived
           people are corroborated before they enter the reader-facing table, or
           they go in a separately headed block with a re-verify flag, per
@@ -105,8 +130,16 @@ phases:
         agent: sales-presentation-advisor
         action: |
           Use capability AS. Value hypothesis first, then the reasoning that
-          produced it, then the pillars. Add an objections section with the
-          answer to each. At most one analogy, and it must be businesslike.
+          produced it, then the pillars. At most one analogy, and it must be
+          businesslike.
+
+          For the objections section, start from the bundle's
+          playbooks/objections.md where it exists. Those reframes are curated and
+          already on-message; carry the ones this account will actually raise,
+          in the bundle's own framing, and add only what the account's facts
+          demand. Writing objections from scratch while the playbook sits unread
+          is the common failure here. Do the same with case-studies/ for proof.
+
           Follow reference/house-style.md. Self-check against the storyline
           review lenses (SR / HD / TX) before handing back — there is no
           separate review step.
@@ -121,8 +154,15 @@ phases:
         agent: contact-approach-writer
         action: |
           One message per load-bearing seat, plus a forward note and a LinkedIn
-          note. Follow reference/message-craft.md. Third parties never appear in
-          outbound copy. Produce the pre-send checklist.
+          note. Follow reference/message-craft.md.
+
+          Where the bundle carries playbooks/message-frameworks.md, take the
+          framework choice, the signal-specific opener pattern, and the on-brand
+          do/don't list from it rather than inventing an approach. Open on this
+          account's own why-now, per that playbook.
+
+          Third parties never appear in outbound copy. Produce the pre-send
+          checklist.
         output: "messages section"
 
       - id: sequence-note

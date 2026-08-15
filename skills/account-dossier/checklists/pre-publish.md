@@ -28,6 +28,28 @@ publication. The orchestrator owns this gate and no agent passes its own work.
 - [ ] No write-back was performed without explicit approval.
 - [ ] No personal contact detail appears in the dossier body.
 
+## Grounding in context
+
+Skip this block only when no company-context bundle exists.
+
+- [ ] The bundle was read to its full depth: `index.md`, the core, the sales
+      layer, and the layers under the hubs that are present (`offerings/`,
+      `personas/`, `playbooks/`, `case-studies/`).
+- [ ] Any nested sub-bundle was read as a bundle in its own right.
+- [ ] Which concepts were present and which were absent is recorded.
+- [ ] The lead offering names an entry point and, where the offering has more
+      than one, a commercial tier.
+- [ ] The offering recommendation cites something about *this* account that
+      decided it, and names what would have pointed elsewhere. A recommendation
+      that could have been written before reading the account fails this gate.
+- [ ] Where the fit model routes across offering lines or business areas, the
+      routing was run and its outcome stated.
+- [ ] Objections start from `playbooks/objections.md` where it exists, rather
+      than being written from scratch alongside an unread playbook.
+- [ ] First-touch messages follow `playbooks/message-frameworks.md` where it
+      exists.
+- [ ] Committee seats map onto `personas/` where it exists.
+
 ## Structure
 
 - [ ] Section order matches `reference/structure.md`.

@@ -131,6 +131,14 @@ company-context/
 └── playbooks/          # sales playbooks (type: Playbook)
 ```
 
+**Nested sub-bundles.** A project may carry a second bundle underneath its
+own — a sibling business area, or the company-level bundle that its area
+links up to — as a subfolder holding a complete bundle with its own
+`index.md`. The host bundle's `index.md` groups it like any other section.
+Treat a nested bundle as a bundle: read it to the same depth, and expect
+cross-offering or cross-area routing to live in the company-level one. An
+agent that stops at the host bundle's own files will miss it entirely.
+
 **Reserved files** `index.md` and `log.md` are never used as concept
 documents. The root `index.md` groups `* [Title](/path) - description`
 entries (Core concepts, then a section per populated subfolder);
@@ -164,6 +172,17 @@ named in the **Sales layer** table above.
    automation/digital work). Reads are tolerant of missing files —
    agents must not crash when bootstrap has not been run; they should
    prompt the user to run it instead.
+
+   **Read to the depth the work needs.** The hubs are the entry points, not
+   the whole bundle. Work that has to tell one account, campaign or segment
+   apart from another reads the exploded subfolders too — `offerings/`,
+   `personas/`, `playbooks/`, `case-studies/` — because the hub states what
+   the business sells while the sub-concepts are what make one recommendation
+   differ from the next. An agent that reads only `offerings.md` in a bundle
+   with a single offering will produce the same recommendation for every
+   account, which looks like a reasoning failure and is really a read-depth
+   failure. Start from `index.md`: it is the map, and it is how an agent
+   discovers what the bundle actually carries.
 
 3. **Update.** Only the owner agent writes. Updates happen as part of
    normal work: a brief's verdict can include "update

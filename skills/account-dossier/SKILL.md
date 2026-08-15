@@ -36,15 +36,20 @@ the relevant `reference/` file first and follows it literally.
 
 ## Who reads what
 
-| Agent | Reads | Writes into the dossier |
-|---|---|---|
-| `sales-prospecting-orchestrator` | all of it | Executive summary, assembly, render, QA gate |
-| `account-research-analyst` | structure, source-fidelity, enrichment, research-method, account-record | Account overview, why-now signals, sources |
-| `buying-committee-mapper` | structure, source-fidelity, enrichment, account-record | Buying committee and its provenance flags |
-| `account-sourcing-strategist` | structure, account-record | Why they fit, kept short |
-| `service-offering-advisor` | source-fidelity | Proof points and `[PROOF NEEDED]` flags |
-| `sales-presentation-advisor` | structure, house-style, message-craft | Storyline, pillars, objections |
-| `contact-approach-writer` | house-style, message-craft, third-parties | First-touch messages, pre-send checklist, optional cadence |
+Two read columns. The first is this skill's own standard. The second is the
+company-context bundle — the concepts that agent is expected to have read before
+it writes. Where a bundle concept is listed and present, not reading it is a
+defect, not a shortcut.
+
+| Agent | Reads (this skill) | Reads (company-context) | Writes into the dossier |
+|---|---|---|---|
+| `sales-prospecting-orchestrator` | all of it | `index.md`, `positioning.md`, `brand-voice.md` | Executive summary, assembly, render, QA gate |
+| `account-research-analyst` | structure, source-fidelity, enrichment, research-method, account-record | `icp.md`, `signal-library.md`, `kpis.md` | Account overview, why-now signals, sources |
+| `buying-committee-mapper` | structure, source-fidelity, enrichment, account-record | `buying-committee-model.md`, **`personas/`** | Buying committee and its provenance flags |
+| `account-sourcing-strategist` | structure, account-record | `icp-fit-model.md`, `icp.md` | Why they fit, kept short |
+| `service-offering-advisor` | source-fidelity | `offerings.md` **and every file in `offerings/`**, `case-studies/`, `positioning.md` | Lead offering, entry point, commercial tier, proof points and `[PROOF NEEDED]` flags |
+| `sales-presentation-advisor` | structure, house-style, message-craft | `positioning.md`, **`playbooks/objections.md`**, `case-studies/` | Storyline, pillars, objections |
+| `contact-approach-writer` | house-style, message-craft, third-parties | `brand-voice.md`, **`playbooks/message-frameworks.md`**, `playbooks/sequences.md` | First-touch messages, pre-send checklist, optional cadence |
 
 ## Principles
 - The reader is an AE, so every section earns its place by helping a seller act
@@ -99,17 +104,55 @@ block wins, so a project keeps its own look once it has one.
    - For any value still missing, use defaults: `user_name = there`, `communication_language = English`, `document_output_language = English`.
    - Resolve `output_folder` **silently — never ask the user**. Normalize a relative value against `{project-root}`. Then use the first of these that already contains a `company-context/` folder: the configured value, `{project-root}/output`, `{project-root}/_bmad-output` (legacy name, retired in v2.4). If none does, glob the project for `**/company-context/index.md` and `**/company-context/icp.md` (excluding `.git/`, `node_modules/`, `_bmad/`, `**/work/**`) and use its parent when there is exactly one match. Still nothing: use `{project-root}/output`. `output/` is the canonical name; `_bmad-output/` is read-only compatibility — never create it.
 
-2. Load context **if available — never required, never blocks:**
-   - `{output_folder}/company-context/` is an OKF v0.1 bundle. If it exists,
-     read whichever of these hub concepts are present (you MAY follow their
-     absolute `/subfolder/…` links for more detail, e.g. `/personas/…`):
-     - `icp.md`
-     - `positioning.md`
-     - `brand-voice.md`
-     - `offerings.md` (sales layer)
-     - `icp-fit-model.md` (sales layer)
-     - `buying-committee-model.md` (sales layer)
-     - `signal-library.md` (sales layer)
+2. Load context **if available — never required, never blocks.**
+
+   `{output_folder}/company-context/` is an OKF v0.1 bundle. Read what the
+   bundle actually carries, not just its top layer. A dossier is only as good as
+   the context it was written against, and the parts that make one account's
+   recommendation differ from another's live *below* the hub files.
+
+   **a. Start with the map.** Read `index.md` first. It lists the bundle's
+   concepts, personas, offering components, playbooks, and any nested
+   sub-bundles. It is how you discover what exists. Never assume the bundle is
+   only the hub files in (b).
+
+   **b. Core and sales layer.** Read every one that is present:
+   - `icp.md`, `positioning.md`, `brand-voice.md`
+   - `offerings.md`, `icp-fit-model.md`, `buying-committee-model.md`,
+     `signal-library.md`
+
+   **c. The layers under the hubs.** Read these too, not just the hub that links
+   them. A hub names its components; the components are what let you tell one
+   account's recommendation apart from another's.
+   - `offerings/` — **every** component file. The hub alone will make every
+     account look like the same deal.
+   - `personas/` — the seats you map the committee onto.
+   - `playbooks/` — `objections.md` before writing the objections section,
+     `message-frameworks.md` before writing first touches, `sequences.md` only
+     if a cadence is asked for.
+   - `case-studies/` — the proof that keeps a pillar from being `[PROOF NEEDED]`.
+   - `kpis.md`, `tech-stack.md` where present.
+
+   **d. Nested sub-bundles.** A bundle may carry a sibling business area's
+   bundle, or the company-level bundle, underneath it as a subfolder with its
+   own `index.md`. Treat each as a full bundle and read it the same way. This is
+   usually where cross-offering routing lives, so skipping it is a common reason
+   every dossier ends up recommending the same thing.
+
+   **e. Route before you recommend.** Where a fit model carries an offering-line
+   or business-area routing dimension, run the account through it and say which
+   line it lands on. Where the bundle sells a single offering, the
+   recommendation must still vary: name the **entry point** and the
+   **commercial tier** that fit this account's posture, drawn from the
+   `offerings/` components. A phrase like "the standard entry ask" is a default,
+   not a finding. If you land on it, say what about this account made it right,
+   and say what would have pointed elsewhere.
+
+   **f. Note what you read.** Record which bundle concepts were available and
+   which were absent, in the record and not in reader-facing prose. An absent
+   playbook or persona set changes how much of the dossier is grounded, and the
+   next person needs to know.
+
    - This bundle is read-context that **supports** the brief you are given;
      it does not widen your mandate. When working a brief, read the
      concepts its *Context (links)* names and deliver exactly its
