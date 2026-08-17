@@ -50,9 +50,45 @@ Skip this block only when no company-context bundle exists.
       exists.
 - [ ] Committee seats map onto `personas/` where it exists.
 
+## Length
+
+The dossier is a 20 to 30 minute read. Checked once, here, to catch a document
+that has run away or one that was never really written. A count inside the band
+proves the dossier is publishable and proves nothing about whether it is good.
+Never report the number as evidence of quality.
+
+- [ ] The dossier body is between 4,500 and 6,500 words, counting tables and
+      excluding frontmatter and section 8.
+- [ ] An opportunity portfolio, where one exists, is between 2,500 and 3,500
+      words.
+- [ ] Every hard cap in `reference/length-budget.md` holds: five overview
+      subsections, four detailed seats, three pillars, five objections, three
+      messages, eleven questions, no quote past 40 words.
+- [ ] The budget was met by cutting whole items. No section reads as compressed
+      fragments or dropped articles.
+- [ ] No section restates a fact the reader already met in order to introduce
+      its consequence.
+
+## Emphasis and hierarchy
+
+- [ ] No bold anywhere in body text. The only bold is a table's label column,
+      the `KNOW` / `ASSUME` / `GAP` labels, and `[PROOF NEEDED]`.
+- [ ] No paragraph opens with a bolded lead-in doing a heading's job.
+- [ ] Every heading level matches its depth, with no level skipped to reach a
+      size.
+- [ ] Headings are complete sentences in active voice, with no terminal period.
+- [ ] Italics appear only in the standing instruction blocks and the "why we
+      ask" lines.
+- [ ] Read the rendered page and confirm you can tell a heading from body text
+      at a glance, without reading the words.
+
 ## Structure
 
 - [ ] Section order matches `reference/structure.md`.
+- [ ] Eight sections. There is no section 0 and no second summary above the
+      executive summary.
+- [ ] The fit verdict is a row in the section 1 table rather than a section.
+- [ ] The pre-call reading list appears in section 8 only.
 - [ ] The executive summary was written last and stands alone.
 - [ ] The value hypothesis comes before the reasoning that produced it.
 - [ ] Discovery questions are numbered, specific and answerable, and derive from

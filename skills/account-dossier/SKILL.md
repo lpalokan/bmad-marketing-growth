@@ -23,7 +23,8 @@ the relevant `reference/` file first and follows it literally.
 | File | Owns |
 |---|---|
 | `reference/structure.md` | Section order and what belongs in each |
-| `reference/house-style.md` | Tone of voice and sentence-level rules |
+| `reference/length-budget.md` | Word budget per section, hard caps, and the cut order |
+| `reference/house-style.md` | Tone of voice, sentence-level rules, and the emphasis policy |
 | `reference/source-fidelity.md` | KNOW / ASSUME / GAP labelling and live verification |
 | `reference/enrichment-and-provenance.md` | Clay MCP and any enrichment source |
 | `reference/account-record.md` | The shared account record and section ownership |
@@ -44,15 +45,20 @@ defect, not a shortcut.
 | Agent | Reads (this skill) | Reads (company-context) | Writes into the dossier |
 |---|---|---|---|
 | `sales-prospecting-orchestrator` | all of it | `index.md`, `positioning.md`, `brand-voice.md` | Executive summary, assembly, render, QA gate |
-| `account-research-analyst` | structure, source-fidelity, enrichment, research-method, account-record | `icp.md`, `signal-library.md`, `kpis.md` | Account overview, why-now signals, sources |
-| `buying-committee-mapper` | structure, source-fidelity, enrichment, account-record | `buying-committee-model.md`, **`personas/`** | Buying committee and its provenance flags |
-| `account-sourcing-strategist` | structure, account-record | `icp-fit-model.md`, `icp.md` | Why they fit, kept short |
+| `account-research-analyst` | structure, length-budget, source-fidelity, enrichment, research-method, account-record | `icp.md`, `signal-library.md`, `kpis.md` | Account overview, why-now signals, sources |
+| `buying-committee-mapper` | structure, length-budget, source-fidelity, enrichment, account-record | `buying-committee-model.md`, **`personas/`** | Buying committee and its provenance flags |
+| `account-sourcing-strategist` | structure, account-record | `icp-fit-model.md`, `icp.md` | Why they fit, as one table row |
 | `service-offering-advisor` | source-fidelity | `offerings.md` **and every file in `offerings/`**, `case-studies/`, `positioning.md` | Lead offering, entry point, commercial tier, proof points and `[PROOF NEEDED]` flags |
-| `sales-presentation-advisor` | structure, house-style, message-craft | `positioning.md`, **`playbooks/objections.md`**, `case-studies/` | Storyline, pillars, objections |
-| `contact-approach-writer` | house-style, message-craft, third-parties | `brand-voice.md`, **`playbooks/message-frameworks.md`**, `playbooks/sequences.md` | First-touch messages, pre-send checklist, optional cadence |
+| `sales-presentation-advisor` | structure, length-budget, house-style, message-craft | `positioning.md`, **`playbooks/objections.md`**, `case-studies/` | Storyline, pillars, objections |
+| `contact-approach-writer` | house-style, length-budget, message-craft, third-parties | `brand-voice.md`, **`playbooks/message-frameworks.md`**, `playbooks/sequences.md` | First-touch messages, pre-send checklist, optional cadence |
+
+Every agent in this table reads `house-style.md` regardless of the column above.
+The emphasis policy applies to every line anyone writes into a dossier.
 
 ## Principles
 - The reader is an AE, so every section earns its place by helping a seller act
+- A dossier is a 20 to 30 minute read, and a document nobody finishes has failed
+- Headings carry the hierarchy, so bold stays out of body text
 - Professional and simple, explaining to a colleague and never to a child
 - One account per dossier, with third parties admitted only when material
 - Every fact is KNOW with a link, ASSUME as labelled reasoning, or a named GAP
@@ -81,7 +87,8 @@ stricter rule wins.
 | BD  | Build a full account dossier | `workflow.yaml` |
 | RD  | Refresh an existing dossier against a new event | `workflow.yaml`, phases 2 to 7 |
 | ST  | Show the structure standard | `reference/structure.md` |
-| HS  | Show the house style rules | `reference/house-style.md` |
+| LB  | Show the length budget and the hard caps | `reference/length-budget.md` |
+| HS  | Show the house style and emphasis rules | `reference/house-style.md` |
 | SF  | Show the sourcing and provenance rules | `reference/source-fidelity.md`, `reference/enrichment-and-provenance.md` |
 | QA  | Run the pre-publish checklist against a draft | `checklists/pre-publish.md` |
 | HT  | Render a dossier to HTML | `tools/build_dossier_html.py` |
