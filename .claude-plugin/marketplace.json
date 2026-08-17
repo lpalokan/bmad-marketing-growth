@@ -10,8 +10,8 @@
     {
       "name": "marketing-growth",
       "source": "./",
-      "description": "AI-powered go-to-market team for international B2B technology — a GTM orchestrator above two wings: marketing (CMO + 8 domain orchestrators + specialists) and sales prospecting (New-Business Orchestrator + specialists), with brief-driven delegation (see docs/protocol.md). v2.2 consolidates overlapping specialists into a 39-agent roster; v2.4 fixes the folder names at output/ and input/ and drops the output-folder install question.",
-      "version": "2.4.0",
+      "description": "AI-powered go-to-market team for international B2B technology — a GTM orchestrator above two wings: marketing (CMO + 8 domain orchestrators + specialists) and sales prospecting (New-Business Orchestrator + specialists), with brief-driven delegation (see docs/protocol.md). v2.2 consolidates overlapping specialists into a 39-agent roster; v2.4 fixes the folder names at output/ and input/ and drops the output-folder install question; v2.5 adds the account-overview one-slider alongside the account dossier.",
+      "version": "2.5.0",
       "author": {
         "name": "Lauri Palokangas"
       },
@@ -85,6 +85,7 @@
         "./skills/partner-co-marketing-campaign",
         "./skills/localization-rollout",
         "./skills/account-dossier",
+        "./skills/account-overview",
         "./skills/sales-prospecting-orchestrator",
         "./skills/account-sourcing-strategist",
         "./skills/account-research-analyst",

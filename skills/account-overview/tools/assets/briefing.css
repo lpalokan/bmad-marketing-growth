@@ -1,0 +1,101 @@
+/* Account overview one-slider.
+   Canvas and caps: ../../reference/fit-budget.md
+   Colour, type and emphasis: ../../reference/design-spec.md
+
+   The palette below is a BRAND-NEUTRAL PLACEHOLDER. It is deliberately not any
+   real company's colours, so an install that has not chosen a brand renders in
+   something obviously generic rather than in someone else's identity.
+
+   To brand a card, point BRIEFING_BRAND at a token file. It is appended after
+   this stylesheet and only has to redefine the six brand tokens. A pack for
+   Digital Workforce ships at brands/dwf.css. */
+
+:root{
+  /* Brand tokens. A brand pack redefines exactly these six. */
+  --ink:#111111;            /* body text, and the story band background */
+  --accent:#2450D8;         /* accent on light: labels, numbers, rules */
+  --accent-dark:#7FB0FF;    /* accent on dark: used inside the story band only */
+  --rule:var(--accent);     /* the 5px rule across the top */
+  --ring-a:var(--accent);   /* rings behind the story band, gradient start */
+  --ring-b:var(--accent);   /* rings behind the story band, gradient end */
+
+  /* Structure. Not brand, and a pack should leave these alone. */
+  --white:#fff;
+  --g1:#333; --g2:#777; --g4:#E6E6E6; --panel2:#F4F4F6;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{width:1280px;height:720px;background:var(--white)}
+body{font-family:'Arboria',Arial,Calibri,system-ui,-apple-system,sans-serif;
+  color:var(--ink);overflow:hidden;-webkit-font-smoothing:antialiased}
+.slide{position:relative;width:1280px;height:720px;padding:26px 46px 18px;
+  display:flex;flex-direction:column}
+.toprule{position:absolute;left:0;right:0;top:0;height:5px;background:var(--rule)}
+
+/* Numbers take their weight from colour and a size step. Never from bold.
+   See the emphasis section of design-spec.md. */
+.n{color:var(--accent);font-size:1.08em;letter-spacing:-.01em}
+.valueprop .n{color:var(--accent-dark)}
+
+/* ---------- header ---------- */
+.headrow{display:flex;justify-content:space-between;align-items:flex-start;gap:24px}
+.eyebrow{font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--accent);margin-bottom:4px}
+h1{font-size:22px;font-weight:800;letter-spacing:-.01em;line-height:1.15}
+.meta{text-align:right;font-size:9.5px;color:var(--g2);line-height:1.5;white-space:nowrap}
+.meta b{color:var(--ink);font-weight:700}
+
+/* ---------- story band ---------- */
+.valueprop{position:relative;overflow:hidden;margin-top:11px;background:var(--ink);
+  color:var(--white);border-radius:8px;padding:15px 24px}
+.valueprop .rings{position:absolute;right:-30px;top:-46px;width:210px;height:210px;
+  opacity:.06;pointer-events:none}
+.vp-inner{position:relative;z-index:1}
+.valueprop .tag{font-size:9.5px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--accent-dark);margin-bottom:6px}
+.valueprop p{font-size:13.2px;line-height:1.52;max-width:1130px;font-weight:400}
+.event{display:inline-block;font-size:8px;font-weight:800;letter-spacing:.05em;
+  text-transform:uppercase;background:var(--accent-dark);color:var(--ink);padding:1px 6px;
+  border-radius:3px;margin:0 4px;vertical-align:middle}
+
+/* ---------- two-column body ---------- */
+.body{flex:1;display:flex;gap:26px;margin-top:13px;min-height:0}
+.col{flex:1;display:flex;flex-direction:column;min-width:0}
+.subhead{font-size:11.2px;font-weight:800;letter-spacing:.02em;margin:12px 0 6px}
+.subhead:first-child{margin-top:0}
+.col.left .subhead{color:var(--ink)}
+.col.left .subhead.ch{color:var(--accent)}
+.col.right .subhead{color:var(--accent)}
+
+.item{display:flex;gap:9px;padding:5px 0;border-bottom:1px solid var(--g4);
+  align-items:flex-start}
+.item:last-child{border-bottom:none}
+.item .dot{width:5px;height:5px;border-radius:50%;background:var(--ink);opacity:.35;
+  margin-top:6px;flex-shrink:0}
+.item.ch .dot{background:var(--accent);opacity:1}
+.item .txt{font-size:11.5px;line-height:1.4;color:var(--g1)}
+
+.para{padding:9px 0;border-bottom:1px solid var(--g4)}
+.para:last-child{border-bottom:none}
+.para .t{font-size:12.2px;font-weight:800;margin-bottom:3px;color:var(--ink)}
+.para .t .idx{color:var(--accent);margin-right:5px}
+.para .d{font-size:11.5px;line-height:1.42;color:var(--g1)}
+
+/* ---------- out of scope ---------- */
+.scope{margin-top:12px;background:var(--panel2);border:1px solid var(--g4);
+  border-radius:8px;padding:10px 22px}
+.scope .tag{font-size:9.5px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--g2);margin-bottom:6px}
+.scope-body{display:flex;gap:24px}
+.scope-item{flex:1;font-size:10.4px;line-height:1.4;color:var(--g1);min-width:0}
+.scope-item b{display:block;font-size:10.9px;font-weight:800;color:var(--ink);margin-bottom:2px}
+.flag{display:inline-block;font-size:7px;font-weight:800;letter-spacing:.05em;
+  text-transform:uppercase;background:var(--g4);color:var(--g1);padding:1px 5px;
+  border-radius:3px;margin-left:5px;vertical-align:middle}
+
+/* ---------- footer ---------- */
+footer{margin-top:9px;display:flex;justify-content:space-between;align-items:flex-end;gap:24px}
+.buyers{font-size:8.5px;color:var(--g2);line-height:1.4;max-width:640px}
+footer .right{display:flex;align-items:flex-end;gap:12px}
+footer .logo{height:22px;width:auto;display:block}
+.src{font-size:8px;color:var(--g2);opacity:.85;max-width:420px;text-align:right;line-height:1.4}
+.src .n,.buyers .n{font-size:1em;color:var(--g1)}
