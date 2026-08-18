@@ -23,7 +23,8 @@ the relevant `reference/` file first and follows it literally.
 | File | Owns |
 |---|---|
 | `reference/structure.md` | Section order and what belongs in each |
-| `reference/house-style.md` | Tone of voice and sentence-level rules |
+| `reference/length-budget.md` | Word budget per section, hard caps, and the cut order |
+| `reference/house-style.md` | Tone of voice, sentence-level rules, and the emphasis policy |
 | `reference/source-fidelity.md` | KNOW / ASSUME / GAP labelling and live verification |
 | `reference/enrichment-and-provenance.md` | Clay MCP and any enrichment source |
 | `reference/account-record.md` | The shared account record and section ownership |
@@ -44,15 +45,20 @@ defect, not a shortcut.
 | Agent | Reads (this skill) | Reads (company-context) | Writes into the dossier |
 |---|---|---|---|
 | `sales-prospecting-orchestrator` | all of it | `index.md`, `positioning.md`, `brand-voice.md` | Executive summary, assembly, render, QA gate |
-| `account-research-analyst` | structure, source-fidelity, enrichment, research-method, account-record | `icp.md`, `signal-library.md`, `kpis.md` | Account overview, why-now signals, sources |
-| `buying-committee-mapper` | structure, source-fidelity, enrichment, account-record | `buying-committee-model.md`, **`personas/`** | Buying committee and its provenance flags |
-| `account-sourcing-strategist` | structure, account-record | `icp-fit-model.md`, `icp.md` | Why they fit, kept short |
+| `account-research-analyst` | structure, length-budget, source-fidelity, enrichment, research-method, account-record | `icp.md`, `signal-library.md`, `kpis.md` | Account overview, why-now signals, sources |
+| `buying-committee-mapper` | structure, length-budget, source-fidelity, enrichment, account-record | `buying-committee-model.md`, **`personas/`** | Buying committee and its provenance flags |
+| `account-sourcing-strategist` | structure, account-record | `icp-fit-model.md`, `icp.md` | Why they fit, as one table row |
 | `service-offering-advisor` | source-fidelity | `offerings.md` **and every file in `offerings/`**, `case-studies/`, `positioning.md` | Lead offering, entry point, commercial tier, proof points and `[PROOF NEEDED]` flags |
-| `sales-presentation-advisor` | structure, house-style, message-craft | `positioning.md`, **`playbooks/objections.md`**, `case-studies/` | Storyline, pillars, objections |
-| `contact-approach-writer` | house-style, message-craft, third-parties | `brand-voice.md`, **`playbooks/message-frameworks.md`**, `playbooks/sequences.md` | First-touch messages, pre-send checklist, optional cadence |
+| `sales-presentation-advisor` | structure, length-budget, house-style, message-craft | `positioning.md`, **`playbooks/objections.md`**, `case-studies/` | Storyline, pillars, objections |
+| `contact-approach-writer` | house-style, length-budget, message-craft, third-parties | `brand-voice.md`, **`playbooks/message-frameworks.md`**, `playbooks/sequences.md` | First-touch messages, pre-send checklist, optional cadence |
+
+Every agent in this table reads `house-style.md` regardless of the column above.
+The emphasis policy applies to every line anyone writes into a dossier.
 
 ## Principles
 - The reader is an AE, so every section earns its place by helping a seller act
+- A dossier is a 20 to 30 minute read, and a document nobody finishes has failed
+- Headings carry the hierarchy, so bold stays out of body text
 - Professional and simple, explaining to a colleague and never to a child
 - One account per dossier, with third parties admitted only when material
 - Every fact is KNOW with a link, ASSUME as labelled reasoning, or a named GAP
@@ -81,10 +87,12 @@ stricter rule wins.
 | BD  | Build a full account dossier | `workflow.yaml` |
 | RD  | Refresh an existing dossier against a new event | `workflow.yaml`, phases 2 to 7 |
 | ST  | Show the structure standard | `reference/structure.md` |
-| HS  | Show the house style rules | `reference/house-style.md` |
+| LB  | Show the length budget and the hard caps | `reference/length-budget.md` |
+| HS  | Show the house style and emphasis rules | `reference/house-style.md` |
 | SF  | Show the sourcing and provenance rules | `reference/source-fidelity.md`, `reference/enrichment-and-provenance.md` |
 | QA  | Run the pre-publish checklist against a draft | `checklists/pre-publish.md` |
 | HT  | Render a dossier to HTML | `tools/build_dossier_html.py` |
+| EN  | Check or repair character encoding across the dossiers | `tools/build_dossier_html.py --check`, `--repair` |
 
 **HT needs Python 3.10+ and the `markdown` package** (`pip install markdown`) —
 the only external dependency anything in this package has. The render is
@@ -93,6 +101,29 @@ in the header and footer, and `DOSSIER_ROOT` / `DOSSIER_HTML` to override the
 input and output folders. Styling is `tools/assets/dossier.css`, which a
 consuming project can diverge from — an existing sibling render's `<style>`
 block wins, so a project keeps its own look once it has one.
+
+### Every file here is UTF-8
+
+Finnish and Swedish names, quotations and job titles are the normal case in
+these accounts. A page that prints `Ã¤` where it means `ä` is not a cosmetic
+defect. It is the account's own words misspelled, and it fails the pre-publish
+gate.
+
+The build never causes this. A later step does, by reading the finished page in
+the system codepage and saving it back as UTF-8. On Windows PowerShell 5.1,
+`Get-Content page.html | ... > page.html` does exactly that, and so does any
+`Set-Content` or `Out-File` without `-Encoding utf8`.
+
+So the rule is: **do not post-process a rendered page through the shell.** Fix
+the markdown and render again. Where a page really must be edited in place, use
+a tool that reads and writes UTF-8 explicitly, then prove it with `--check`.
+
+    python tools/build_dossier_html.py --check     # exits non-zero on damage
+    python tools/build_dossier_html.py --repair    # writes the text back correct
+
+`--repair` reverses the damage exactly, so a page repaired this way carries the
+same content as the render that produced it. Given no paths, both modes scan
+every dossier markdown file and every rendered page.
 
 ## On Activation
 

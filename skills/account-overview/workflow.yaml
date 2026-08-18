@@ -1,0 +1,233 @@
+# Account Overview Workflow
+# Trigger: AO
+# Lead: Sam Sell (New-Business Orchestrator)
+#
+# Builds one AE-ready account overview one-slider. Runs against the same shared
+# account record as the dossier (../account-dossier/reference/account-record.md).
+# Where a dossier already exists this workflow selects from the record rather
+# than researching again.
+
+workflow:
+  id: account-overview
+  name: "Account Overview"
+  version: "1.0.0"
+  trigger: "AO"
+  lead_agent: sales-prospecting-orchestrator
+  description: |
+    Build a single 1280 by 720 briefing card for one named account, written for
+    an Account Executive to read in the thirty seconds before a call. Internal
+    only. Sequences a short research pass where no dossier exists, enforces the
+    story spec and the fit budget, gates on the DWF tone and brand skills, and
+    renders branded HTML.
+
+  standards:
+    story_spec: "reference/story-spec.md"
+    research_brief: "reference/research-brief.md"
+    fit_budget: "reference/fit-budget.md"
+    design_spec: "reference/design-spec.md"
+    checklist: "checklists/pre-publish.md"
+
+  inherited_standards:
+    house_style: "../account-dossier/reference/house-style.md"
+    source_fidelity: "../account-dossier/reference/source-fidelity.md"
+    enrichment: "../account-dossier/reference/enrichment-and-provenance.md"
+    account_record: "../account-dossier/reference/account-record.md"
+    research_method: "../account-dossier/reference/research-method.md"
+    third_parties: "../account-dossier/reference/third-parties.md"
+
+  requires_skills:
+    - dwf-tov
+    - dwf-brand-compliance
+
+  inputs:
+    account_name: "required"
+    account_id: "slug, derived from account_name unless given"
+    offering: "required, the offering the call is about"
+    seller: "optional, name and role of the person taking the call"
+
+phases:
+  - id: scope
+    name: "Scope"
+    steps:
+      - id: confirm-account
+        name: "Confirm the account, the offering and the way in"
+        agent: sales-prospecting-orchestrator
+        action: |
+          Confirm the exact legal entity and the offering the call is about.
+          Names in this market collide, so state which entity is in scope and
+          which similarly named companies are not. Record the exclusions in
+          frontmatter only, never on the card
+          (../account-dossier/reference/third-parties.md).
+
+          Check {output_folder}/work/dossiers/{account-id}/ for account.md and
+          for an existing briefing.
+
+          Say which way in applies before starting:
+            - account.md exists, so this is a selection pass and phase 2 is
+              skipped except for re-verification of anything that has moved;
+            - nothing exists, so phase 2 runs in full.
+
+          If a briefing already exists, do not overwrite it. Create a dated file
+          and set `supersedes:` in the frontmatter.
+        output: "briefing.md frontmatter"
+
+  - id: research
+    name: "Research"
+    condition: "no account.md, or the record is older than the compelling event"
+    steps:
+      - id: dig
+        name: "Dig for the five things the card needs"
+        agent: account-research-analyst
+        action: |
+          Follow reference/research-brief.md for what to look for and
+          ../account-dossier/reference/research-method.md for fetch order and
+          live verification.
+
+          Write every finding into account.md in the sections that record owns,
+          with a KNOW, ASSUME or GAP label and a link at the point of capture.
+          The card is a selection from that record and is never a separate set
+          of facts.
+
+          Never assert a vendor name, core platform or integration path that is
+          not publicly confirmed. Never name a live enforcement action.
+        output: "account.md sections, sources, gaps"
+        gate: "exit_check"
+
+      - id: offering-entry
+        name: "Which offering, and which entry point"
+        agent: service-offering-advisor
+        action: |
+          Read every file in the bundle's offerings/ folder, not just
+          offerings.md. Name the lead offering and the entry point that fits
+          this account's posture. The card carries the entry point, never the
+          catalog.
+
+          Carry our own proof points as site claims until a named reference
+          exists, and flag [PROOF NEEDED].
+        output: "account.md offering section"
+
+  - id: story
+    name: "The story"
+    steps:
+      - id: narrative
+        name: "Build the five-step narrative"
+        agent: sales-presentation-advisor
+        action: |
+          Follow reference/story-spec.md literally. Five steps, in order:
+          the objective, what changed, what did not change, where the gap is
+          already visible in their own numbers, and the one sentence that
+          connects it to what we do.
+
+          The compelling event is dated, sourced and structurally connected to
+          why the gap matters more now than before. If there is no real one,
+          say so out loud and render the band without the event tag. A card
+          built on a manufactured trigger fails the first time the seller says
+          it to someone who knows the account.
+
+          Do not lead with a category description. "They test controls on a
+          sample" is what everyone does, so it is not a story.
+
+          Follow ../account-dossier/reference/house-style.md. No em dashes. No
+          "X, not Y". No bold in body text.
+        output: "briefing.md Story, Objectives, Challenges"
+        gate: "user_approval"
+
+      - id: plain-terms
+        name: "Three angles, in plain terms"
+        agent: sales-presentation-advisor
+        action: |
+          Exactly three short paragraphs, each with a short headline. Suggested
+          angles, adapted to the offering:
+            1. how this scales with their objective rather than against it;
+            2. what leadership can prove instead of merely trust;
+            3. how this fits their current reality without new investment or
+               disruption.
+
+          One concrete detail per paragraph: a number, a mechanism or a
+          timeframe. Each reads as insight. None reads as sales copy.
+        output: "briefing.md What this means"
+
+      - id: out-of-scope
+        name: "What we are deliberately not leading with"
+        agent: service-offering-advisor
+        action: |
+          Two or three adjacent use cases that look obviously relevant and that
+          we are not leading with, each with the real sourced reason. Competing
+          investment, unconfirmed integration path, insufficient trust built.
+
+          Flag every unverified technical assumption with `[flag: Unconfirmed,
+          gap]` rather than stating it as fact. This box keeps the seller honest
+          and focused. It does not undersell the account.
+        output: "briefing.md Out of scope"
+
+      - id: threads
+        name: "Buyer threads and sources"
+        agent: buying-committee-mapper
+        action: |
+          Name each known contact, their role, and which thread they own: cost,
+          coverage, risk, compliance or technology. Verify people live this
+          session. Enrichment-derived people are corroborated before they reach
+          the card, per
+          ../account-dossier/reference/enrichment-and-provenance.md.
+
+          Cite every document used in the sources line. Where two sources define
+          the same metric differently, keep both and flag the discrepancy so the
+          seller does not get caught quoting the wrong one live.
+        output: "briefing.md Buyer threads, Sources"
+
+  - id: fit
+    name: "Fit"
+    steps:
+      - id: budget
+        name: "Fit the card to the canvas"
+        agent: sales-prospecting-orchestrator
+        action: |
+          Apply reference/fit-budget.md. Meet the caps by cutting whole items in
+          the stated order. Never meet them by chopping sentences into
+          fragments.
+        output: "briefing.md, within budget"
+
+      - id: tov
+        name: "Tone of voice gate"
+        agent: sales-prospecting-orchestrator
+        action: |
+          Run the dwf-tov skill against the card copy. Apply its findings.
+          This is a hard dependency. If the skill is unavailable, stop and say
+          so rather than publishing.
+        gate: "tov_pass"
+
+  - id: render
+    name: "Render"
+    steps:
+      - id: build
+        name: "Branded HTML"
+        agent: sales-prospecting-orchestrator
+        action: |
+          BRIEFING_BRAND=dwf python tools/build_briefing_html.py {account-id} \
+            [source.md] [out-stem]
+
+          The brand pack is not optional for a card a seller will use. Without
+          it the stylesheet renders its neutral placeholder palette, which the
+          pre-publish gate rejects. Confirm the pack the renderer printed.
+
+          The renderer warns on any slot over its cap. Fix the copy rather than
+          the layout. Never overwrite another account's render.
+        output: "briefings-html/{account-id}.html"
+
+      - id: brand
+        name: "Brand compliance gate"
+        agent: sales-prospecting-orchestrator
+        action: |
+          Run the dwf-brand-compliance skill against the rendered file. Apply
+          every Critical and Should-fix finding. This is a hard dependency. If
+          the skill is unavailable, stop and say so rather than publishing.
+        gate: "brand_pass"
+
+      - id: qa
+        name: "Pre-publish gate"
+        agent: sales-prospecting-orchestrator
+        action: |
+          Run checklists/pre-publish.md item by item. Any failure blocks.
+          View the rendered card at 1280 by 720 before showing it to anyone.
+          Nothing may overflow the canvas.
+        gate: "checklist_pass"

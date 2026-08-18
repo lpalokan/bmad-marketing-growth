@@ -5,7 +5,9 @@ edit, so it has to be usable as written and safe to send after light editing.
 
 ## Scope
 
-One message per load-bearing seat. Four to seven is normal. Add:
+One message per load-bearing seat, **three at most** (`length-budget.md`). Where
+more seats matter, write to the ones that carry the opening and name the rest in
+section 3 as parallel threads. Add:
 
 - A note the champion can forward internally, written in their voice about us.
 - A LinkedIn connection note for the lead buyer.

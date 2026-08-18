@@ -19,6 +19,7 @@ workflow:
 
   standards:
     structure: "reference/structure.md"
+    length_budget: "reference/length-budget.md"
     house_style: "reference/house-style.md"
     source_fidelity: "reference/source-fidelity.md"
     enrichment: "reference/enrichment-and-provenance.md"
@@ -182,10 +183,18 @@ phases:
         name: "Render the record into the dossier"
         agent: sales-prospecting-orchestrator
         action: |
-          Use templates/dossier.md. Follow reference/structure.md for order.
-          Write the executive summary last, from the finished document. Render
-          discovery questions from the GAP entries rather than inventing them.
-          The reader sees the account and the plan, never the process.
+          Use templates/dossier.md. Follow reference/structure.md for order and
+          reference/length-budget.md for the budget and the caps. Write the
+          executive summary last, from the finished document. Render discovery
+          questions from the GAP entries rather than inventing them. The reader
+          sees the account and the plan, never the process.
+
+          The record holds more than the dossier does, and that is the design.
+          Assembly is a selection step. Take what helps a seller act and leave
+          the rest in account.md, where the next person can still find it.
+
+          No bold in body text. Where a sentence needs to stand out, give it a
+          heading, a block quote or a table row.
         output: "dossier.md (or dossier-{yyyy-mm-dd}.md when superseding)"
 
       - id: qa
@@ -201,4 +210,14 @@ phases:
           python tools/build_dossier_html.py {account-id} [source.md] [out-stem]
           Verify the rendered page before showing it. Never overwrite another
           account's render.
+
+          Everything here is UTF-8. Never pipe a rendered page through the shell
+          afterwards: on Windows PowerShell 5.1, `Get-Content page.html | ... >
+          page.html` reads it in the system codepage and saves it back as UTF-8,
+          which turns every ä into Ã¤. Where a page needs to change, change the
+          markdown and render again.
+
+          Then prove it, on every page and not only the one just built:
+          python tools/build_dossier_html.py --check
+          A non-zero exit blocks. `--repair` fixes damage already on disk.
         output: "dossiers-html/{account-id}.html"

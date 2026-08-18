@@ -12,35 +12,37 @@ secondary_offering: <offering, or delete>
 fit: <High | Medium | Low>
 timing: <High | Medium | Low>
 action_tier: <A | B | C>
-structure_version: 2
+structure_version: 3
 ---
 
 # <Account name>
 
-**How to read this.** Every figure carries a named source and a link. Facts we
-verified are marked **KNOW**. Our own reasoning is marked **ASSUME**. What we do
-not know is written as a question in section 6 rather than filled in with a
-guess. Nothing here is invented.
-
-<One line only when superseding: what changed and why, naming the retained file.>
+**How to read this.** Facts we verified are marked **KNOW** and carry a link.
+Our own reasoning is marked **ASSUME**. What we do not know is written as a
+question in section 6 rather than filled in with a guess. Nothing here is
+invented.
 
 ---
 
 ## 1. Executive summary
 
+<Around 350 words, written last, from the finished document. Four short
+paragraphs. No bold anywhere in them. The whole dossier is a 20 to 30 minute
+read, 4,500 to 6,500 words. See reference/length-budget.md.>
+
 <What this company is, in two sentences.>
 
-<What has just happened, dated.>
+<What has just happened, dated. Then why that creates an opening for us.>
 
-<Three bolded facts that define the opportunity, one short paragraph each.>
-
-<**The recommendation**, naming the tier, the offering and the person to
-approach. Then the timing, with the next dated event.>
+<The recommendation. Name the tier, the offering, the entry point and the person
+to approach. Give the timing and the next dated event. One sentence here retires
+any claim an earlier version made and this one withdraws.>
 
 | | |
 |---|---|
 | **Priority** | |
-| **Lead offering** | |
+| **Why they fit** | <four to six words against the fit model> |
+| **Lead offering** | <offering, entry point, tier> |
 | **Lead buyer** | |
 | **Why now** | |
 | **The constraint** | |
@@ -50,39 +52,40 @@ approach. Then the timing, with the next dated event.>
 
 ## 2. Account overview
 
-### 2.1 What they are
-### 2.2 Scale and financial frame
-### 2.3 Goals and ambitions
-### 2.4 Current plans
-### 2.5 Control and regulatory environment
-### 2.6 Technology estate
-### 2.7 Challenges
-### 2.8 Why they fit
-### 2.9 Why-now signals at a glance
+<Five subsections, 1,700 words in total. Cut here first when the document
+overruns.>
+
+### 2.1 What they are and how they are built
+
+| Figure | This period | Prior period |
+|---|---|---|
+
+### 2.2 What they are trying to do
+### 2.3 How the work runs today
+### 2.4 What is hurting
+### 2.5 Why now
 
 | # | Signal | Date | Domain | Strength |
 |---|---|---|---|---|
-
-### 2.10 Sources to read before the call
 
 ---
 
 ## 3. Buying committee
 
-### 3.1 The executive team, verified live
+### 3.1 Who is on the committee
 
 | Person | Title | Role for us | What they care about |
 |---|---|---|---|
 
-### 3.2 Seat detail on the ones that matter
-### 3.3 The layer beneath the executive team
+<Where an enrichment-derived layer is included, it goes in its own headed block
+below with provenance, pull date and a re-verify flag.>
 
-> Provenance and date. Re-verify before use.
+### 3.2 The seats that matter
 
-### 3.4 The path to the buyer
-### 3.5 Blockers and landmines
-### 3.6 Multi-threading
-### 3.7 What they will weigh instead of us
+<At most four.>
+
+### 3.3 The path to the buyer, and what blocks it
+### 3.4 What they will weigh instead of us
 
 ---
 
@@ -95,8 +98,23 @@ approach. Then the timing, with the next dated event.>
 
 ### 4.2 Why we believe it
 ### 4.3 The things to say
+
+<Three pillars at most. Each is a complete-sentence heading at h4, then what
+changes for the account, then the proof or `[PROOF NEEDED]`.>
+
+#### <Pillar one, as a complete sentence in active voice>
+#### <Pillar two, as a complete sentence in active voice>
+#### <Pillar three, as a complete sentence in active voice>
+
 ### 4.4 Which point leads for whom
+
+| Seat | Pillar that leads | Why |
+|---|---|---|
+
 ### 4.5 Objections you will hit, and the answer
+
+<Five at most.>
+
 ### 4.6 The ask
 
 ---
@@ -106,6 +124,8 @@ approach. Then the timing, with the next dated event.>
 > *Examples, illustrative. Every claim and figure must be re-checked against the
 > source before sending. Nothing has been sent. Each message is a recommendation
 > for a human to review, edit and send.*
+
+<Three messages at most, around 120 words each per message-craft.md.>
 
 ### <Name, title> (lead)
 ### <Name, title>
@@ -169,6 +189,7 @@ approach. Then the timing, with the next dated event.>
 
 ## 8. Sources
 
+### Read these five before the call
 ### Observed, primary, dated
 ### Inherited, needs re-verification
 ### Our own material

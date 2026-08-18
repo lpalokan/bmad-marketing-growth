@@ -40,6 +40,52 @@ Test: could you say this sentence out loud to the buyer without embarrassment.
   Leading: "Control testing is your big priority this year, right?"
   Neutral: "Where does control testing sit against your other priorities?"
 
+## Emphasis
+
+**Bold does not appear in body text.**
+
+The dossier already carries a hierarchy: headings, tables, block quotes and
+lists. Bold competes with all four. A bolded sentence opening a paragraph reads
+as a heading, so the reader loses track of where sections begin. The page stops
+being scannable at exactly the moment it looks most scannable.
+
+Bold is allowed in three places and nowhere else.
+
+- The label column of a key and value table, where it is the table's structure
+  rather than prose.
+- The `KNOW`, `ASSUME` and `GAP` labels, which are a controlled vocabulary the
+  reader scans for.
+- The `[PROOF NEEDED]` flag, for the same reason.
+
+Everything else stays unbolded. That includes company names, figures, dates, the
+recommendation, the person to approach, and the one sentence you most want read.
+
+### What to reach for instead
+
+A sentence that needs to stand out has a structural home. Find it.
+
+| You want to | Use |
+|---|---|
+| Announce what a block of text is about | A heading, written as a complete sentence |
+| Make one claim impossible to miss | A block quote, at most once per section |
+| Set several things against each other | A table |
+| Put a fact first | The first sentence of the paragraph |
+
+If none of those fit, the sentence is ordinary prose and it will be read.
+
+### Italics
+
+Reserved for the standing instruction blocks the template carries, such as the
+"examples, illustrative" note and the "why we ask" line under each discovery
+question. Never used for emphasis.
+
+### Headings carry the structure
+
+Headings are the only device that tells a reader where they are. Give every
+heading a level that matches its depth, and never skip a level to reach a size
+you like. A bolded lead-in doing a heading's job is a defect. Promote it to a
+heading or demote it to a sentence.
+
 ## Lists
 
 Bullet lists take a period on the last item only. Keep items parallel in shape.

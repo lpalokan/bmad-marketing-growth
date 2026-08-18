@@ -51,12 +51,17 @@ article.md h2{font-size:25px;font-weight:800;color:var(--navy);margin:1.7em 0 .5
   padding-left:14px;position:relative;line-height:1.2}
 article.md h2::before{content:"";position:absolute;left:0;top:.12em;bottom:.12em;width:5px;
   border-radius:3px;background:var(--grad-bc)}
-article.md h3{font-size:19.5px;font-weight:800;color:var(--blue);margin:1.5em 0 .4em}
-article.md h4{font-size:17px;font-weight:800;color:var(--ink);margin:1.3em 0 .3em}
-article.md p{margin:.7em 0}
+article.md h3{font-size:19.5px;font-weight:800;color:var(--blue);margin:1.7em 0 .45em}
+/* h4 must never be mistakable for bold body text: navy, ruled, and spaced. */
+article.md h4{font-size:16.5px;font-weight:700;color:var(--navy);line-height:1.35;
+  margin:1.5em 0 .4em;padding-left:11px;border-left:3px solid var(--cyan)}
+article.md p{margin:.8em 0}
 article.md ul,article.md ol{margin:.6em 0 .9em;padding-left:1.35em}
-article.md li{margin:.32em 0}
-article.md strong{font-weight:800}
+article.md li{margin:.34em 0}
+/* Body bold is reserved for KNOW/ASSUME/GAP labels and table label columns.
+   Kept at 700 in plain ink so it can never read as a heading. */
+article.md strong{font-weight:700;color:inherit}
+article.md td strong{color:var(--g1)}
 article.md a{text-decoration:underline;word-break:break-word}
 article.md hr{border:0;height:1px;background:var(--g4);margin:2em 0}
 article.md blockquote{margin:1.1em 0;padding:12px 18px;background:var(--panel);

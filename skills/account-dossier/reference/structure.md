@@ -3,6 +3,12 @@
 The canonical section order. Follow it exactly. The order is chronological from
 the AE's point of view: who they are, who to talk to, what to say, what to ask.
 
+Read `length-budget.md` alongside this file. A dossier is a 20 to 30 minute
+read, which is 4,500 to 6,500 words. That file sets the budget per section and
+the caps on how many pillars, seats, messages and objections a dossier carries.
+The two files are one contract, and a structurally correct dossier that overruns
+the budget fails the gate.
+
 ## The order
 
 1. Executive summary
@@ -14,56 +20,66 @@ the AE's point of view: who they are, who to talk to, what to say, what to ask.
 7. Before you send
 8. Sources
 
+Eight sections. There is no section 0. A verdict block sitting above the
+executive summary is a second summary, and one document gets one summary.
+
 ## What belongs in each
 
 ### 1. Executive summary
 
-Written last, from the finished document. Three to six short paragraphs plus a
-scan table.
+Written last, from the finished document. Around 350 words, so four short
+paragraphs, then the scan table. It stays short while the document around it
+grows, because a seller with ten minutes reads only this.
 
 Answer four questions. What is this company. What has just happened. Why that
 creates an opening for us. What the AE should do next, naming the person.
 
-Close with a table: priority, lead offering, lead buyer, why now, the constraint,
-the next dated event. An AE who reads only this section should be able to act.
+Where an earlier version of the dossier made a claim that has since been
+withdrawn, one sentence here says so. It does not get its own section.
+
+Close with the scan table: priority, why they fit, lead offering, lead buyer,
+why now, the constraint, the next dated event. An AE who reads only this section
+should be able to act.
 
 ### 2. Account overview
 
-Shortened deliberately. This section informs the hypothesis rather than proving
-the researcher worked hard.
+Five subsections, 1,700 words in total. The largest section in the dossier, and
+still the first place to cut when the document overruns. It informs the
+hypothesis rather than proving the researcher worked hard.
 
-- **What they are.** Entity, ownership, structure, market position. Include any
+- **2.1 What they are and how they are built.** Entity, ownership, structure,
+  market position, and the scale table with its comparatives. Include any
   structural fact that changes how the account behaves, such as a cooperative
-  owner or a central body with a legal duty over subsidiaries.
-- **Scale and financial frame.** A table of the figures that matter, with
-  comparatives. Follow it with two or three sentences reading the shape rather
-  than restating the rows.
-- **Goals and ambitions.** What they say they are trying to become, with the
-  measures they use. State where an ambition is also a warning to us.
-- **Current plans.** Programmes in flight, with dates.
-- **Control or regulatory environment.** Where the account is regulated, this is
-  the section that decides the pitch. Findings, obligations, live processes, the
-  shape of the control function, and what follows from each.
-- **Technology estate.** What we know, what we must not assert, and why the gap
-  favours or hurts us.
-- **Challenges.** Their problems, in their terms, sourced.
-- **Why they fit.** Four to six lines against the fit model. Not the scorecard.
-- **Why-now signals at a glance.** A dated table with a strength read, followed
-  by a short note on how to read the set.
-- **Sources to read before the call.** Five or so links, the ones an AE should
-  actually open.
+  owner or a central body with a legal duty over subsidiaries. Two or three
+  sentences read the shape of the figures. Do not restate the rows.
+- **2.2 What they are trying to do.** What they say they are becoming, the
+  measures they use, and the programmes in flight with their dates. State where
+  an ambition is also a warning to us.
+- **2.3 How the work runs today.** The technology estate: what we know, what we
+  must not assert, and why the gap favours or hurts us. Where the account is
+  regulated, the control environment goes here and decides the pitch, so take
+  its words from elsewhere in this section rather than adding them.
+- **2.4 What is hurting.** Their problems, in their terms, sourced.
+- **2.5 Why now.** The dated signal table with a strength read, then two or three
+  sentences on how to read the set.
+
+Two things that used to live here have moved. The fit verdict is now a row in the
+section 1 scan table, in four to six words. The pre-call reading list is now a
+block in section 8, so links live in one place.
 
 ### 3. Buying committee
 
-Placed after the overview because people are part of understanding the account.
+Four subsections, 900 words plus the tables. Placed after the overview because
+people are part of understanding the account.
 
-- The verified leadership table, with role for us and what each cares about.
-- Seat detail on the three to five that matter, including how each will behave.
-- The layer beneath, with its provenance and freshness visibly flagged.
-- The path to the buyer.
-- Blockers and landmines.
-- Multi-threading, as named threads rather than a cadence.
-- What they will weigh instead of us.
+- **3.1 Who is on the committee.** The verified leadership table, with role for
+  us and what each cares about. The layer beneath sits under it as a separately
+  headed block with its provenance and freshness flagged.
+- **3.2 The seats that matter.** At most four, with how each will behave.
+- **3.3 The path to the buyer, and what blocks it.** The route in, the blockers
+  and landmines, and the parallel threads by name. Threads are named, never
+  sequenced. A cadence is not dossier content.
+- **3.4 What they will weigh instead of us.**
 
 ### 4. The storyline
 
@@ -72,15 +88,21 @@ Placed after the overview because people are part of understanding the account.
 - **Why we believe it.** The reasoning that produced the hypothesis, in the
   account's own facts. This is the teachable insight. Keep it readable and use at
   most one analogy.
-- **The things to say.** Three to five pillars, each a headline sentence plus what
-  changes for the account, each with its proof or an honest `[PROOF NEEDED]`.
+- **The things to say.** Three pillars. Each is a headline sentence plus what
+  changes for the account, with its proof or an honest `[PROOF NEEDED]`. Three
+  is the cap and not a target. Two strong pillars beat three where the third is
+  padding.
 - **Which point leads for whom.** A short table against the committee.
-- **Objections you will hit, and the answer.** Including the ones we answer badly.
+- **Objections you will hit, and the answer.** Five at most, including the ones
+  we answer badly.
 - **The ask.** Specific, small, and dated where possible.
 
 ### 5. First-touch messages
 
-One per load-bearing seat. Add a note the champion can forward internally, a
+Three at most, one per load-bearing seat, at the 120 words `message-craft.md`
+sets. Where four
+seats matter, write to the two that carry the opening and name the others in
+section 3 as parallel threads. Add a note the champion can forward internally, a
 LinkedIn connection note, and a pre-send checklist. See `message-craft.md`.
 
 ### 6. Questions for discovery
@@ -161,16 +183,23 @@ factual traps, and anything time-boxed such as an offer period or a results date
 
 ### 8. Sources
 
-Four blocks: observed and dated, inherited and needing re-verification, our own
-material, and gaps left open on purpose.
+Five blocks. The first is the short list an AE should actually open before the
+call, at five links or so. Then observed and dated, inherited and needing
+re-verification, our own material, and gaps left open on purpose.
+
+Links live here. A link inside the argument is fine where the sentence stands on
+it. A second list of the same links elsewhere in the document is not.
 
 ## What is not in a dossier
 
 - **The outreach sequence.** AE feedback removed it. If a runner wants a cadence
   it goes to `cadence-internal.md` in the same folder.
 - **Process narration.** No version numbers, no reversed verdicts, no agent
-  names, no "what changed in this pass" except a single line in the header when
-  a dossier supersedes another.
+  names, no "what changed in this pass" except a single sentence inside the
+  executive summary when a dossier supersedes another.
 - **Internal caveat apparatus in reader prose.** Bracket flags belong in the
   record and in the sources block, not scattered through the argument.
-- **The full fit scorecard.** A short verdict only.
+- **The full fit scorecard.** A row in the section 1 table only.
+- **Bold in body text.** Emphasis is structural here. See the emphasis rules in
+  `house-style.md`.
+- **A second summary.** See the note under "The order".

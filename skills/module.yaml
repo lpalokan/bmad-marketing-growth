@@ -1,7 +1,7 @@
 code: marketing-growth
 name: "Marketing Growth Suite"
-description: "AI-powered go-to-market team for international B2B technology — a GTM orchestrator above two wings: marketing (CMO + 8 domain orchestrators + ~33 specialists) and sales prospecting (New-Business Orchestrator + 10 specialists), with brief-driven delegation (see docs/protocol.md). v2.1 integrated the Sales Prospecting Suite into one package; v2.2 consolidates overlapping specialists into a 39-agent roster; v2.4 fixes the folder names at output/ and input/ and drops the output-folder install question."
-module_version: 2.4.0
+description: "AI-powered go-to-market team for international B2B technology — a GTM orchestrator above two wings: marketing (CMO + 8 domain orchestrators + ~33 specialists) and sales prospecting (New-Business Orchestrator + 10 specialists), with brief-driven delegation (see docs/protocol.md). v2.1 integrated the Sales Prospecting Suite into one package; v2.2 consolidates overlapping specialists into a 39-agent roster; v2.4 fixes the folder names at output/ and input/ and drops the output-folder install question; v2.5 adds the account-overview one-slider alongside the account dossier."
+module_version: 2.5.0
 default_selected: false
 
 module_greeting: |
@@ -56,7 +56,8 @@ module_greeting: |
   Workflows (Tier-1, v2): annual-planning, product-launch, content-pipeline (refreshed), paid-campaign-launch, experimentation-sprint, abm-program, growth-audit (refreshed)
   Workflows (Tier-2, v2): positioning-workshop, competitive-teardown, webinar-production, analyst-briefing, lifecycle-program-build, partner-co-marketing-campaign, localization-rollout, seo-sprint (refreshed)
   Workflow (kept from v1): marketing-strategy
-  Sales workflow: account-dossier (the dossier standard + build workflow)
+  Sales workflows: account-dossier (the dossier standard + build workflow),
+    account-overview (the one-slider seller briefing card)
   Bootstraps: company-context-bootstrap, sales-context-bootstrap
 
 # Install-time questions. On BMAD 6.x installers the answers flow into
