@@ -132,3 +132,7 @@ Never report the number as evidence of quality.
 - [ ] Nothing has been sent, posted or written back to any external system.
 - [ ] The render was viewed before it was shown to anyone.
 - [ ] No other account's render was overwritten by the build command.
+- [ ] `python tools/build_dossier_html.py --check` exits zero. Every Finnish and
+      Swedish name, title and quotation reads correctly on the page, with no
+      `Ã¤` standing where an `ä` belongs.
+- [ ] No rendered page was piped through the shell after the build.

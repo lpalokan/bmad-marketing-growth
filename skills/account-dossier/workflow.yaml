@@ -210,4 +210,14 @@ phases:
           python tools/build_dossier_html.py {account-id} [source.md] [out-stem]
           Verify the rendered page before showing it. Never overwrite another
           account's render.
+
+          Everything here is UTF-8. Never pipe a rendered page through the shell
+          afterwards: on Windows PowerShell 5.1, `Get-Content page.html | ... >
+          page.html` reads it in the system codepage and saves it back as UTF-8,
+          which turns every ä into Ã¤. Where a page needs to change, change the
+          markdown and render again.
+
+          Then prove it, on every page and not only the one just built:
+          python tools/build_dossier_html.py --check
+          A non-zero exit blocks. `--repair` fixes damage already on disk.
         output: "dossiers-html/{account-id}.html"

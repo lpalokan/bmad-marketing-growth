@@ -92,6 +92,7 @@ stricter rule wins.
 | SF  | Show the sourcing and provenance rules | `reference/source-fidelity.md`, `reference/enrichment-and-provenance.md` |
 | QA  | Run the pre-publish checklist against a draft | `checklists/pre-publish.md` |
 | HT  | Render a dossier to HTML | `tools/build_dossier_html.py` |
+| EN  | Check or repair character encoding across the dossiers | `tools/build_dossier_html.py --check`, `--repair` |
 
 **HT needs Python 3.10+ and the `markdown` package** (`pip install markdown`) —
 the only external dependency anything in this package has. The render is
@@ -100,6 +101,29 @@ in the header and footer, and `DOSSIER_ROOT` / `DOSSIER_HTML` to override the
 input and output folders. Styling is `tools/assets/dossier.css`, which a
 consuming project can diverge from — an existing sibling render's `<style>`
 block wins, so a project keeps its own look once it has one.
+
+### Every file here is UTF-8
+
+Finnish and Swedish names, quotations and job titles are the normal case in
+these accounts. A page that prints `Ã¤` where it means `ä` is not a cosmetic
+defect. It is the account's own words misspelled, and it fails the pre-publish
+gate.
+
+The build never causes this. A later step does, by reading the finished page in
+the system codepage and saving it back as UTF-8. On Windows PowerShell 5.1,
+`Get-Content page.html | ... > page.html` does exactly that, and so does any
+`Set-Content` or `Out-File` without `-Encoding utf8`.
+
+So the rule is: **do not post-process a rendered page through the shell.** Fix
+the markdown and render again. Where a page really must be edited in place, use
+a tool that reads and writes UTF-8 explicitly, then prove it with `--check`.
+
+    python tools/build_dossier_html.py --check     # exits non-zero on damage
+    python tools/build_dossier_html.py --repair    # writes the text back correct
+
+`--repair` reverses the damage exactly, so a page repaired this way carries the
+same content as the render that produced it. Given no paths, both modes scan
+every dossier markdown file and every rendered page.
 
 ## On Activation
 
