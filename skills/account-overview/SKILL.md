@@ -1,6 +1,6 @@
 ---
 name: account-overview
-description: "Account overview one-slider standard and build workflow. Lead: Sam Sell (New-Business Orchestrator). Produces a single 16:9 HTML card an Account Executive reads in 30 seconds before a call: the account's own objectives, what changed, and one storyline worth saying out loud. Internal only, never customer-facing. Requires the dwf-tov and dwf-brand-compliance skills. Use when user says account overview, account overview slide, seller briefing, one-slider, briefing card, or pre-call briefing. For the full 20 to 30 minute reading document, use account-dossier instead."
+description: "Account overview one-slider standard and build workflow. Lead: Sam Sell (New-Business Orchestrator). Produces a single 16:9 HTML card an Account Executive reads in 30 seconds before a call: the account's own objectives, what changed, and one storyline worth saying out loud. Internal only, never customer-facing. Uses the company's own tone-of-voice and brand-compliance skills where they exist. Use when user says account overview, account overview slide, seller briefing, one-slider, briefing card, or pre-call briefing. For the full 20 to 30 minute reading document, use account-dossier instead."
 ---
 
 # Account Overview
@@ -45,7 +45,7 @@ Route on the deliverable the user is asking for: a document is AD, a card is AO.
 | `templates/briefing.md` | The source the renderer consumes |
 | `tools/build_briefing_html.py` | The render |
 | `tools/assets/briefing.css` | The stylesheet and the neutral placeholder palette |
-| `tools/assets/brands/` | Brand packs, each redefining the six brand tokens |
+| `tools/assets/brands/` | Brand packs, each redefining the seven brand tokens |
 | `checklists/pre-publish.md` | The gate before an AE sees it |
 
 ## What this skill inherits
@@ -68,16 +68,29 @@ appear in body text.** The one-slider keeps that ban. Numbers still carry visual
 weight, and they get it from the accent colour and a size step rather than from
 bold. See `reference/design-spec.md`.
 
-## Brand and voice dependency
+## Voice and brand, where the company has them
 
-This skill requires two skills that ship outside this module.
+A card carries a company's identity, so where that company has written its voice
+and its visual identity down as skills, use them. This module does not ship them
+and does not name them, because they belong to whoever installs it.
 
-- `dwf-tov` reviews the copy before it renders.
-- `dwf-brand-compliance` reviews the rendered card.
+- **A tone-of-voice skill** reviews the copy before it renders.
+- **A brand-compliance skill** reviews the rendered card.
+- **A brand pack** supplies the colours. See the brand section below.
 
-Both are hard dependencies. If either is unavailable, say so, stop, and do not
-publish. The pre-publish gate fails without both. A card that has not been
-through them is a draft.
+How to find them: look for a skill whose name ends in `-tov` or
+`-brand-compliance`, or whose description says it reviews content for a named
+company's voice or visual identity. Digital Workforce, for example, ships
+`dwf-tov` and `dwf-brand-compliance`. Where more than one could apply, ask which.
+
+**None of these is required.** Where a company has none, the card still builds
+and still ships: this skill's own `reference/design-spec.md` and
+`../account-dossier/reference/house-style.md` carry the fallback, and the render
+uses the brand-neutral placeholder palette. Say once which checks you could not
+run, and carry on.
+
+Where they do exist, running them is not optional. A card that skipped an
+available voice or brand review is a draft, and the pre-publish gate says so.
 
 ## Principles
 - The reader is a seller thirty seconds from a live call
@@ -132,14 +145,19 @@ generic rather than in someone else's identity. Set `BRIEFING_BRAND` to a brand
 pack to change that:
 
 ```
-BRIEFING_BRAND=dwf python tools/build_briefing_html.py <account-id>
+BRIEFING_BRAND=/path/to/briefing.css python tools/build_briefing_html.py <account-id>
 ```
 
-A pack is a small CSS file redefining six brand tokens and nothing else. A bare
-name resolves against `tools/assets/brands/`. The Digital Workforce pack ships
-there and matches `../account-dossier/tools/assets/dossier.css`, so a card and a
-dossier for the same account read as one family. The renderer prints the pack in
-use on every build. See `reference/design-spec.md`.
+A pack is a small CSS file redefining seven brand tokens and nothing else. Point
+`BRIEFING_BRAND` at its path. A bare name resolves against
+`tools/assets/brands/`, which is empty in a fresh install: **this module ships no
+company's colours.** A company that has a brand-compliance skill usually keeps
+its pack there — Digital Workforce ships one at
+`dwf-brand-compliance/reference/brand/css/briefing.css`.
+
+Point `DOSSIER_BRAND` at the matching dossier pack from the same place, and a
+card and a dossier for the same account read as one family. The renderer prints
+the pack in use on every build. See `reference/design-spec.md`.
 
 ## Two ways in
 
@@ -162,9 +180,9 @@ thrown away. A later dossier build inherits it.
    - For any value still missing, use defaults: `user_name = there`, `communication_language = English`, `document_output_language = English`.
    - Resolve `output_folder` **silently — never ask the user**. Normalize a relative value against `{project-root}`. Then use the first of these that already contains a `company-context/` folder: the configured value, `{project-root}/output`, `{project-root}/_bmad-output` (legacy name, retired in v2.4). If none does, glob the project for `**/company-context/index.md` and `**/company-context/icp.md` (excluding `.git/`, `node_modules/`, `_bmad/`, `**/work/**`) and use its parent when there is exactly one match. Still nothing: use `{project-root}/output`. `output/` is the canonical name; `_bmad-output/` is read-only compatibility — never create it.
 
-2. Confirm both brand skills are available. `dwf-tov` and `dwf-brand-compliance`
-   are hard dependencies of this skill. If either is missing, say which one, and
-   offer to build the source `briefing.md` without rendering or publishing.
+2. Look for the company's voice and brand skills, and for a brand pack. None is
+   required. Note which are present, say once which reviews you will therefore
+   not be able to run, and continue either way. See **Voice and brand** below.
 
 3. Load context **if available — never required, never blocks.**
 

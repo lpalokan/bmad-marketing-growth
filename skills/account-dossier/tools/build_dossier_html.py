@@ -106,6 +106,37 @@ def dossier_pages():
 # Unbranded by default; a consuming project opts in via DOSSIER_LOGO.
 LOGO = os.environ.get("DOSSIER_LOGO", "").strip()
 
+# The stylesheet ships a brand-neutral placeholder palette. A brand pack is a
+# small CSS file redefining the seven brand tokens, appended after it. Usually a
+# path, since assets/brands/ ships empty and a company keeps its own packs with
+# its brand-compliance skill. build_committee_chart.py reads the same pack, so
+# the diagram and the page it sits in stay one design.
+BRAND = os.environ.get("DOSSIER_BRAND", "").strip()
+
+
+def brand_css() -> tuple[str, str]:
+    """Return the brand pack's CSS and the name to report. Neutral when unset."""
+    if not BRAND:
+        return "", "neutral placeholder"
+    path = Path(BRAND)
+    if not path.suffix:
+        path = TOOLS / "assets" / "brands" / f"{BRAND}.css"
+    elif not path.is_absolute() and not path.exists():
+        path = TOOLS / "assets" / "brands" / path
+    if not path.exists():
+        packaged = sorted(p.stem for p in (TOOLS / "assets" / "brands").glob("*.css"))
+        raise SystemExit(
+            f"DOSSIER_BRAND={BRAND!r} not found. Looked at {path}. "
+            + (
+                "Packaged packs: " + ", ".join(packaged)
+                if packaged
+                else "No packs ship with this module. Give a path to the company's "
+                "pack, usually kept with its brand-compliance skill, or unset "
+                "DOSSIER_BRAND to render in the neutral placeholder palette."
+            )
+        )
+    return "\n" + path.read_text(encoding="utf-8"), path.stem
+
 
 # --- encoding guard -------------------------------------------------------
 #
@@ -213,7 +244,11 @@ def read_css() -> str:
         if "<style>" in html and "</style>" in html:
             css = html[html.index("<style>") + len("<style>"): html.index("</style>")]
             return repair_mojibake(css)
-    return (TOOLS / "assets" / "dossier.css").read_text(encoding="utf-8")
+    base = (TOOLS / "assets" / "dossier.css").read_text(encoding="utf-8")
+    pack, name = brand_css()
+    if pack:
+        print(f"brand pack: {name}")
+    return base + pack
 
 
 def split_frontmatter(text: str):
@@ -249,7 +284,8 @@ RINGS = (
         for r in (30, 46, 62, 78, 94)
     )
     + '<defs><linearGradient id="rg" x1="0" y1="0" x2="1" y2="1">'
-    '<stop offset="0" stop-color="#0000FF"/><stop offset="1" stop-color="#00FFFF"/>'
+    '<stop offset="0" stop-color="var(--accent)"/>'
+    '<stop offset="1" stop-color="var(--accent-2)"/>'
     "</linearGradient></defs></svg>"
 )
 

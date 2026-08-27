@@ -20,7 +20,7 @@ by nine and it letterboxes on a slide. The 140 pixels it had spare are the reaso
 third hue. No fourth hue enters the card for any reason. That rule holds whatever
 brand the card is rendered in.
 
-The card is built from six brand tokens and a fixed set of structural ones. Only
+The card is built from seven brand tokens and a fixed set of structural ones. Only
 the six are a brand's to change.
 
 | Role | Token | Neutral default |
@@ -47,33 +47,41 @@ them for your own.
 
 ### Brand packs
 
-A brand pack is a small CSS file redefining the six tokens and nothing else. It
+A brand pack is a small CSS file redefining the seven tokens and nothing else. It
 is appended after the stylesheet, so it wins on the cascade without the base
 stylesheet having to know it exists.
 
 ```
-BRIEFING_BRAND=dwf python tools/build_briefing_html.py <account-id>
+BRIEFING_BRAND=<path to the pack> python tools/build_briefing_html.py <account-id>
 ```
 
 A bare name resolves against `tools/assets/brands/`. A path is taken as given.
 The renderer prints the pack in use on every build and records it in an HTML
 comment, so a card is never ambiguous about which brand it was rendered in.
 
-### The Digital Workforce pack
+### This module ships no company's pack
 
-`tools/assets/brands/dwf.css`. Ink `#111111`, accent `#0000FF` on light,
-`#00FFFF` on dark, and the signature magenta to blue to cyan gradient on the top
-rule and on the rings.
+`tools/assets/brands/` is empty in a fresh install, on purpose. Shipping one
+company's colours inside a suite other companies install would render their work
+in someone else's identity, which is worse than rendering it in an obvious
+placeholder.
 
-Those two are the only places the gradient appears, and both are sanctioned uses
-under the brand spec, which allows the gradient on thin accent rules and accent
-elements and forbids it on large background areas and long text passages. Magenta
-exists only inside those two gradients and is never a fill.
+A company that has written its visual identity down usually keeps its packs
+beside its brand-compliance skill. Digital Workforce, for example, ships
+`briefing.css` and a matching `dossier.css` at
+`dwf-brand-compliance/reference/brand/css/`; pointing `BRIEFING_BRAND` and
+`DOSSIER_BRAND` at that pair makes a card and a dossier for the same account read
+as one family.
 
-The pack's values match `../account-dossier/tools/assets/dossier.css`, so a
-Digital Workforce card and dossier for the same account read as one family.
-`dwf-brand-compliance` holds the source of truth in its own `reference/brand/`.
-If the pack and that skill disagree, the skill wins and the pack is stale.
+Wherever a pack comes from, the brand-compliance skill that owns it is the source
+of truth. If the pack and that skill disagree, the skill wins and the pack is
+stale.
+
+### Writing a pack
+
+Redefine the seven brand tokens and nothing else. Leave the structure tokens alone.
+Then read **What is forbidden, in any brand** below — those rules hold whoever
+the brand belongs to.
 
 ### What is forbidden, in any brand
 
@@ -86,9 +94,10 @@ If the pack and that skill disagree, the skill wins and the pack is stale.
 
 ## Typography
 
-**`'Arboria', Arial, Calibri, system-ui, sans-serif`.** One family throughout.
-Weight creates hierarchy. There is no second typeface and no serif anywhere,
-because the brand has none.
+**One family throughout, set by the pack's `--brand-font`.** The neutral
+placeholder is `'Inter', Arial, Calibri, system-ui, sans-serif`; a brand pack
+replaces it with the company's own. Weight creates hierarchy. There is no second
+typeface and no serif anywhere, whatever the family is.
 
 | Element | Size | Weight | Colour |
 |---|---|---|---|

@@ -112,6 +112,33 @@ input and output folders. Styling is `tools/assets/dossier.css`, which a
 consuming project can diverge from — an existing sibling render's `<style>`
 block wins, so a project keeps its own look once it has one.
 
+### Voice and brand, where the company has them
+
+A dossier carries a company's identity, so where that company has written its
+voice and its visual identity down, use them. This module ships none of it,
+because it belongs to whoever installs the module.
+
+- **A brand pack** supplies the colours and the typeface. `dossier.css` ships a
+  brand-neutral placeholder palette — deliberately nobody's colours, so an
+  install that has not chosen a brand renders in something obviously generic
+  rather than in someone else's identity. Point `DOSSIER_BRAND` at a pack to
+  change that. `build_dossier_html.py` and `build_committee_chart.py` read the
+  same file, so the page and the diagram inside it stay one design. The renderer
+  prints the pack in use on every build. See `tools/assets/brands/README.md`.
+- **A tone-of-voice skill** reviews the copy, alongside `house-style.md` rather
+  than instead of it.
+- **A brand-compliance skill** reviews the rendered page.
+
+How to find the last two: look for a skill whose name ends in `-tov` or
+`-brand-compliance`, or whose description says it reviews content for a named
+company's voice or visual identity. Digital Workforce, for example, ships
+`dwf-tov` and `dwf-brand-compliance`, and keeps its packs beside the latter at
+`reference/brand/css/`.
+
+**None of it is required.** Where a company has none, the dossier still builds
+and still ships on this skill's own standards. Say once which checks you could
+not run, and carry on.
+
 ### Every file here is UTF-8
 
 Finnish and Swedish names, quotations and job titles are the normal case in
