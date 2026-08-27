@@ -69,6 +69,49 @@ Never report the number as evidence of quality.
 - [ ] No section restates a fact the reader already met in order to introduce
       its consequence.
 
+## Opportunity portfolio
+
+Skip this block when no portfolio was asked for.
+
+- [ ] The portfolio is section 5, between the storyline and the first-touch
+      messages, and the document runs to nine sections.
+- [ ] It is not an appendix, a "Part Two", or anything placed after the sources.
+- [ ] The three merged-form frontmatter fields are set, and the "how to read
+      this" note says the document is both things.
+- [ ] Three tiers, defined by who has to say yes rather than by size of prize.
+- [ ] Where a tier holds fewer than three, the section says which and why.
+      Nothing was padded to reach nine.
+- [ ] Every opportunity carries all five blocks: what it is, why this account,
+      what it needs from them, what would kill it, and the label with its
+      qualifier.
+- [ ] Every "why this account" block is built on that account's own sourced
+      facts and would not survive being pasted into another dossier.
+- [ ] Every opportunity has a kill condition. None is left without one.
+- [ ] Every opportunity carries `ASSUME` or `SPECULATIVE`, and the qualifier is
+      one question.
+- [ ] No value, price, deal size, probability, confidence percentage or close
+      date appears anywhere in the section.
+- [ ] No opportunity rests on a capability our own `offerings/` material marks
+      unconfirmed. Any such capability sits in 5.6 as an exclusion, with the
+      open item cited.
+- [ ] 5.6 names every offering considered and rejected, with reasons, and marks
+      anything premature as held back rather than excluded.
+- [ ] Tier headings state a conclusion about the tier rather than labelling it.
+
+## Committee chart
+
+- [ ] Section 3 opens with the drawn committee chart and its caption.
+- [ ] The eyebrow says the chart maps the buying committee rather than the
+      organisation.
+- [ ] Three encodings only: vertical position, hue and border style. No fourth.
+- [ ] Border style matches each seat's provenance, and the dark cards use the
+      cyan stroke so the flag is visible.
+- [ ] Every card is the same size.
+- [ ] No more than two levels below the root.
+- [ ] The figure runs wider than the prose column and does not scroll sideways.
+- [ ] The rendered chart was viewed at full size before publication.
+- [ ] No personal contact detail appears on the chart.
+
 ## Emphasis and hierarchy
 
 - [ ] No bold anywhere in body text. The only bold is a table's label column,

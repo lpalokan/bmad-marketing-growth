@@ -123,6 +123,31 @@ phases:
           instead of us.
         output: "account.md committee sections"
 
+      - id: committee-chart
+        name: "Draw the buying-committee chart"
+        agent: buying-committee-mapper
+        action: |
+          Read reference/committee-chart.md and follow it literally.
+
+          Write the JSON spec beside the account record as committee.json, then
+          build the SVG with tools/build_committee_chart.py and embed it inline
+          at the top of section 3, above the leadership table, inside a
+          <figure class="orgfig" style="--natural:WIDTHpx"> with a caption.
+
+          Three encodings only: vertical position is decision altitude, hue is
+          the role the seat plays for us, border style is provenance. A dashed
+          border means enrichment-derived and uncorroborated, so a name reaches
+          the chart on exactly the terms it reaches the table.
+
+          Two levels below the root is the limit. A committee needing three has
+          not been reduced to the people who decide.
+
+          Look at the rendered chart at full size before it ships. Every defect
+          this standard has produced was invisible in the source and obvious in
+          the render.
+        output: "committee.json, committee-chart.svg, embedded in dossier section 3"
+
+
   - id: argument
     name: "Argument"
     steps:
@@ -146,6 +171,37 @@ phases:
           separate review step.
         output: "storyline section"
         gate: "user_approval"
+
+  - id: portfolio
+    name: "Opportunity portfolio"
+    steps:
+      - id: build-portfolio
+        name: "Nine opportunities across three tiers"
+        agent: service-offering-advisor
+        action: |
+          Read reference/opportunity-portfolio.md and follow it literally.
+
+          Run every offering and every capability in the bundle's offerings/
+          folder against this account, including the ones that will not fit.
+          The exclusions are part of the deliverable and go in 5.6 with their
+          reasons, because a portfolio that lists only what works is a catalogue
+          rather than a selection.
+
+          Tier by who has to say yes: a department head, the management group,
+          or the board. Not by size of prize. Three per tier is the target and
+          never a quota. Where the account honestly carries fewer, say which
+          tier came up short and why.
+
+          Every opportunity carries all five blocks and a label. The "why this
+          account" block is built from that account's own sourced facts, and an
+          opportunity whose reasoning would survive being pasted into another
+          dossier is not an opportunity yet. Send it back.
+
+          No value, price, probability or close date, anywhere, ever.
+
+          This section is section 5 of the document, between the storyline and
+          the first-touch messages. It is never appended.
+        output: "account.md portfolio section, rendered as dossier section 5"
 
   - id: outreach
     name: "First touches"

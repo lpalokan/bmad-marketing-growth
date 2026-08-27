@@ -25,10 +25,12 @@ Same account, same record, two deliverables with different jobs.
 | Form | Long document, eight sections | One card, fixed canvas |
 | Job | Know the account, the people and the plan | Recall the one thing to say |
 | Reader moment | Preparing the account | Waiting for the call to connect |
-| Output | `dossier.md`, `dossiers-html/{account-id}.html` | `briefing.md`, `briefings-html/{account-id}.html` |
+| Output | `dossier.md`, `dossier.html` | `briefing.md`, `overview.html` |
 
-Both write into the same `account.md` record in the same account folder. Neither
-owns the other. Where the phrase "account overview" appears inside a dossier it
+Both write into the same `account.md` record in the same account folder, and
+both render into that folder too: `dossier.html` and `overview.html` side by
+side. One account is one folder. Neither owns the other. Where the phrase
+"account overview" appears inside a dossier it
 names section 2 of that document, which is a different thing from this skill.
 Route on the deliverable the user is asking for: a document is AD, a card is AO.
 

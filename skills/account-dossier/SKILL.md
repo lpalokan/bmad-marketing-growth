@@ -23,6 +23,8 @@ the relevant `reference/` file first and follows it literally.
 | File | Owns |
 |---|---|
 | `reference/structure.md` | Section order and what belongs in each |
+| `reference/opportunity-portfolio.md` | The portfolio: when to build one, where it goes, the three tiers |
+| `reference/committee-chart.md` | The buying-committee diagram, its encodings and how it sits in the page |
 | `reference/length-budget.md` | Word budget per section, hard caps, and the cut order |
 | `reference/house-style.md` | Tone of voice, sentence-level rules, and the emphasis policy |
 | `reference/source-fidelity.md` | KNOW / ASSUME / GAP labelling and live verification |
@@ -33,6 +35,7 @@ the relevant `reference/` file first and follows it literally.
 | `reference/third-parties.md` | When another company may be named, and where |
 | `templates/dossier.md` | The skeleton |
 | `checklists/pre-publish.md` | The gate before an AE sees it |
+| `tools/build_committee_chart.py` | The buying-committee diagram, from a JSON spec |
 | `tools/build_dossier_html.py` | The branded HTML render |
 
 ## Who reads what
@@ -46,9 +49,9 @@ defect, not a shortcut.
 |---|---|---|---|
 | `sales-prospecting-orchestrator` | all of it | `index.md`, `positioning.md`, `brand-voice.md` | Executive summary, assembly, render, QA gate |
 | `account-research-analyst` | structure, length-budget, source-fidelity, enrichment, research-method, account-record | `icp.md`, `signal-library.md`, `kpis.md` | Account overview, why-now signals, sources |
-| `buying-committee-mapper` | structure, length-budget, source-fidelity, enrichment, account-record | `buying-committee-model.md`, **`personas/`** | Buying committee and its provenance flags |
+| `buying-committee-mapper` | structure, length-budget, source-fidelity, enrichment, account-record, **committee-chart** | `buying-committee-model.md`, **`personas/`** | Buying committee and its provenance flags |
 | `account-sourcing-strategist` | structure, account-record | `icp-fit-model.md`, `icp.md` | Why they fit, as one table row |
-| `service-offering-advisor` | source-fidelity | `offerings.md` **and every file in `offerings/`**, `case-studies/`, `positioning.md` | Lead offering, entry point, commercial tier, proof points and `[PROOF NEEDED]` flags |
+| `service-offering-advisor` | source-fidelity, **opportunity-portfolio** | `offerings.md` **and every file in `offerings/`**, `case-studies/`, `positioning.md` | Lead offering, entry point, commercial tier, proof points and `[PROOF NEEDED]` flags, and the opportunity portfolio where one is asked for |
 | `sales-presentation-advisor` | structure, length-budget, house-style, message-craft | `positioning.md`, **`playbooks/objections.md`**, `case-studies/` | Storyline, pillars, objections |
 | `contact-approach-writer` | house-style, length-budget, message-craft, third-parties | `brand-voice.md`, **`playbooks/message-frameworks.md`**, `playbooks/sequences.md` | First-touch messages, pre-send checklist, optional cadence |
 
@@ -61,6 +64,11 @@ The emphasis policy applies to every line anyone writes into a dossier.
 - Headings carry the hierarchy, so bold stays out of body text
 - Professional and simple, explaining to a colleague and never to a child
 - One account per dossier, with third parties admitted only when material
+- One account is one document and one folder. The opportunity portfolio is
+  section 5 of the dossier, never a companion file, and the rendered
+  `dossier.html` and `overview.html` sit beside the markdown they came from
+- Section 3 opens with the drawn committee chart, because who sits above whom
+  and how much of it we actually know is not a thing a table can show
 - Every fact is KNOW with a link, ASSUME as labelled reasoning, or a named GAP
 - Gaps become discovery questions rather than getting filled with a plausible default
 - Enrichment is a source like any other and is labelled and dated like any other
@@ -86,6 +94,8 @@ stricter rule wins.
 |------|-------------|------|
 | BD  | Build a full account dossier | `workflow.yaml` |
 | RD  | Refresh an existing dossier against a new event | `workflow.yaml`, phases 2 to 7 |
+| OP  | Build or add the opportunity portfolio, merged in at section 5 | `reference/opportunity-portfolio.md` |
+| CC  | Draw the buying-committee chart | `reference/committee-chart.md`, `tools/build_committee_chart.py` |
 | ST  | Show the structure standard | `reference/structure.md` |
 | LB  | Show the length budget and the hard caps | `reference/length-budget.md` |
 | HS  | Show the house style and emphasis rules | `reference/house-style.md` |

@@ -68,10 +68,24 @@ article.md blockquote{margin:1.1em 0;padding:12px 18px;background:var(--panel);
   border-left:4px solid var(--blue);border-radius:8px;color:var(--g1);font-size:15.5px}
 article.md blockquote p{margin:.4em 0}
 article.md code{background:#EEF0FF;color:var(--navy);font-family:inherit;font-weight:700;
-  font-size:.86em;padding:1px 6px;border-radius:5px;white-space:nowrap}
+  font-size:.86em;padding:1px 6px;border-radius:5px;
+  white-space:normal;overflow-wrap:anywhere}
 article.md pre{background:var(--panel2);border:1px solid var(--g4);border-radius:8px;padding:14px;overflow:auto}
 article.md pre code{background:none;padding:0;white-space:pre;font-weight:400;color:var(--ink)}
 .tablewrap{overflow-x:auto;margin:1.1em 0;border:1px solid var(--g4);border-radius:10px}
+/* Anything wider than the prose column breaks out of it rather than shrinking
+   into it or scrolling sideways. See reference/committee-chart.md.
+   .orgfig carries the committee diagram and sets --natural to the SVG's own
+   width. .tablewrap.wide is for a scan table of seven columns or more, which
+   would otherwise wrap every cell and run several screens tall. */
+.orgfig,.tablewrap.wide{position:relative;left:50%;transform:translateX(-50%);
+  width:calc(100vw - 48px)}
+.orgfig{max-width:var(--natural);margin:1.4em 0;padding:0;
+  border:1px solid var(--g4);border-radius:10px;overflow:hidden}
+.orgfig svg{display:block;width:100%;height:auto}
+.orgfig figcaption{padding:10px 14px;border-top:1px solid var(--g4);
+  background:var(--panel2);font-size:13.5px;color:var(--g1);line-height:1.5}
+.tablewrap.wide{max-width:1300px}
 article.md table{border-collapse:collapse;width:100%;font-size:14.5px;min-width:520px}
 article.md thead th{background:var(--navy);color:#fff;text-align:left;font-weight:800;
   padding:9px 12px;font-size:13px;letter-spacing:.02em}
@@ -90,4 +104,53 @@ footer.site .tag b{color:var(--ink);font-weight:800}
   h1.title{font-size:33px}
   body{font-size:16px}
   header.site .logo{height:30px}
+}
+
+/* ---- print --------------------------------------------------------------
+   The document prints portrait, except for the buying-committee chart, which
+   gets a landscape page of its own. It keeps its place in section 3 rather
+   than moving to an annex, so the page turns sideways where the diagram sits
+   and turns back after it. Named @page needs Chromium 111 or later.
+
+   The chart's screen layout breaks out of the prose column using viewport
+   units, which has no meaning on paper, so every part of that is reset here
+   before the figure is placed on its own page. */
+@page{size:A4 portrait;margin:16mm 15mm 18mm}
+@page committee{size:A4 landscape;margin:11mm}
+
+@media print{
+  html,body{background:#fff;font-size:10.6pt}
+  .wrap{max-width:none;padding:0}
+
+  /* Screen furniture that carries nothing on paper. */
+  header.site,footer.site,.toprule,.rings{display:none}
+
+  .hero{padding:0 0 10mm;background:none;color:var(--ink)}
+  .hero-inner{max-width:none;padding:0}
+  h1.title{font-size:26pt;color:var(--ink)}
+  .under,.rec{color:var(--ink)}
+  .chip{border-color:var(--g3);color:var(--ink);background:#fff}
+
+  /* The one landscape page. break-before and break-after put the figure
+     alone on it, so the diagram is never squeezed beside prose. */
+  .orgfig{page:committee;break-before:page;break-after:page;
+    position:static;left:auto;transform:none;width:auto;max-width:100%;
+    margin:0;border:1px solid var(--g4);break-inside:avoid}
+  .orgfig svg{width:100%;height:auto;max-height:158mm}
+  .orgfig figcaption{break-inside:avoid}
+
+  /* A table split across a page turn loses its header, so keep the small
+     ones whole and let only genuinely long ones break. */
+  .tablewrap{overflow:visible;break-inside:avoid}
+  .tablewrap.wide{position:static;left:auto;transform:none;width:auto;max-width:100%}
+  article.md table{min-width:0;font-size:9.4pt}
+  thead{display:table-header-group}
+  tr{break-inside:avoid}
+
+  article.md h2{break-before:page;break-after:avoid}
+  article.md h2:first-of-type{break-before:auto}
+  article.md h3,article.md h4{break-after:avoid}
+  article.md blockquote,article.md pre{break-inside:avoid}
+  article.md p{orphans:3;widows:3}
+  a{color:var(--ink);text-decoration:underline}
 }

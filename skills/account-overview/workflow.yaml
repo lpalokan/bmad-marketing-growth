@@ -212,7 +212,7 @@ phases:
 
           The renderer warns on any slot over its cap. Fix the copy rather than
           the layout. Never overwrite another account's render.
-        output: "briefings-html/{account-id}.html"
+        output: "{account-id}/overview.html"
 
       - id: brand
         name: "Brand compliance gate"

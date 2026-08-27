@@ -26,6 +26,7 @@ out of the gaps, and where the account overview turned into an essay.
 | Challenges | `account-research-analyst` | ✓ |
 | Why-now signals | `account-research-analyst` | ✓ |
 | Offering fit and proof | `service-offering-advisor` | ✓ |
+| Opportunity portfolio | `service-offering-advisor` | ✓ |
 | Fit verdict and tier | `account-sourcing-strategist` | ✓ |
 | Buying committee | `buying-committee-mapper` | ✓ |
 | Storyline and pillars | `sales-presentation-advisor` | ✓ |
