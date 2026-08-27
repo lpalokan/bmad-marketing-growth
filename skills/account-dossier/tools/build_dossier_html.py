@@ -17,7 +17,12 @@ Usage
 
 Paths
     dossiers root   {output_folder}/work/dossiers/            (override: DOSSIER_ROOT)
-    html output     {output_folder}/work/dossiers-html/       (override: DOSSIER_HTML)
+    html output     the account's own folder, beside its markdown, as
+                    dossier.html                              (override: DOSSIER_HTML)
+
+    One account is one folder. dossier.md and dossier.html sit together, and the
+    account overview renders overview.html into the same place, so a seller
+    handed the folder has the long read and the pre-call card in one hop.
 
 Branding
     The render is unbranded by default. Set DOSSIER_LOGO to a filename or URL
@@ -63,10 +68,40 @@ for _stream in (sys.stdout, sys.stderr):
 
 TOOLS = Path(__file__).resolve().parent
 DEFAULT_ROOT = Path.cwd() / "output" / "work" / "dossiers"
-DEFAULT_HTML = Path.cwd() / "output" / "work" / "dossiers-html"
 
 ROOT = Path(os.environ.get("DOSSIER_ROOT", DEFAULT_ROOT))
-OUT_DIR = Path(os.environ.get("DOSSIER_HTML", DEFAULT_HTML))
+
+# The page is written into the account's own folder, beside the markdown it came
+# from, so one account is one folder: dossier.md, dossier.html, briefing.md and
+# overview.html together. A seller handed a folder has everything, and a shared
+# link does not need a second folder attached to it.
+#
+# DOSSIER_HTML still overrides, and a project that wants every page collected in
+# one place sets it to a single directory.
+_ENV_HTML = os.environ.get("DOSSIER_HTML", "").strip()
+OUT_DIR = Path(_ENV_HTML) if _ENV_HTML else None
+
+
+def out_dir_for(slug: str) -> Path:
+    """Where this account's page goes. Its own folder unless DOSSIER_HTML says otherwise."""
+    return OUT_DIR if OUT_DIR else ROOT / slug
+
+
+def rendered_pages(pattern="*.html"):
+    """Every rendered page, wherever the current setting puts them."""
+    return sorted(OUT_DIR.glob(pattern)) if OUT_DIR else sorted(ROOT.glob(f"*/{pattern}"))
+
+
+def dossier_pages():
+    """Only dossier renders.
+
+    A style block is inherited from a sibling so a diverged project keeps its
+    look. Now that each account folder also holds overview.html from the
+    account-overview skill, an unfiltered glob would hand the dossier the
+    briefing card's stylesheet, which is a different design for a different
+    page. Match the dossier pages by name instead.
+    """
+    return [p for p in rendered_pages() if p.name.startswith("dossier")]
 
 # Unbranded by default; a consuming project opts in via DOSSIER_LOGO.
 LOGO = os.environ.get("DOSSIER_LOGO", "").strip()
@@ -163,14 +198,14 @@ def scan(paths, repair: bool) -> int:
 
 
 def default_scan_paths():
-    return sorted(ROOT.glob("*/*.md")) + sorted(OUT_DIR.glob("*.html"))
+    return sorted(ROOT.glob("*/*.md")) + rendered_pages()
 
 
 # --- render ---------------------------------------------------------------
 
 def read_css() -> str:
     """Prefer a sibling render's style block, so a diverged project keeps its look."""
-    for sibling in sorted(OUT_DIR.glob("*.html")):
+    for sibling in dossier_pages():
         try:
             html = sibling.read_text(encoding="utf-8")
         except UnicodeDecodeError:
@@ -255,7 +290,8 @@ def build(slug: str, source: str | None = None, out: str | None = None) -> Path:
     # in the reader's view plants the confusion it exists to prevent.
     # See reference/third-parties.md.
 
-    OUT_DIR.mkdir(parents=True, exist_ok=True)
+    out_dir = out_dir_for(slug)
+    out_dir.mkdir(parents=True, exist_ok=True)
     logo_header = f'<img class="logo" src="{LOGO}" alt="">' if LOGO else ""
     logo_footer = f'<img src="{LOGO}" alt="">' if LOGO else ""
     html = f"""<!doctype html>
@@ -289,7 +325,7 @@ def build(slug: str, source: str | None = None, out: str | None = None) -> Path:
 </body></html>
 """
 
-    out_path = OUT_DIR / f"{out or slug}.html"
+    out_path = out_dir / f"{out or 'dossier'}.html"
     out_path.write_text(html, encoding="utf-8")
 
     # Read the page back the way a browser will. A build that cannot prove its

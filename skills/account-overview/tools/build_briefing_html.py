@@ -11,7 +11,12 @@ Usage
 
 Paths
     briefings root  {output_folder}/work/dossiers/         (override: BRIEFING_ROOT)
-    html output     {output_folder}/work/briefings-html/   (override: BRIEFING_HTML)
+    html output     the account's own folder, beside its markdown, as
+                    overview.html                          (override: BRIEFING_HTML)
+
+    One account is one folder. The card renders next to the dossier it shares an
+    account with, so a seller opening the folder finds the 30-second read and the
+    30-minute one together.
 
 The card shares an account folder with the dossier, because it is the same
 account. Only the rendered output goes somewhere of its own.
@@ -48,10 +53,17 @@ from pathlib import Path
 
 TOOLS = Path(__file__).resolve().parent
 DEFAULT_ROOT = Path.cwd() / "output" / "work" / "dossiers"
-DEFAULT_HTML = Path.cwd() / "output" / "work" / "briefings-html"
 
 ROOT = Path(os.environ.get("BRIEFING_ROOT", DEFAULT_ROOT))
-OUT_DIR = Path(os.environ.get("BRIEFING_HTML", DEFAULT_HTML))
+
+# The card is written into the account's own folder, beside the dossier. A
+# project that wants every card collected in one place sets BRIEFING_HTML.
+_ENV_HTML = os.environ.get("BRIEFING_HTML", "").strip()
+OUT_DIR = Path(_ENV_HTML) if _ENV_HTML else None
+
+
+def out_dir_for(slug: str) -> Path:
+    return OUT_DIR if OUT_DIR else ROOT / slug
 LOGO = os.environ.get("BRIEFING_LOGO", "").strip()
 
 # The stylesheet ships a brand-neutral placeholder palette. A brand pack is a
@@ -320,7 +332,8 @@ def build(slug: str, source: str | None = None, out: str | None = None) -> Path:
         for head, flag, text in scope
     )
 
-    OUT_DIR.mkdir(parents=True, exist_ok=True)
+    out_dir = out_dir_for(slug)
+    out_dir.mkdir(parents=True, exist_ok=True)
     pack, pack_name = brand_css()
     css = (TOOLS / "assets" / "briefing.css").read_text(encoding="utf-8") + pack
     logo_html = f'<img class="logo" src="{esc(LOGO)}" alt="">' if LOGO else ""
@@ -375,7 +388,7 @@ def build(slug: str, source: str | None = None, out: str | None = None) -> Path:
 </body></html>
 """
 
-    out_path = OUT_DIR / f"{out or slug}.html"
+    out_path = out_dir / f"{out or 'overview'}.html"
     out_path.write_text(page, encoding="utf-8")
     return out_path
 

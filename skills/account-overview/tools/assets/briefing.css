@@ -99,3 +99,27 @@ footer .right{display:flex;align-items:flex-end;gap:12px}
 footer .logo{height:22px;width:auto;display:block}
 .src{font-size:8px;color:var(--g2);opacity:.85;max-width:420px;text-align:right;line-height:1.4}
 .src .n,.buyers .n{font-size:1em;color:var(--g1)}
+
+/* ---- print --------------------------------------------------------------
+   The card is a fixed 1280x720 canvas, so printing it is a scaling problem
+   rather than a reflow one. Reflowing would break the fit budget the whole
+   design is built around, so the card is scaled whole onto one landscape
+   sheet with no margins, edge to edge across the width.
+
+   1280px is 338.67mm at 96dpi and A4 landscape is 297mm wide, so the scale is
+   297/338.67 = 0.87695. That leaves 16:9 sitting inside A4's 1.414, which is
+   about 21mm of paper above and below. Nothing can remove that short of
+   cropping the card or printing on a 16:9 page.
+
+   The card is taken out of flow first. A transform scales what you see and
+   leaves the layout box at its original 720px, which is taller than the page
+   box, so an in-flow card spills a blank second sheet. position:absolute
+   collapses the body height and keeps it to one page. */
+@page{size:A4 landscape;margin:0}
+
+@media print{
+  html,body{width:auto;height:auto;margin:0;padding:0;background:#fff}
+  .slide{position:absolute;top:81px;left:0;
+    transform:scale(0.87695);transform-origin:top left;
+    box-shadow:none;border-radius:0}
+}

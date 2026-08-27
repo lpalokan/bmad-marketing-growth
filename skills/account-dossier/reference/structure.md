@@ -23,6 +23,30 @@ the budget fails the gate.
 Eight sections. There is no section 0. A verdict block sitting above the
 executive summary is a second summary, and one document gets one summary.
 
+### When an opportunity portfolio is asked for
+
+The portfolio goes **inside the document at section 5**, and everything below
+section 4 shifts down by one. Nine sections in total.
+
+1. Executive summary
+2. Account overview
+3. Buying committee
+4. The storyline
+5. **Opportunity portfolio**
+6. First-touch messages
+7. Questions for discovery
+8. Before you send
+9. Sources
+
+It is never an appendix, a "Part Two", a companion file, or anything after the
+sources. A reader who has just been told what to sell first is in the right
+position to be shown what sits behind it, and that position is immediately
+after the storyline. `opportunity-portfolio.md` owns the rest of the contract.
+
+A portfolio kept in its own file is the failure this rule exists to prevent.
+Two documents mean two things to keep in sync, and the one that goes stale is
+always the one the seller did not open.
+
 ## What belongs in each
 
 ### 1. Executive summary
@@ -72,9 +96,16 @@ block in section 8, so links live in one place.
 Four subsections, 900 words plus the tables. Placed after the overview because
 people are part of understanding the account.
 
-- **3.1 Who is on the committee.** The verified leadership table, with role for
-  us and what each cares about. The layer beneath sits under it as a separately
-  headed block with its provenance and freshness flagged.
+**The section opens with the committee chart**, before any table. It answers what
+a table cannot: who sits above whom, and how much of that we actually know. The
+diagram, its three encodings and how it breaks out of the prose column are owned
+by `committee-chart.md`, and it is built with
+`tools/build_committee_chart.py`. A dossier whose section 3 opens with a table
+is missing the chart.
+
+- **3.1 Who is on the committee.** The chart, then the verified leadership table
+  with role for us and what each cares about. The layer beneath sits under it as
+  a separately headed block with its provenance and freshness flagged.
 - **3.2 The seats that matter.** At most four, with how each will behave.
 - **3.3 The path to the buyer, and what blocks it.** The route in, the blockers
   and landmines, and the parallel threads by name. Threads are named, never
@@ -203,3 +234,13 @@ it. A second list of the same links elsewhere in the document is not.
 - **Bold in body text.** Emphasis is structural here. See the emphasis rules in
   `house-style.md`.
 - **A second summary.** See the note under "The order".
+- **Any claim that the document is not invented.** The "How to read this" note
+  explains the KNOW and ASSUME labels and says where the gaps went. It stops
+  there. Sentences like "Nothing here is invented" assert the thing the labels
+  already demonstrate, and an assurance a reader did not ask for reads as one
+  they should have. Source fidelity is proved by the labels, the links and the
+  named gaps on every page, never by a sentence at the top claiming it.
+
+  This does not soften the rules. `source-fidelity.md` and the pre-publish
+  checklist still forbid an invented number, person, title, customer, metric or
+  comparable. Those stay as enforcement. What goes is the reader-facing boast.

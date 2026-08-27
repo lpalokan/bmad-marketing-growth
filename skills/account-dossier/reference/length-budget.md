@@ -24,6 +24,11 @@ argued with. It is not measured.
 **The budget is 4,500 to 6,500 words** for the whole dossier. Tables count.
 Frontmatter and section 8 do not.
 
+A drawn figure does not count. The committee chart in section 3 is inline SVG,
+and its markup is several hundred tokens that no one reads. Strip
+`<figure>...</figure>` before counting, or a correctly-sized dossier fails the
+gate for carrying a diagram it was told to carry.
+
 Treat 6,500 as the hard cap and 4,500 as the floor. A dossier under the floor is
 not a prize. It usually means the account overview skipped something a seller
 needed, or the storyline never earned its hypothesis.
@@ -51,8 +56,14 @@ Budget moves between sections. A heavily regulated account can spend 400 of the
 overview's words on its control environment by taking them from the technology
 estate. A thin committee gives its words to the storyline. The total holds.
 
-An opportunity portfolio, where one is built, is a separate document with its own
-sitting: **2,500 to 3,500 words**, on the same terms.
+An opportunity portfolio, where one is built, sits inside the document as
+section 5 and carries **2,500 to 3,500 words** of its own, taking the whole
+dossier to 7,000 to 10,000. See `opportunity-portfolio.md`.
+
+The section budgets above do not move to make room for it. A portfolio is not a
+licence to write a longer dossier, and a dossier that grew to accommodate one
+has failed both budgets. If the total overruns, cut a whole opportunity and
+record why in section 5.6.
 
 ## Hard caps
 
