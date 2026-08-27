@@ -1,24 +1,44 @@
+/* Account dossier stylesheet.
+
+   The palette below is a BRAND-NEUTRAL PLACEHOLDER. It is deliberately not any
+   real company's colours, so an install that has not chosen a brand renders in
+   something obviously generic rather than in someone else's identity.
+
+   To brand a dossier, point DOSSIER_BRAND at a pack: a small CSS file
+   redefining the seven brand tokens below and nothing else. It is appended
+   after this stylesheet, so it wins on the cascade. tools/assets/brands/
+   ships empty; a company keeps its own packs with its brand-compliance skill.
+
+   build_committee_chart.py reads the same pack, so the diagram and the page
+   it sits in stay one design. */
 
 :root{
-  --ink:#111111; --black:#000; --white:#fff;
-  --blue:#0000FF; --cyan:#00FFFF; --magenta:#FF00FF; --navy:#000080;
+  /* Brand tokens. A pack redefines exactly these seven. */
+  --ink:#111111;              /* body text and the darkest fill */
+  --accent:#2450D8;           /* the primary accent: links, rules, key seats */
+  --accent-2:#7FB0FF;         /* the secondary accent, used on dark and in gradients */
+  --deep:#16307F;             /* the deep fill behind white text */
+  --grad-full:linear-gradient(90deg,#7FB0FF 0%,#2450D8 48%,#16307F 100%);
+  --grad-bc:linear-gradient(90deg,#2450D8 0%,#7FB0FF 100%);
+  --brand-font:'Inter',Arial,Calibri,system-ui,-apple-system,sans-serif;
+
+  /* Structure. Not brand, and a pack should leave these alone. */
+  --white:#fff;
   --g1:#333; --g2:#777; --g3:#B3B3B3; --g4:#E6E6E6; --panel:#F5F7FF; --panel2:#F4F4F6;
-  --grad-full:linear-gradient(90deg,#FF00FF 0%,#0000FF 48%,#00FFFF 100%);
-  --grad-bc:linear-gradient(90deg,#0000FF 0%,#00FFFF 100%);
 }
 *{box-sizing:border-box}
 html{-webkit-text-size-adjust:100%}
 body{margin:0;background:var(--white);color:var(--ink);
-  font-family:'Arboria',Arial,Calibri,system-ui,-apple-system,sans-serif;
+  font-family:var(--brand-font);
   font-size:18px;line-height:1.5;font-weight:400}
 .toprule{height:5px;background:var(--grad-full)}
 .wrap{max-width:900px;margin:0 auto;padding:0 24px}
 header.site{display:flex;align-items:center;justify-content:space-between;gap:16px;
   padding:22px 24px;max-width:900px;margin:0 auto}
 header.site .logo{height:38px;width:auto;display:block}
-header.site nav a{color:var(--blue);text-decoration:none;font-weight:700;font-size:15px}
+header.site nav a{color:var(--accent);text-decoration:none;font-weight:700;font-size:15px}
 header.site nav a:hover{text-decoration:underline}
-a{color:var(--blue)}
+a{color:var(--accent)}
 /* hero */
 .hero{position:relative;overflow:hidden;border:1px solid var(--g4);border-radius:14px;
   padding:30px 30px 26px;margin:8px 0 30px;background:var(--white)}
@@ -33,8 +53,8 @@ a{color:var(--blue)}
 .pill{display:inline-flex;align-items:center;font-size:12.5px;font-weight:800;letter-spacing:.03em;
   padding:5px 12px;border-radius:999px;text-transform:uppercase}
 .pill.A{background:var(--grad-bc);color:#fff}
-.pill.B{background:var(--blue);color:#fff}
-.pill.C{background:#fff;color:var(--navy);border:1.5px solid var(--navy)}
+.pill.B{background:var(--accent);color:#fff}
+.pill.C{background:#fff;color:var(--deep);border:1.5px solid var(--deep)}
 .pill.X{background:var(--g4);color:var(--g1)}
 .pill.house{background:#000;color:#fff}
 .pill.house.partner{background:#fff;color:#000;border:1.5px solid #000}
@@ -42,19 +62,19 @@ h1.title{font-size:44px;line-height:1.08;font-weight:800;letter-spacing:-.02em;m
 .hero .under{height:5px;width:96px;background:var(--grad-full);border-radius:3px;margin:12px 0 14px}
 .hero .sub{color:var(--g1);font-size:16px;margin:0 0 14px;font-weight:400}
 .hero .rec{font-size:16px;margin:0;background:var(--panel);border:1px solid #DDE3FF;
-  border-left:4px solid var(--blue);border-radius:8px;padding:12px 16px}
-.hero .rec b{color:var(--navy)}
+  border-left:4px solid var(--accent);border-radius:8px;padding:12px 16px}
+.hero .rec b{color:var(--deep)}
 /* article */
 article.md{font-size:17px}
 article.md h1{font-size:30px;font-weight:800;letter-spacing:-.01em;margin:1.6em 0 .5em}
-article.md h2{font-size:25px;font-weight:800;color:var(--navy);margin:1.7em 0 .5em;
+article.md h2{font-size:25px;font-weight:800;color:var(--deep);margin:1.7em 0 .5em;
   padding-left:14px;position:relative;line-height:1.2}
 article.md h2::before{content:"";position:absolute;left:0;top:.12em;bottom:.12em;width:5px;
   border-radius:3px;background:var(--grad-bc)}
-article.md h3{font-size:19.5px;font-weight:800;color:var(--blue);margin:1.7em 0 .45em}
+article.md h3{font-size:19.5px;font-weight:800;color:var(--accent);margin:1.7em 0 .45em}
 /* h4 must never be mistakable for bold body text: navy, ruled, and spaced. */
-article.md h4{font-size:16.5px;font-weight:700;color:var(--navy);line-height:1.35;
-  margin:1.5em 0 .4em;padding-left:11px;border-left:3px solid var(--cyan)}
+article.md h4{font-size:16.5px;font-weight:700;color:var(--deep);line-height:1.35;
+  margin:1.5em 0 .4em;padding-left:11px;border-left:3px solid var(--accent-2)}
 article.md p{margin:.8em 0}
 article.md ul,article.md ol{margin:.6em 0 .9em;padding-left:1.35em}
 article.md li{margin:.34em 0}
@@ -65,9 +85,9 @@ article.md td strong{color:var(--g1)}
 article.md a{text-decoration:underline;word-break:break-word}
 article.md hr{border:0;height:1px;background:var(--g4);margin:2em 0}
 article.md blockquote{margin:1.1em 0;padding:12px 18px;background:var(--panel);
-  border-left:4px solid var(--blue);border-radius:8px;color:var(--g1);font-size:15.5px}
+  border-left:4px solid var(--accent);border-radius:8px;color:var(--g1);font-size:15.5px}
 article.md blockquote p{margin:.4em 0}
-article.md code{background:#EEF0FF;color:var(--navy);font-family:inherit;font-weight:700;
+article.md code{background:#EEF0FF;color:var(--deep);font-family:inherit;font-weight:700;
   font-size:.86em;padding:1px 6px;border-radius:5px;
   white-space:normal;overflow-wrap:anywhere}
 article.md pre{background:var(--panel2);border:1px solid var(--g4);border-radius:8px;padding:14px;overflow:auto}
@@ -87,7 +107,7 @@ article.md pre code{background:none;padding:0;white-space:pre;font-weight:400;co
   background:var(--panel2);font-size:13.5px;color:var(--g1);line-height:1.5}
 .tablewrap.wide{max-width:1300px}
 article.md table{border-collapse:collapse;width:100%;font-size:14.5px;min-width:520px}
-article.md thead th{background:var(--navy);color:#fff;text-align:left;font-weight:800;
+article.md thead th{background:var(--deep);color:#fff;text-align:left;font-weight:800;
   padding:9px 12px;font-size:13px;letter-spacing:.02em}
 article.md thead th a{color:#fff;text-decoration:underline}
 article.md thead th code{background:rgba(255,255,255,.18);color:#fff}

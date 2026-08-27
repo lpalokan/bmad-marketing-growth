@@ -13,8 +13,10 @@ before picking up the phone:
     dashed  enrichment-derived, uncorroborated, re-verify before contact
     dotted  announced and not yet in seat
 
-Palette is the dossier stylesheet's own: ink #111111, blue #0000FF,
-navy #000080, cyan #00FFFF. Magenta appears only inside the gradient rule,
+Palette is the dossier stylesheet's own, read from the same brand pack. With
+DOSSIER_BRAND unset both fall back to the brand-neutral placeholder, so a chart
+is never accidentally drawn in some other company's colours. The third accent
+appears only inside the gradient rule,
 never as a fill, per the brand spec.
 
 Usage
@@ -45,6 +47,8 @@ levels is a committee that has not been reduced to the people who decide.
 """
 
 import json
+import os
+import re
 import sys
 import textwrap
 from pathlib import Path
@@ -63,15 +67,74 @@ INDENT = 20
 SUB_W, SUB_H = CARD_W - INDENT, 58
 SUB_GAP = 9
 
+# Brand tokens, matching assets/dossier.css. The values here are the same
+# brand-neutral placeholder that stylesheet ships, and DOSSIER_BRAND overrides
+# them from the same pack file, so the diagram and the page it sits in stay one
+# design. Structure colours (white, the greys, the panel tint) are not brand and
+# are not overridable.
+TOKENS = {
+    "ink":      "#111111",
+    "accent":   "#2450D8",
+    "accent-2": "#7FB0FF",
+    "deep":     "#16307F",
+    "font":     "Inter, Arial, Calibri, system-ui, sans-serif",
+}
+
+# The top rule is the stylesheet's --grad-full, read stop by stop rather than
+# rebuilt from the tokens above. A brand's gradient can legitimately contain a
+# hue that appears nowhere else -- Digital Workforce's magenta does -- and
+# deriving the rule from accent and deep would quietly drop it.
+GRAD = ["#7FB0FF", "#2450D8", "#16307F"]
+WHITE, GREY, RULE, PANEL = "#FFFFFF", "#777777", "#B3B3B3", "#F5F7FF"
+
+
+def load_brand() -> None:
+    """Overlay the brand tokens from the pack DOSSIER_BRAND names, if any."""
+    name = os.environ.get("DOSSIER_BRAND", "").strip()
+    if not name:
+        return
+    path = Path(name)
+    if not path.suffix:
+        path = Path(__file__).resolve().parent / "assets" / "brands" / f"{name}.css"
+    elif not path.is_absolute() and not path.exists():
+        path = Path(__file__).resolve().parent / "assets" / "brands" / path
+    if not path.exists():
+        raise SystemExit(
+            f"DOSSIER_BRAND={name!r} not found. Looked at {path}. Give a path to "
+            f"the company's pack, or unset DOSSIER_BRAND to draw in the neutral "
+            f"placeholder palette."
+        )
+    css = path.read_text(encoding="utf-8")
+    for token, key in (("ink", "ink"), ("accent", "accent"),
+                       ("accent-2", "accent-2"), ("deep", "deep")):
+        m = re.search(r"--" + re.escape(token) + r"\s*:\s*([^;}]+)", css)
+        if m:
+            TOKENS[key] = m.group(1).strip()
+    m = re.search(r"--brand-font\s*:\s*([^;}]+)", css)
+    if m:
+        # An SVG attribute reads better spaced, and the quotes a stylesheet puts
+        # round a family name are not needed once it is in font-family=.
+        TOKENS["font"] = ", ".join(
+            part.strip().strip("'\"") for part in m.group(1).strip().split(",")
+        )
+    m = re.search(r"--grad-full\s*:\s*([^;}]+)", css)
+    if m:
+        stops = re.findall(r"#[0-9A-Fa-f]{3,8}", m.group(1))
+        if len(stops) == 3:
+            GRAD[:] = stops
+
+
+load_brand()
+
 # role key -> (fill, text colour, border colour, label)
 ROLES = {
-    "air":     ("#111111", "#FFFFFF", "#111111", "Air cover"),
-    "buyer":   ("#0000FF", "#FFFFFF", "#0000FF", "Economic buyer and champion"),
-    "owner":   ("#000080", "#FFFFFF", "#000080", "Working owner, the entry point"),
-    "mandate": ("#FFFFFF", "#111111", "#0000FF", "Co-owner of the mandate"),
-    "gate":    ("#FFFFFF", "#111111", "#0000FF", "Gate"),
-    "finance": ("#FFFFFF", "#111111", "#777777", "Finance"),
-    "ops":     ("#F5F7FF", "#111111", "#B3B3B3", "Operational, coach or watch"),
+    "air":     (TOKENS["ink"],  WHITE,          TOKENS["ink"],    "Air cover"),
+    "buyer":   (TOKENS["accent"], WHITE,        TOKENS["accent"], "Economic buyer and champion"),
+    "owner":   (TOKENS["deep"], WHITE,          TOKENS["deep"],   "Working owner, the entry point"),
+    "mandate": (WHITE,          TOKENS["ink"],  TOKENS["accent"], "Co-owner of the mandate"),
+    "gate":    (WHITE,          TOKENS["ink"],  TOKENS["accent"], "Gate"),
+    "finance": (WHITE,          TOKENS["ink"],  GREY,             "Finance"),
+    "ops":     (PANEL,          TOKENS["ink"],  RULE,             "Operational, coach or watch"),
 }
 
 PROV = {"page": "none", "clay": "5 3", "announced": "1.5 3"}
@@ -133,7 +196,7 @@ def card(node, sub=False):
     # the provenance encoding has to switch to cyan or it silently disappears,
     # which would hide exactly the flag an AE needs before dialling.
     if dash != "none" and node.role in DARK_FILL:
-        border = "#00FFFF"
+        border = TOKENS["accent-2"]
     name_size, title_size = (11.6, 9.5) if sub else (12.6, 10.1)
     wrap_at = 28 if sub else 30
     out = [
@@ -188,20 +251,20 @@ def connectors(root):
 def legend(y, width):
     """Two encodings, stated on the chart so it needs no caption to be read."""
     items = [
-        ("#0000FF", "Economic buyer and champion"),
-        ("#000080", "Working owner, the entry point"),
-        ("#111111", "Air cover"),
+        (TOKENS["accent"], "Economic buyer and champion"),
+        (TOKENS["deep"], "Working owner, the entry point"),
+        (TOKENS["ink"], "Air cover"),
         ("#FFFFFF", "Gate, finance or mandate co-owner"),
         ("#F5F7FF", "Operational, coach or watch"),
     ]
     out = [
-        f'<text x="{PAD_SIDE}" y="{y}" font-size="9.2" font-weight="700" fill="#0000FF" '
+        f'<text x="{PAD_SIDE}" y="{y}" font-size="9.2" font-weight="700" fill="{TOKENS["accent"]}" '
         f'letter-spacing="0.14em">ROLE FOR US</text>'
     ]
     x = PAD_SIDE
     yy = y + 18
     for fill, label in items:
-        stroke = "#0000FF" if fill == "#FFFFFF" else ("#B3B3B3" if fill == "#F5F7FF" else fill)
+        stroke = TOKENS["accent"] if fill == WHITE else (RULE if fill == PANEL else fill)
         out.append(
             f'<rect x="{x}" y="{yy - 9}" width="12" height="12" rx="3" fill="{fill}" '
             f'stroke="{stroke}" stroke-width="1.4"/>'
@@ -209,7 +272,7 @@ def legend(y, width):
         out.append(f'<text x="{x + 18}" y="{yy}" font-size="10.2" fill="#333">{escape(label)}</text>')
         x += 22 + len(label) * 5.6 + 22
     out.append(
-        f'<text x="{PAD_SIDE}" y="{y + 48}" font-size="9.2" font-weight="700" fill="#0000FF" '
+        f'<text x="{PAD_SIDE}" y="{y + 48}" font-size="9.2" font-weight="700" fill="{TOKENS["accent"]}" '
         f'letter-spacing="0.14em">HOW THE SEAT WAS VERIFIED</text>'
     )
     x = PAD_SIDE
@@ -222,7 +285,7 @@ def legend(y, width):
         d = "" if dash == "none" else f' stroke-dasharray="{dash}"'
         out.append(
             f'<rect x="{x}" y="{yy - 9}" width="12" height="12" rx="3" fill="#FFFFFF" '
-            f'stroke="#111111" stroke-width="1.5"{d}/>'
+            f'stroke="{TOKENS["ink"]}" stroke-width="1.5"{d}/>'
         )
         out.append(f'<text x="{x + 18}" y="{yy}" font-size="10.2" fill="#333">{escape(label)}</text>')
         x += 22 + len(label) * 5.6 + 22
@@ -239,9 +302,9 @@ def render(root, account, subtitle):
     H = int(legend_y + 88)
 
     head = (
-        f'<text x="{PAD_SIDE}" y="34" font-size="9.6" font-weight="700" fill="#0000FF" '
+        f'<text x="{PAD_SIDE}" y="34" font-size="9.6" font-weight="700" fill="{TOKENS["accent"]}" '
         f'letter-spacing="0.14em">BUYING COMMITTEE, NOT THE ORGANISATION CHART</text>'
-        f'<text x="{PAD_SIDE}" y="60" font-size="19" font-weight="800" fill="#111111" '
+        f'<text x="{PAD_SIDE}" y="60" font-size="19" font-weight="800" fill="{TOKENS["ink"]}" '
         f'letter-spacing="-0.02em">{escape(account)}</text>'
         f'<text x="{PAD_SIDE}" y="79" font-size="11" fill="#777">{escape(subtitle)}</text>'
     )
@@ -249,10 +312,10 @@ def render(root, account, subtitle):
     return (
         f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {W} {H}" width="{W}" height="{H}" '
         f'role="img" aria-label="Buying committee map for {escape(account)}" '
-        f'font-family="Arboria, Arial, Calibri, system-ui, sans-serif">'
+        f'font-family="{TOKENS["font"]}">'
         f'<defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="0">'
-        f'<stop offset="0" stop-color="#FF00FF"/><stop offset="0.48" stop-color="#0000FF"/>'
-        f'<stop offset="1" stop-color="#00FFFF"/></linearGradient></defs>'
+        f'<stop offset="0" stop-color="{GRAD[0]}"/><stop offset="0.48" stop-color="{GRAD[1]}"/>'
+        f'<stop offset="1" stop-color="{GRAD[2]}"/></linearGradient></defs>'
         f'<rect width="{W}" height="{H}" fill="#FFFFFF"/>'
         f'<rect x="0" y="0" width="{W}" height="4" fill="url(#g)"/>'
         f'{head}{connectors(root)}'

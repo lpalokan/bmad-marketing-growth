@@ -27,9 +27,11 @@ Branding
     than in someone else's identity.
 
     Set BRIEFING_BRAND to a brand pack: a small CSS file redefining the six
-    brand tokens, appended after the stylesheet. A bare name resolves against
-    assets/brands/, so BRIEFING_BRAND=dwf finds the packaged Digital Workforce
-    pack. The pack in use is printed on build and recorded in an HTML comment.
+    brand tokens, appended after the stylesheet. Give it a path. A bare name
+    resolves against assets/brands/, which ships empty: this module carries no
+    company's colours. A company that has a brand-compliance skill usually keeps
+    its pack beside it. The pack in use is printed on build and recorded in an
+    HTML comment.
 
     No logo by default. Set BRIEFING_LOGO to a filename or URL to place one
     bottom right. A relative value resolves against the html output folder.
@@ -67,8 +69,9 @@ def out_dir_for(slug: str) -> Path:
 LOGO = os.environ.get("BRIEFING_LOGO", "").strip()
 
 # The stylesheet ships a brand-neutral placeholder palette. A brand pack is a
-# small CSS file redefining the six brand tokens, appended after it. A bare name
-# resolves against assets/brands/, so BRIEFING_BRAND=dwf finds the packaged one.
+# small CSS file redefining the seven brand tokens, appended after it. Usually a
+# path, since assets/brands/ ships empty and a company keeps its own packs with
+# its brand-compliance skill.
 BRAND = os.environ.get("BRIEFING_BRAND", "").strip()
 
 
@@ -82,10 +85,16 @@ def brand_css() -> tuple[str, str]:
     elif not path.is_absolute():
         path = (TOOLS / "assets" / "brands" / path) if not path.exists() else path
     if not path.exists():
+        packaged = sorted(p.stem for p in (TOOLS / "assets" / "brands").glob("*.css"))
         raise SystemExit(
             f"BRIEFING_BRAND={BRAND!r} not found. Looked at {path}. "
-            f"Packaged packs: "
-            + ", ".join(sorted(p.stem for p in (TOOLS / 'assets' / 'brands').glob('*.css')))
+            + (
+                "Packaged packs: " + ", ".join(packaged)
+                if packaged
+                else "No packs ship with this module. Give a path to the company's "
+                "pack, usually kept with its brand-compliance skill, or unset "
+                "BRIEFING_BRAND to render in the neutral placeholder palette."
+            )
         )
     return "\n" + path.read_text(encoding="utf-8"), path.stem
 

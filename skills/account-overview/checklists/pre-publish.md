@@ -88,14 +88,20 @@ publication. The orchestrator owns this gate and no agent passes its own work.
 
 ## Brand and voice
 
-Both are hard dependencies of this skill. A card that has not been through them
-is a draft.
+Neither is required, because neither ships with this module. Where the company
+has them, a card that skipped them is a draft. Where it has none, tick the
+fallback line instead and say so once.
 
-- [ ] `dwf-tov` was run against the copy and its findings applied.
-- [ ] `dwf-brand-compliance` was run against the rendered file.
+- [ ] The company's tone-of-voice skill was run against the copy and its findings
+      applied — or there is none, and the copy was held to
+      `../account-dossier/reference/house-style.md` instead.
+- [ ] The company's brand-compliance skill was run against the rendered file — or
+      there is none, and the render was checked against `reference/design-spec.md`
+      by eye.
 - [ ] Every Critical and Should-fix brand finding is resolved.
-- [ ] The intended brand pack was used. The renderer printed it and it is not
-      `neutral placeholder`. A card that reached a seller in the placeholder
+- [ ] The intended brand pack was used, where the company has one. The renderer
+      printed it and it is not `neutral placeholder`. A card that reached a seller
+      in the placeholder
       palette fails this gate.
 - [ ] Two colours only. The neutral ramp is structure. There is no third hue.
 - [ ] Where the pack carries a gradient, it appears only in the top rule and the

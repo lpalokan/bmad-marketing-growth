@@ -7,17 +7,18 @@
    something obviously generic rather than in someone else's identity.
 
    To brand a card, point BRIEFING_BRAND at a token file. It is appended after
-   this stylesheet and only has to redefine the six brand tokens. A pack for
-   Digital Workforce ships at brands/dwf.css. */
+   this stylesheet and only has to redefine the seven brand tokens. No pack ships
+   with this module; a company keeps its own with its brand-compliance skill. */
 
 :root{
-  /* Brand tokens. A brand pack redefines exactly these six. */
+  /* Brand tokens. A brand pack redefines exactly these seven. */
   --ink:#111111;            /* body text, and the story band background */
   --accent:#2450D8;         /* accent on light: labels, numbers, rules */
   --accent-dark:#7FB0FF;    /* accent on dark: used inside the story band only */
   --rule:var(--accent);     /* the 5px rule across the top */
   --ring-a:var(--accent);   /* rings behind the story band, gradient start */
   --ring-b:var(--accent);   /* rings behind the story band, gradient end */
+  --brand-font:'Inter',Arial,Calibri,system-ui,-apple-system,sans-serif;
 
   /* Structure. Not brand, and a pack should leave these alone. */
   --white:#fff;
@@ -25,7 +26,7 @@
 }
 *{box-sizing:border-box;margin:0;padding:0}
 html,body{width:1280px;height:720px;background:var(--white)}
-body{font-family:'Arboria',Arial,Calibri,system-ui,-apple-system,sans-serif;
+body{font-family:var(--brand-font);
   color:var(--ink);overflow:hidden;-webkit-font-smoothing:antialiased}
 .slide{position:relative;width:1280px;height:720px;padding:26px 46px 18px;
   display:flex;flex-direction:column}

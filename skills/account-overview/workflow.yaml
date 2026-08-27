@@ -17,8 +17,9 @@ workflow:
     Build a single 1280 by 720 briefing card for one named account, written for
     an Account Executive to read in the thirty seconds before a call. Internal
     only. Sequences a short research pass where no dossier exists, enforces the
-    story spec and the fit budget, gates on the DWF tone and brand skills, and
-    renders branded HTML.
+    story spec and the fit budget, runs whatever tone-of-voice and
+    brand-compliance skills the company has, and renders HTML in the company's
+    brand pack where one is configured.
 
   standards:
     story_spec: "reference/story-spec.md"
@@ -35,9 +36,12 @@ workflow:
     research_method: "../account-dossier/reference/research-method.md"
     third_parties: "../account-dossier/reference/third-parties.md"
 
-  requires_skills:
-    - dwf-tov
-    - dwf-brand-compliance
+  # None of these ships with the module. Each belongs to the company installing
+  # it, and each step below runs only when its skill or file is present.
+  optional_company_assets:
+    tone_of_voice_skill: "a skill that reviews copy for the company's voice, often named <company>-tov"
+    brand_compliance_skill: "a skill that reviews a rendered file against the company's visual identity, often named <company>-brand-compliance"
+    brand_pack: "a CSS file redefining the seven brand tokens; pass its path as BRIEFING_BRAND"
 
   inputs:
     account_name: "required"
@@ -191,10 +195,11 @@ phases:
         name: "Tone of voice gate"
         agent: sales-prospecting-orchestrator
         action: |
-          Run the dwf-tov skill against the card copy. Apply its findings.
-          This is a hard dependency. If the skill is unavailable, stop and say
-          so rather than publishing.
-        gate: "tov_pass"
+          Where the company has a tone-of-voice skill, run it against the card
+          copy and apply its findings. Where it has none, hold the copy to
+          ../account-dossier/reference/house-style.md instead and say once that
+          no voice skill was available. Either way the card continues.
+        gate: "tov_pass_or_not_available"
 
   - id: render
     name: "Render"
@@ -203,12 +208,14 @@ phases:
         name: "Branded HTML"
         agent: sales-prospecting-orchestrator
         action: |
-          BRIEFING_BRAND=dwf python tools/build_briefing_html.py {account-id} \
-            [source.md] [out-stem]
+          BRIEFING_BRAND=<path to the company's briefing pack> \
+            python tools/build_briefing_html.py {account-id} [source.md] [out-stem]
 
-          The brand pack is not optional for a card a seller will use. Without
-          it the stylesheet renders its neutral placeholder palette, which the
-          pre-publish gate rejects. Confirm the pack the renderer printed.
+          Use the company's pack wherever one exists: a card a seller puts in
+          front of a customer's name should carry the company's colours, not a
+          placeholder. Where the company has none, drop BRIEFING_BRAND and the
+          stylesheet renders its brand-neutral placeholder palette, which is
+          deliberately nobody's identity. Confirm the pack the renderer printed.
 
           The renderer warns on any slot over its cap. Fix the copy rather than
           the layout. Never overwrite another account's render.
@@ -218,10 +225,12 @@ phases:
         name: "Brand compliance gate"
         agent: sales-prospecting-orchestrator
         action: |
-          Run the dwf-brand-compliance skill against the rendered file. Apply
-          every Critical and Should-fix finding. This is a hard dependency. If
-          the skill is unavailable, stop and say so rather than publishing.
-        gate: "brand_pass"
+          Where the company has a brand-compliance skill, run it against the
+          rendered file and apply every Critical and Should-fix finding. Where
+          it has none, check the render against reference/design-spec.md by eye
+          and say once that no brand skill was available. Either way the card
+          continues.
+        gate: "brand_pass_or_not_available"
 
       - id: qa
         name: "Pre-publish gate"
